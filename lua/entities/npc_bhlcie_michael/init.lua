@@ -2,7 +2,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.Model = {"models/vj_bhlcie/michael_davies.mdl"}
-ENT.StartHealth = 150
+ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
 
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE","CLASS_DEMON"}
@@ -55,18 +55,24 @@ ENT.SoundTbl_Flee = {
 }
 
 ENT.BHLCIE_Michael_CurrentMode = 0
-ENT.BHLCIE_Michael_HideTime = 0
-ENT.BHLCIE_Michael_PlayedWarnSound = false
-ENT.BHLCIE_Michael_TimesFendedOff = 1
 /*
 0 - Attack Mode
 1 - Fleeing
 2 - Hiding
 */
+ENT.BHLCIE_Michael_HideTime = 0
+ENT.BHLCIE_Michael_PlayedWarnSound = false
+ENT.BHLCIE_Michael_TimesFendedOff = 1
+ENT.BHLCIE_Michael_Patience = 0
+ENT.BHLCIE_Michael_LostPatient = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	self.StartHealth = self.StartHealth * player.GetCount()
 	self:SetHealth(self.StartHealth)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+	self.BHLCIE_Michael_Patience = CurTime() + 60
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -79,37 +85,53 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 
-	if self.BHLCIE_Michael_CurrentMode == 0 && !self.BHLCIE_Michael_PlayedWarnSound && self:GetEnemy() != nil && self:Visible(self:GetEnemy()) then
+	
+	-- print("Michael's patience is "..self.BHLCIE_Michael_Patience.."")
+	-- PrintMessage(4,"Michael's patience is "..self.BHLCIE_Michael_Patience.."")
 
-		VJ_EmitSound(self,self.SoundTbl_Warn,100,100)
-		self.BHLCIE_Michael_PlayedWarnSound = true
-
+	if self.BHLCIE_Michael_CurrentMode == 0 then
+		if !self.BHLCIE_Michael_PlayedWarnSound && self:GetEnemy() != nil && self:Visible(self:GetEnemy()) then
+			VJ_EmitSound(self,self.SoundTbl_Warn,100,100)
+			self.BHLCIE_Michael_PlayedWarnSound = true
+		end
+		if self.BHLCIE_Michael_Patience < CurTime() && !self.BHLCIE_Michael_LostPatient then
+			self.BHLCIE_Michael_LostPatient = true
+			self.FindEnemy_CanSeeThroughWalls = true
+			self.FindEnemy_UseSphere = true
+			print("Michael has lost his patience!")
+		end
 	end
 
 	if self.BHLCIE_Michael_CurrentMode == 1 then
 
-		local enemydist = self:GetPos():Distance(self:GetEnemy():GetPos()) -- distance check
-
-		if (self:GetEnemy() == nil or !self:Visible(self:GetEnemy())) && enemydist >= 250 then
-
-			-- self.FindEnemy_CanSeeThroughWalls = true
+		if self:GetEnemy() != nil then
+			local enemydist = self:GetPos():Distance(self:GetEnemy():GetPos()) -- distance check
+			if !self:Visible(self:GetEnemy()) && enemydist >= 250 then
+				self:SetMaterial("hud/killicons/default")
+				self:DrawShadow(false)
+				self:RemoveAllDecals()
+				self.BHLCIE_Michael_HideTime = CurTime() + math.random(30,180)
+				self.BHLCIE_Michael_CurrentMode = 2
+				self.HasFootStepSound = false
+			end
+		end
+		if self:GetEnemy() == nil then
 			self:SetMaterial("hud/killicons/default")
 			self:DrawShadow(false)
 			self:RemoveAllDecals()
 			self.BHLCIE_Michael_HideTime = CurTime() + math.random(30,180)
-			-- self.BHLCIE_Michael_HideTime = CurTime() + math.random(5,10)
 			self.BHLCIE_Michael_CurrentMode = 2
+			self.BHLCIE_Michael_Patience = CurTime() + 60
 			self.HasFootStepSound = false
-
 		end
 
 	end
 
-	if self.BHLCIE_Michael_CurrentMode == 2 && self.BHLCIE_Michael_HideTime < CurTime() then
-		if self:GetEnemy() != nil then
-			local enemydist = self:GetPos():Distance(self:GetEnemy():GetPos()) -- distance check
+	if self.BHLCIE_Michael_CurrentMode == 2 then
+		if self.BHLCIE_Michael_HideTime < CurTime() then
 			if self:GetEnemy() != nil && (!self:Visible(self:GetEnemy()) && enemydist >= 1000 or !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60)))) then
 
+				self.BHLCIE_Michael_LostPatient = false
 				self.FindEnemy_CanSeeThroughWalls = false
 				self.FindEnemy_UseSphere = false
 				self:SetMaterial(nil)
@@ -141,12 +163,12 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 
 		VJ_EmitSound(self,self.SoundTbl_Flee,100,100)
 
-		self.GodMode = true
 		self:SetHealth(self.StartHealth)
+		self.GodMode = true
 		timer.Simple(0.15, function() if IsValid(self) then
 			self:SetHealth(self.StartHealth)
 		end end)
-		self.BHLCIE_Michael_TimesFendedOff = self.BHLCIE_Michael_TimesFendedOff + 0.25
+		self.BHLCIE_Michael_TimesFendedOff = self.BHLCIE_Michael_TimesFendedOff + 0.10
 
 		self.BHLCIE_Michael_CurrentMode = 1
 		self.Behavior = VJ_BEHAVIOR_PASSIVE

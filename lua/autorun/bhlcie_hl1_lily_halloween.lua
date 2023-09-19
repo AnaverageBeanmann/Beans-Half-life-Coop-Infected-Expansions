@@ -14,12 +14,13 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 
 if VJExists == true then
 
-	include('autorun/vj_controls.lua')
+	include('autorun/vj_controls.lua') -- do we need this?
 
-		local vCat = "Animals"
+	local vCat = "Animals"
 	VJ.AddNPC("Michael Davies","npc_bhlcie_michael",vCat)
 
 	VJ.AddConVar("hl1_coop_sv_bhlcie_lilyhalloween_enemies", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "This ConVar replaces the enemies on the config for the map 'GM_HL1_Lily_Halloween'. Type 'hl1_coop_sv_bhlcie_lilyhalloween_enemies_printsetups' to see all the setups.")
+	VJ.AddConVar("hl1_coop_sv_bhlcie_lilyhalloween_music", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "This ConVar replaces the music on the config for the map 'GM_HL1_Lily_Halloween'. This needs to be changed before the match starts to take effect. 'hl1_coop_sv_bhlcie_lilyhalloween_music 1' will change it to music from Faith: The Unholy Trinity, otherwise it'll play a mishmash of music I liked.")
 
 	local enemysetups = {
 		["NPC Pack Name || Setup Name || Command to use Setup || Difficulty"] = "null.wav",
