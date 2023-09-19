@@ -129,6 +129,7 @@ function ENT:CustomOnThink_AIEnabled()
 
 	if self.BHLCIE_Michael_CurrentMode == 2 then
 		if self.BHLCIE_Michael_HideTime < CurTime() then
+			local enemydist = self:GetPos():Distance(self:GetEnemy():GetPos()) -- distance check
 			if self:GetEnemy() != nil && (!self:Visible(self:GetEnemy()) && enemydist >= 1000 or !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60)))) then
 
 				self.BHLCIE_Michael_LostPatient = false
