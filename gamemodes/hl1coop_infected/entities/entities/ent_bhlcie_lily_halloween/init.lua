@@ -45,7 +45,45 @@ end
 */
 
 local CustomNPCPointsTable = {
-	// Resident Evil: Cold Blood
+	/*
+	--/ -=< Resident Evil: Cold Blood >=-
+		---- Standard Zombies
+		npc_vj_recb_zombie_male	-- Male Zombie
+		npc_vj_recb_zombie_resear	-- Researcher Zombie
+		npc_vj_recb_zombie_priest	-- Priest Zombie
+		npc_vj_recb_zombie_female	-- Female Zombie
+		npc_vj_recb_zombie_soldier	-- Soldier Zombie
+		npc_vj_recb_zombie_torso	-- Zombie Torso
+		npc_vj_recb_crimsonhead -- Crimson Head
+		npc_vj_recb_crimsonhead_resear	-- Researcher Crimson Head
+
+		npc_vj_recbb1_zombie_male	-- Male Zombie (Beta 1)
+		npc_vj_recbb1_zombie_female	-- Female Zombie (Beta 1)
+		npc_vj_recbb1_zombie_torso	-- Zombie Torso (Beta 1)
+		npc_vj_recbb1_zombie_hunk	-- Hunk Zombie
+		
+		---- Zombified/Mutant Animals
+		npc_vj_recb_cerberus	-- Cerberus
+		npc_vj_recbb3_cerberus	-- Cerberus (Beta 3)
+		npc_vj_recb_crow	-- Crow
+		npc_vj_recb_snake	-- Snake
+		npc_vj_recb_neptune	-- Neptune
+		npc_vj_recb_ant	-- Ant
+		npc_vj_recb_crawler	-- Crawler
+		npc_vj_recb_spider_baby	-- Baby Spider
+		npc_vj_recb_spider_small	-- Small Spider
+		npc_vj_recb_spider_giant	-- Giant Spider
+		npc_vj_recb_spider_blacktiger	-- Black Tiger Spider
+
+		---- B.O.W.s
+		npc_vj_recb_tyrant	-- Tyrant-103
+		npc_vj_recb_flyclaw	-- Flyclaw
+		npc_vj_recb_pursuer	-- Pursuer
+		npc_vj_recb_hunter	-- Hunter
+		npc_vj_recbb3_hunter	-- Hunter (Beta 3)
+		npc_vj_recb_licker	-- Licker
+		npc_vj_recb_prototyrant	-- Proto-Tyrant
+	*/
 	["npc_vj_hlr1_zombie"] = 50 -- Scientist
 }
 
@@ -55,7 +93,7 @@ hook.Add("Initialize", "HLCoop_NPCScore", function()
 end)
 
 local zombieType = {
-	// Resident Evil: Cold Blood
+	-- Resident Evil: Cold Blood
 	[1] = {
 		"npc_vj_hlr1_zombie"
 	},
@@ -134,6 +172,7 @@ function ENT:SpawnNPC(pos)
 		npc:SetPos(pos)
 		npc:SetAngles(self:GetAngles())
 		npc:Spawn()
+		npc.VJ_NPC_Class[#self.VJ_NPC_Class + 1] = {"CLASS_DEMON"}
 		npc.SpawnTime = CurTime()
 		--npc.Spawner = self
 		npc.FindEnemy_CanSeeThroughWalls = true

@@ -11,25 +11,25 @@ generatorPos = Vector(0, 0, 0)
 
 local randomgeneratorspot = math.random(1,1)
 if randomgeneratorspot == 2 then
-	// Abandoned Offices Outside
+	-- Abandoned Offices Outside
 	generatorPos = Vector(3944.6137695313, 4571.5522460938, 16.34646987915)
 elseif randomgeneratorspot == 3 then
-	// Outside Church
+	-- Outside Church
 	generatorPos = Vector(6257.6049804688, 225.67431640625, 208.33351135254)
 elseif randomgeneratorspot == 4 then
-	// Church Parking
+	-- Church Parking
 	generatorPos = Vector(5169.2026367188, 176.46640014648, 200.40168762207)
 elseif randomgeneratorspot == 5 then
-	// Outside Church
+	-- Outside Church
 	generatorPos = Vector(3994.1296386719, 187.93768310547, 208.40603637695)
 elseif randomgeneratorspot == 6 then
-	// Church
+	-- Church
 	generatorPos = Vector(2322.0341796875, 190.21688842773, 208.3839263916)
 elseif randomgeneratorspot == 7 then
-	// HERESY
+	-- HERESY
 	generatorPos = Vector(3408.6694335938, 10232.302734375, -6799.625)
 else
-	// Offices Outside
+	-- Offices Outside
 	generatorPos = Vector(2420.1264648438, 2627.7219238281, 16.384113311768)
 end
 
@@ -103,7 +103,7 @@ local musictable = {
 	["Mash.Halloweentro"] = {file = "mash/intro/Halloween_Town_Intro.mp3", dur = 140},
 
 	["Mash.Bath"] = {file = "mash/wave/Devil's_Bath_Boys.mp3", dur = 203},
-	["Mash.Dive"] = {file = "mash/wave/Dive_to_the_Heart.mp3", dur = 293},
+	["Mash.Dive"] = {file = "mash/wave/Dive_to_the_Heart.mp3", dur = 293}, -- invalid sample rate, please fix
 	["Mash.Ravenous"] = {file = "mash/wave/Fast_and_Ravenous.mp3", dur = 157},
 	["Mash.Halloweembat"] = {file = "mash/wave/Halloween_Town_Combat.mp3", dur = 131},
 	["Mash.Haunted"] = {file = "mash/wave/Haunted_Fortress_2.mp3", dur = 81},
@@ -114,7 +114,7 @@ local musictable = {
 	["Mash.Monster"] = {file = "mash/wave/Monster_Mash.mp3", dur = 188},
 	["Mash.Stake"] = {file = "mash/wave/Peper_Stake.mp3", dur = 136},
 	["Mash.Behind"] = {file = "mash/wave/Right_Behind_You.mp3", dur = 100},
-	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 106},
+	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 106}, -- invalid sample rate
 	["Mash.Snakalm"] = {file = "mash/wave/Snake_Eyes_Calm.mp3", dur = 112},
 	["Mash.Watching"] = {file = "mash/wave/Somebody's_Watching_Me.mp3", dur = 236},
 	["Mash.Skeletons"] = {file = "mash/wave/Spooky_Scary_Skeletons.mp3", dur = 126},
@@ -647,31 +647,31 @@ function MAP:ModifyMapEntities()
 	panelEnt = ents.Create("hl1_inf_panel")
 	if IsValid(panelEnt) then
 		if randomgeneratorspot == 2 then
-			// Abandoned Offices Outside
+			-- Abandoned Offices Outside
 			panelEnt:SetPos(Vector(-6905,2311,-667))
 			panelEnt:SetAngles(Angle(-3.5379066467285, -89.921348571777, 0.00056453503202647))
 		elseif randomgeneratorspot == 3 then
-			// Outside Church
+			-- Outside Church
 			panelEnt:SetPos(Vector(6257.9482421875, 187.44621276855, 242.3681640625))
 			panelEnt:SetAngles(Angle(-3.5754549503326, -90.354995727539, 0.0011329707922414))
 		elseif randomgeneratorspot == 4 then
-			// Church Parking
+			-- Church Parking
 			panelEnt:SetPos(Vector(5130.8383789063, 175.91633605957, 234.2946472168))
 			panelEnt:SetAngles(Angle(-3.6172413825989, -179.98170471191, -0.0179443359375))
 		elseif randomgeneratorspot == 5 then
-			// Outside Church
+			-- Outside Church
 			panelEnt:SetPos(Vector(3994.1296386719, 187.93768310547, 208.40603637695))
 			panelEnt:SetAngles(Angle(0.015603098087013, -179.93481445313, -0.003631591796875))
 		elseif randomgeneratorspot == 6 then
-			// Church
+			-- Church
 			panelEnt:SetPos(Vector(2283.6284179688, 189.68899536133, 242.38040161133))
 			panelEnt:SetAngles(Angle(-3.6280288696289, -179.99627685547, -0.0096435546875))
 		elseif randomgeneratorspot == 7 then
-			// HERESY
+			-- HERESY
 			panelEnt:SetPos(Vector(3370.255859375, 10231.678710938, -6765.6796875))
 			panelEnt:SetAngles(Angle(-3.531031370163, -179.82649230957, -0.01434326171875))
 		else
-			// Offices Outside
+			-- Offices Outside
 			panelEnt:SetPos(Vector(2458.5112304688, 2628.0573730469, 50.286380767822))
 			panelEnt:SetAngles(Angle(-3.5681574344635, -0.3117094039917, 0.0036558688152581))
 		end
@@ -745,41 +745,45 @@ function MAP:ModifyMapEntities()
 		-- v:SetKeyValue("speed", "1000")
 	-- end
 
-	// we need more fuel sources!
-	// write down where these all are!
+	-- we need more fuel sources!
+	-- write down where these all are!
 
-	//// -= Topside =-
-	/// Offices Outside
-	// Next to Shack
+	---- -= Topside =-
+	--- Offices Outside
+	-- Next to Shack
 	CreateBarrel(Vector(2022.6009521484, 3410.8078613281, 32.375450134277), math.random(5,10))
 	CreateBarrel(Vector(2060.0964355469, 3454.5017089844, 32.445976257324), math.random(5,10))
 	CreateBarrel(Vector(2116.5778808594, 3475.7038574219, 32.396118164063), math.random(5,10))
 	CreateBarrel(Vector(2177.4755859375, 3472.8896484375, 32.450878143311), math.random(5,10))
-	// Next to Electric Fence
+	-- Next to Electric Fence
 	CreateBarrel(Vector(2926.2563476563, 3449.7534179688, 32.370956420898), math.random(15,20))
 	CreateBarrel(Vector(2913.4692382813, 3389.7409667969, 32.412414550781), math.random(15,20))
-	// Next to Office Entrance
+	-- Next to Office Main Entrance
 	CreateBarrel(Vector(3429.4206542969, 1850.4152832031, 32.441677093506), math.random(5,10))
 	CreateBarrel(Vector(3399.7145996094, 1781.0930175781, 32.454418182373), math.random(5,10))
-	// Office Roof
+	-- Next to Office Side Entrance
+	CreateBarrel(Vector(2021.970581, 1405.019775, 64.031250), math.random(15,20))
+	CreateBarrel(Vector(2040.162109, 1339.376953, 64.031250), math.random(15,20))
+	CreateBarrel(Vector(2098.413818, 1329.238403, 64.031250), math.random(15,20))
+	-- Office Roof
 	CreateBarrel(Vector(2686.117188, 1423.362915, 310.031250), math.random(5,10), Angle(27, 90, 90))
-	// Offices
+	-- Offices
 	CreateBarrel(Vector(2144.8166503906, 1012.2333984375, 112.48658752441), math.random(30,35))
-	// Furnace Room
+	-- Furnace Room
 	CreateBarrel(Vector(2403.6555175781, 1800.8238525391, -339.51629638672), math.random(5,10))
 	CreateBarrel(Vector(2464.9909667969, 1799.0443115234, -339.50076293945), math.random(5,10))
 	CreateBarrel(Vector(2524.1938476563, 1795.2333984375, -339.56326293945), math.random(5,10))
-	// Mine
+	-- Mine
 	CreateBarrel(Vector(1809.9936523438, 2345.2097167969, -335.63763427734), math.random(5,10))
 	CreateBarrel(Vector(1942.3728027344, 2159.0739746094, -335.59921264648), math.random(5,10))
 	CreateBarrel(Vector(1814.1279296875, 2017.2261962891, -335.56460571289), math.random(5,10))
-	// Abandoned Offices Outside
+	-- Abandoned Offices Outside
 	CreateBarrel(Vector(3122.3212890625, 5334.5854492188, 32.355308532715), math.random(5,10))
 	CreateBarrel(Vector(3174.3435058594, 5376.6494140625, 32.341556549072), math.random(5,10))
 	CreateBarrel(Vector(3115.5493164063, 5399.2016601563, 32.343982696533), math.random(5,10))
 	CreateBarrel(Vector(3121.1584472656, 5515.2138671875, 32.364730834961), math.random(5,10))
 	CreateBarrel(Vector(3193.345703125, 5486.603515625, -11), math.random(5,10), Angle(27, 0, 90))
-	// Abandoned Offices - First Floor
+	-- Abandoned Offices - First Floor
 	CreateBarrel(Vector(1864.2143554688, 4529.408203125, 64.28125), math.random(30,35))
 	CreateBarrel(Vector(1859.8726806641, 4601.4223632813, 64.281257629395), math.random(30,35))
 	CreateBarrel(Vector(2383.6896972656, 4819.2719726563, 64.281257629395), math.random(30,35))
@@ -787,7 +791,7 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(2392.9252929688, 4941.9609375, 64.28125), math.random(30,35))
 	CreateBarrel(Vector(1870.4594726563, 4893.3681640625, 64.28125), math.random(30,35))
 	CreateBarrel(Vector(1862.8728027344, 4816.7646484375, 64.28125), math.random(30,35))
-	// Abandoned Offices - Second Floor
+	-- Abandoned Offices - Second Floor
 	CreateBarrel(Vector(2167.3193359375, 4760.3872070313, 272.44964599609), math.random(30,35))
 	CreateBarrel(Vector(2111.5886230469, 4766.5634765625, 272.40405273438), math.random(30,35))
 	CreateBarrel(Vector(2133.1733398438, 5071.6752929688, 272.28125), math.random(30,35))
@@ -796,7 +800,7 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(2012.9548339844, 5211.6323242188, 272.28125), math.random(30,35))
 	CreateBarrel(Vector(2206.9528808594, 5256.3481445313, 272.28125), math.random(30,35))
 	CreateBarrel(Vector(2282.619140625, 5243.0698242188, 272.28125), math.random(30,35))
-	// Abandoned Offices - Second Floor, Rooms with Big Boarded Windows
+	-- Abandoned Offices - Second Floor, Rooms with Big Boarded Windows
 	CreateBarrel(Vector(2930.090088, 4614.696289, 229.031250), math.random(20,25), Angle(27, 0, 90))
 	CreateBarrel(Vector(2889.7170410156, 4523.5776367188, 272.42233276367), math.random(20,25))
 	CreateBarrel(Vector(2836.8034667969, 4522.0390625, 272.43612670898), math.random(20,25))
@@ -804,7 +808,7 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(2920.6806640625, 4129.3833007813, 272.49700927734), math.random(20,25))
 	CreateBarrel(Vector(2918.1247558594, 4291.7529296875, 272.49978637695), math.random(20,25))
 	CreateBarrel(Vector(2872.6728515625, 4326.9155273438, 272.49978637695), math.random(20,25))
-	// Church Area Outside
+	-- Church Area Outside
 	CreateBarrel(Vector(6722.645508, 223.765244, 220.031250), math.random(5,10))
 	CreateBarrel(Vector(6625.1801757813, 1395.3504638672, 224.4630279541), math.random(5,10))
 	CreateBarrel(Vector(6672.73828125, 1362.9908447266, 224.37812805176), math.random(5,10))
@@ -817,18 +821,18 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(5697.358398, 677.705627, 256.031250), math.random(5,10))
 	CreateBarrel(Vector(3144.861328, 378.626617, 256.031250), math.random(5,10))
 	CreateBarrel(Vector(3145.501465, 5.214431, 256.031250), math.random(5,10))
-	// Church
+	-- Church
 	CreateBarrel(Vector(2096.7182617188, -78.070442199707, 248.4387512207), math.random(10,15))
 	CreateBarrel(Vector(2060.1118164063, -24.837366104126, 248.37886047363), math.random(10,15))
 	CreateBarrel(Vector(2064.9641113281, 403.09384155273, 248.40707397461), math.random(10,15))
 	CreateBarrel(Vector(2065.9331054688, 455.02911376953, 248.4852142334), math.random(10,15))
 	CreateBarrel(Vector(3043.478515625, 449.7805480957, 224.46621704102), math.random(10,15))
 	CreateBarrel(Vector(3045.2077636719, -67.73551940918, 224.43380737305), math.random(10,15))
-	// Tunnel to HERESY
+	-- Tunnel to HERESY
 	CreateBarrel(Vector(7033.7690429688, -2033.9742431641, 352.42657470703), math.random(5,10))
 	CreateBarrel(Vector(7102.919921875, -2042.5626220703, 352.47546386719), math.random(5,10))
-	// -= HERESY =-
-	// Cells between Lava Cave and Main Area
+	-- -= HERESY =-
+	-- Cells between Lava Cave and Main Area
 	CreateBarrel(Vector(3757.8640136719, 9243.8876953125, -7391.6538085938), math.random(20,25))
 	CreateBarrel(Vector(3756.7922363281, 9185.9306640625, -7391.6000976563), math.random(20,25))
 	CreateBarrel(Vector(3302.8752441406, 9642.8837890625, -7391.6459960938), math.random(20,25))
@@ -846,7 +850,7 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(1851.0379638672, 10996.262695313, -6911.71875), math.random(20,25))
 	CreateBarrel(Vector(1798.1772460938, 10325.333984375, -6911.71875), math.random(20,25))
 	CreateBarrel(Vector(1850.9223632813, 10329.447265625, -6911.71875), math.random(20,25))
-	// Main Area
+	-- Main Area
 	CreateBarrel(Vector(2776.9291992188, 10710.875976563, -6783.59375), math.random(20,25))
 	CreateBarrel(Vector(2721.5744628906, 10712.282226563, -6783.546875), math.random(20,25))
 	CreateBarrel(Vector(2665.69921875, 10717.690429688, -6783.5473632813), math.random(20,25))
@@ -859,15 +863,15 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(2914.3352050781, 10529.889648438, -6783.5854492188), math.random(20,25))
 	CreateBarrel(Vector(2912.4592285156, 9953.5654296875, -6783.6513671875), math.random(20,25))
 	CreateBarrel(Vector(3872.2463378906, 9953.365234375, -6783.6484375), math.random(20,25))
-	// Bone Pile
+	-- Bone Pile
 	CreateBarrel(Vector(4957.94921875, 9367.876953125, -6783.6391601563), math.random(20,25))
 	CreateBarrel(Vector(4904.2319335938, 9365.6572265625, -6783.6206054688), math.random(20,25))
-	//
+	--
 	CreateBarrel(Vector(4911.1865234375, 10724.53125, -6783.5112304688), math.random(20,25))
 	CreateBarrel(Vector(4960.1791992188, 10721.536132813, -6783.5625), math.random(20,25))
 	CreateBarrel(Vector(4967.0610351563, 10672.543945313, -6783.609375), math.random(20,25))
 	CreateBarrel(Vector(4032.1892089844, 10720.916015625, -6783.7358398438), math.random(20,25))
-	// Exit Portal Room
+	-- Exit Portal Room
 	CreateBarrel(Vector(4603.001465, 10121.070313, -6787.968750), math.random(10,15))
 	CreateBarrel(Vector(4365.931152, 10118.141602, -6787.968750), math.random(10,15))
 	CreateBarrel(Vector(4362.618164, 10348.539063, -6787.968750), math.random(10,15))
@@ -984,49 +988,67 @@ function MAP:ModifyMapEntities()
 	GAMEMODE:CreateStaticDecoration("models/lilyhl1/logoless_suv.mdl", Vector(3008.0446777344, 2128.2983398438, 0.47117546200752), Angle(-0.014640600420535, -179.98475646973, -0.00238037109375))
 	CreateFuelTrigger(Vector(3084.477051, 2184.351318, 64.031250), Vector(3056.943604, 2184.345703, 28.031250), math.random(10,15))
 
+	-- Easy Mode Exclusives
+	-- Planks in the secret area
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4216.3984375, 905.80322265625, -430.50454711914), Angle(-89.998634338379, 89.999473571777, 180))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4216.1762695313, 1021.0776977539, -429.40353393555), Angle(88.441993713379, -72.639106750488, 16.118961334229))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4170.2084960938, 1135.8226318359, -431.50799560547), Angle(-89.592559814453, 56.507186889648, -119.40399169922))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4122.2236328125, 1228.9322509766, -429.66387939453), Angle(89.533363342285, -88.67529296875, 153.26473999023))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4086.8493652344, 1294.6390380859, -428.31311035156), Angle(-87.384567260742, 109.45048522949, -169.81646728516))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4081.0822753906, 1441.8677978516, -430.5588684082), Angle(-89.44856262207, -157.37545776367, 35.60619354248))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4131.9658203125, 1530.2720947266, -426.57208251953), Angle(88.884254455566, 43.762386322021, 161.70375061035))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4177.5346679688, 1610.2022705078, -425.39331054688), Angle(-84.900810241699, 56.496223449707, -175.80157470703))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4173.6220703125, 1764.9810791016, -427.92474365234), Angle(-86.73917388916, -61.124134063721, 1.8744788169861))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4115.8818359375, 1863.9150390625, -424.48187255859), Angle(-87.001922607422, 123.32921600342, 178.23114013672))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4065.3903808594, 1946.056640625, -427.29983520508), Angle(-86.651542663574, 129.48126220703, 172.06628417969))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4054.2766113281, 2091.1643066406, -432.27593994141), Angle(-89.142219543457, 90.019020080566, 169.69798278809))
+		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4069.5979003906, 2190.7087402344, -430.44805908203), Angle(-89.723678588867, 8.372950553894, -106.7776184082))
+	end
+
 	-- GAMEMODE:CreatePhysicsDecoration("", Vector(), Angle())
 
 	/*
 	if MAP.ZombieSet == 2 then
 
 		-- Resident Evil Cold Blood
-		// Offices Outside
+		-- Offices Outside
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2433.629883, 2122.903076, 64.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 10), Angle(), 1, 1)
-		// Offices
+		-- Offices
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1614.435791, 80.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2384.626465, 1183.453369, 84.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 1)
-		// Vehicle Tunnel
+		-- Vehicle Tunnel
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(3870.591797, 2605.938477, 0.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(4335.038086, 2256.738037, 0.031250), Angle(), 1, 1)
-		// Abandoned Offices Outside
+		-- Abandoned Offices Outside
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 1)
-		// Abandoned Offices
+		-- Abandoned Offices
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 1)
-		// Church Outside
+		-- Church Outside
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(4529.850586, 1251.144775, 0.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(6244.919922, 1189.830688, 206.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(6475.668945, -893.354065, 307.364288), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(6036.860352, -868.889038, 301.251770), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 1) // Parking Lot
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 1) // Infront of Church
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 1) // Behind Church
-		// Church
+		GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 1) -- Parking Lot
+		GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 1) -- Infront of Church
+		GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 1) -- Behind Church
+		-- Church
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 1)
-		// Portal to HERESY
+		-- Portal to HERESY
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 1)
-		// HERESY
+		-- HERESY
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1)
 		GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1)
@@ -1052,44 +1074,46 @@ function MAP:ModifyMapEntities()
 	*/
 
 		-- Default Zombies
-		//// -=< Topside >=-
-		/// Offices Outside
+		---- -=< Topside >=-
+		--/ Offices Outside
 		GAMEMODE:CreateZombieSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2433.629883, 2122.903076, 64.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2136.622314, 1436.394043, 10), Angle(), 10, 0.5)
-		// Offices
+		-- Offices
 		GAMEMODE:CreateZombieSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2513.736816, 1614.435791, 80.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2384.626465, 1183.453369, 84.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 10, 0.5)
-		// Vehicle Tunnel
+		-- Furnace Room
+		GAMEMODE:CreateZombieSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 10, 0.5)
+		-- Vehicle Tunnel
 		GAMEMODE:CreateZombieSpawner(Vector(3870.591797, 2605.938477, 0.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(4335.038086, 2256.738037, 0.031250), Angle(), 10, 0.5)
-		// Abandoned Offices Outside
+		-- Abandoned Offices Outside
 		GAMEMODE:CreateZombieSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 10, 0.5)
-		// Abandoned Offices
+		-- Abandoned Offices
 		GAMEMODE:CreateZombieSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 10, 0.5)
-		// Church Outside
+		-- Church Outside
 		GAMEMODE:CreateZombieSpawner(Vector(4529.850586, 1251.144775, 0.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(6244.919922, 1189.830688, 206.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(6475.668945, -893.354065, 307.364288), Angle(), 10, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(6036.860352, -868.889038, 301.251770), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 10, 0.5) // Parking Lot
-		GAMEMODE:CreateZombieSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 10, 0.5) // Infront of Church
-		GAMEMODE:CreateZombieSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 10, 0.5) // Behind Church
-		// Church
+		GAMEMODE:CreateZombieSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 10, 0.5) -- Parking Lot
+		GAMEMODE:CreateZombieSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 10, 0.5) -- Infront of Church
+		GAMEMODE:CreateZombieSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 10, 0.5) -- Behind Church
+		-- Church
 		GAMEMODE:CreateZombieSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 10, 0.5)
-		// Portal to HERESY
+		-- Portal to HERESY
 		GAMEMODE:CreateZombieSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 10, 0.5)
-		// HERESY
+		-- HERESY
 		GAMEMODE:CreateZombieSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 3, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 3, 0.5)
 		GAMEMODE:CreateZombieSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 3, 0.5)
@@ -1129,18 +1153,18 @@ function MAP:AddItemPickups()
 	weapon_minigun
 	*/
 
-	/// Shack across from Offices
+	--/ Shack across from Offices
 	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2284.041260, 3420.636230, 28.031250), Angle(0, -90, 0))
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2270.316162, 3405.223877, 36.031250), Angle())
 
-	/// Boiler Room (more like a furnace room but whatever)
+	--/ Boiler Room (more like a furnace room but whatever)
 	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2721.590820, 2122.607178, -337.418701), Angle())
 
-	/// Mines
+	--/ Mines
 	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(1920.107666, 2390.736328, -337.290161), Angle())
 	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(1947.272827, 2363.850342, -321.888306), Angle())
 
-	/// Outside Offices
+	--/ Outside Offices
 	GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(3156.703369, 2995.734619, 28.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(3211.044678, 2963.252197, 28.031250), Angle())
 
@@ -1156,7 +1180,7 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2831.452148, 2687.641357, 348.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2831.217041, 2559.963623, 342.723480), Angle())
 
-	/// Offices
+	--/ Offices
 	GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2995.878906, 1444.335449, 144.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2975.295654, 1447.925171, 144.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2984.549072, 1462.781250, 108.031250), Angle(0, 45, 0))
@@ -1202,8 +1226,10 @@ function MAP:AddItemPickups()
 
 	GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2197.501953, 1132.094604, 108.031250), Angle())
 
-	// Bustin' makes me feel good.
-	GAMEMODE:CreateWeaponEntity("weapon_egon", Vector(2512.255127, 1108.225464, 172.031250), Angle(0, 90, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
+		-- Bustin' makes me feel good.
+		GAMEMODE:CreateWeaponEntity("weapon_egon", Vector(2512.255127, 1108.225464, 172.031250), Angle(0, 90, 0))
+	end
 
 	GAMEMODE:CreateWeaponEntity("weapon_crossbow", Vector(2164.743896, 1872.764648, 332.031250), Angle(0, 45, 0))
 	GAMEMODE:CreatePickupEntity("ammo_crossbow", Vector(2214.178955, 1875.013916, 332.031250), Angle())
@@ -1213,7 +1239,7 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("weapon_satchel", Vector(2816.565186, 1883.229248, 332.031250), Angle())
 	GAMEMODE:CreatePickupEntity("weapon_tripmine", Vector(2846.931396, 1883.045166, 332.031250), Angle())
 
-	/// Outside Abandoned Offices
+	--/ Outside Abandoned Offices
 	GAMEMODE:CreatePickupEntity("ammo_9mmbox", Vector(4646.136719, 4118.850098, 28.031250), Angle())
 	GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(4653.636719, 4153.156250, 64.031250), Angle())
 	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(4680.338379, 4130.875977, 64.031250), Angle())
@@ -1228,7 +1254,7 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreateWeaponEntity("weapon_ak47", Vector(4693.933105, 4185.435547, 140.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(4574.579590, 4289.540039, 140.031250), Angle())
 
-	/// Abandoned Offices
+	--/ Abandoned Offices
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2354.899170, 4231.578613, 60.031250), Angle())
 
 	GAMEMODE:CreateWeaponEntity("weapon_snark", Vector(2188.015137, 4032.441162, 60.031250), Angle())
@@ -1248,7 +1274,7 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreateWeaponEntity("weapon_snark", Vector(2845.193604, 4138.449219, 304.507355), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_gaussclip", Vector(2782.050293, 4173.498535, 268.031250), Angle(0, 90, 0))
 
-	/// Outside Church
+	--/ Outside Church
 	GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(6737.968750, 154.523392, 244.031250), Angle())
 
 	GAMEMODE:CreateWeaponEntity("weapon_357", Vector(6156.016113, -419.582733, 220.031250), Angle())
@@ -1256,13 +1282,13 @@ function MAP:AddItemPickups()
 
 	GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(5769.884277, -591.905212, 248.031250), Angle())
 
-	/// Graves
-	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(4372.219238, 375.280365, 158.031250), Angle())
-	GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(3611.076416, 363.443665, 158.031250), Angle(0, 90, 0))
-	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(4392.057129, 7.666440, 158.031250), Angle(0, 90, 0))
+	--/ Graves
+	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(4372.219238, 375.280365, 158.031250), Angle()) -- can't pick it up
+	GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(3611.076416, 363.443665, 158.031250), Angle(0, 90, 0)) -- can't pick it up
+	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(4392.057129, 7.666440, 158.031250), Angle(0, 90, 0)) -- can't pick it up
 	GAMEMODE:CreateWeaponEntity("weapon_357", Vector(3604.528809, 8.450029, 160.440247), Angle(0, 90, 0))
 	
-	/// Behind Church
+	--/ Behind Church
 	GAMEMODE:CreatePickupEntity("ammo_357", Vector(1985.475464, 374.821289, 220.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(1985.447632, 307.230438, 220.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(1985.426025, 256.865601, 220.031250), Angle())
@@ -1271,19 +1297,19 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(1985.361328, 103.215904, 220.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_crossbow", Vector(1985.335083, 41.361958, 220.031250), Angle())
 
-	/// Church
+	--/ Church
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2181.308838, 192.065918, 284.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2144.446777, 221.611206, 244.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2144.446777, 167.611206, 244.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2104.446777, 221.611206, 244.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2104.034180, 167.246948, 244.031250), Angle())
 	
-	/// Dumpsters
+	--/ Dumpsters
 	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2208.689453, 1351.719238, 32.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2207.577148, 1439.916504, 32.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(4640.435059, 4055.653320, 32.031250), Angle())
 
-	//// HERESY
+	---- HERESY
 	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(3164.729492, 10696.791016, -6755.968750), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_gaussclip", Vector(3104.729492, 10696.791016, -6755.968750), Angle(0, 90, 0))
 	GAMEMODE:CreatePickupEntity("ammo_gaussclip", Vector(3050.729492, 10696.791016, -6755.968750), Angle(0, 90, 0))
@@ -1310,7 +1336,7 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_556", Vector(3203.071289, 9784.366211, -6755.968750), Angle(0, 90, 0))
 	GAMEMODE:CreatePickupEntity("ammo_556", Vector(3238.071289, 9784.366211, -6755.968750), Angle(0, 90, 0))
 
-	/// Secret Area	
+	--/ Secret Area	
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(4223.317383, 1055.371338, -404.468750), Angle())
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(4032.678711, 1376.115845, -404.468750), Angle())
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(4223.123535, 1695.740723, -404.468750), Angle())
