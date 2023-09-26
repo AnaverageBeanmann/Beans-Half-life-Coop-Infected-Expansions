@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitTexture
+	"$basetexture" "models/vj_bhlcie/grigori_head"
+ 	"$bumpmap" "models/vj_bhlcie/monk_head_normal"
+	"$halflambert" 1
+}

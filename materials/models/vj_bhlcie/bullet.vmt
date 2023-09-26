@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/vj_bhlcie/bullet"
+	"$model" 1
+	"$halflambert" 1
+}
