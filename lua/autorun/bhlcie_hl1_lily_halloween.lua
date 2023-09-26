@@ -17,6 +17,17 @@ if VJExists == true then
 	include('autorun/vj_controls.lua') -- do we need this?
 
 	/*
+	
+		- Added The Follower
+		- Added The Shepherd
+		- Added more props, mainly outside the Offices.
+		- Michael now has no collision while fleeing and hiding, and also won't enter hunt mode if he's inside something in an an attempt to help with him getting stuck on everything.
+		- Added a lot more items to the Church.
+		- Thriller's intro is shorter and it is now a wave song.
+		- Added the Ghostbusters Theme as a wave song.
+		- Added Bustin' as a wave song.
+		- Snake Eyes now loops once before ending.
+	
 		- Updated Michael's hunt mode. If Michael is in hunt mode for about a minute or so and hasn't found anyone, he'll be told where everyone is.
 		- If Michael is stuck somewhere and can't get out on his own, he'll be teleported away to one of his start positions. [TBD]
 		- Michael now has no collision while fleeing and hiding, and won't go back into hunt mode if he's inside something. This should hopefully reduce the chances of him getting stuck on props and stuff. [TBD] - do we really need this?
@@ -83,15 +94,20 @@ if VJExists == true then
 		An average Beanmann: Putting this addon together.
 		Upset: Original creator of Half-Life Coop and Half-Life Coop Infected, any and all modified or adapted code used for this addon.
 		Lily McFluffy Butt: Creator of the map used.
-		DrVrej: Creator or VJ Base, which Michael Davies uses.
-		Omi-Box: Original Rake texture used for Michael Davies.
+		DrVrej: Creator of VJ Base.
+		Valve Corperation: Any and all Half-Life assets.
 		Airdorf Games: Any and all Faith: The Unholy Trinity assets, including Michael's voice clips and all music from the game.
+		Vatra Games: Silent Hill Downpour's Bogeyman, used for The Follower.
+		Omi-Box: Original Rake texture used for Michael Davies.
+		Warkin Iskander Volselli: Folley sounds used for The Follower, also playtesting.
 		Comrade Blue, Lebert130, Imaya: Playtesting and giving feedback.
+
 
 		-=< Music Credits >=-
 		Yoko Shimomura: Any and all music from Kingdom Hearts 1.
 		quivel: Snake Eyes (https://youtu.be/KLv9PMEkvs8).
 		Ray Parker Jr.: Ghostbusters Theme.
+		Neil Cicierega: Bustin.
 		Bobby "Boris" Pickett & The Crypt Kickers: Monster Mash.
 		Rockwell: Somebody's Watching Me.
 		Andrew Gold: Spooky Scary Skeletons.
@@ -106,6 +122,8 @@ if VJExists == true then
 		Ronan "Mr. Sauceman" de Castel: Any and all music from Pizza Tower.
 		ROPE: Any and all music from Zombie Night Terror.
 		
+		Heaven Pierce Her: Altars of Apostasy
+		Andrew Hulshult: Any and all music from DUSK
 		
 		
 Michael Davies
@@ -126,10 +144,11 @@ The Follower
 - Sometimes teleports to HERESY if it feels like it
 
 The Shepherd
+- Spawns when the escape panel is activated
 - Arrival is marked by the church bell ringing 3-6 times
 - Father Grigori but fucked up and evil
 - Gun shoots projectiles instead of being hitscan
-- Can be killed, but will return eventually
+- Can be killed
 
 IT
 - Creature that wanders around topside, but doesn't actively attack
@@ -151,12 +170,78 @@ The Phantoms
 	*/
 
 		local vCat = "BHLCIE"
-	VJ.AddNPC("Michael Davies","npc_bhlcie_michael",vCat)
-	/*
+	VJ.AddNPC("Michael Davies","npc_bhlcie_michael",vCat) -- please make him have no collision when fleeing/hiding so he stops getting stuck on doors or whatever, thanks
 	VJ.AddNPC("The Follower","npc_bhlcie_follower",vCat)
 	VJ.AddNPC("The Shepherd","npc_bhlcie_shepherd",vCat)
+	/*
 	VJ.AddNPC("IT","npc_bhlcie_it",vCat)
 	VJ.AddNPC("Phantom","npc_bhlcie_phantom",vCat)
+
+	Monster Mash
+	-- Solid Ideas
+		VJ.AddNPC("Zombie","npc_bhlcie_monster_",vCat)
+		-- Basic melee npc, tries to claw at you
+		-- Voice actor: cancer
+		VJ.AddNPC("Skeleton","npc_bhlcie_monster_",vCat)
+		-- Basic melee npc, tries to beat you to death with his boner
+		-- Voice actor: doot skeleton and dry bones
+		VJ.AddNPC("Mummy","npc_bhlcie_monster_",vCat)
+		-- Basic melee npc, slows you down on hit
+		-- Voice actor: husk(?) from minecraft (the desert zombie)
+		VJ.AddNPC("Deer Haunter","npc_bhlcie_monster_",vCat)
+		-- Acts like a fast zombie
+		-- Voice actor: l4d2 charger?
+		VJ.AddNPC("Banshee","npc_bhlcie_monster_",vCat)
+		-- Runs up near you and screams, dealing aeo damage
+		-- Voice actor: l4d witch
+		VJ.AddNPC("Vampire","npc_bhlcie_monster_",vCat)
+		-- Pops out of nowhere close by, runs up and sucks your blood (grabs you)
+		VJ.AddNPC("Frankenstein's Monster","npc_bhlcie_monster_",vCat)
+		-- literally just a meathead from yakuza dead souls, same voice actor and all
+		VJ.AddNPC("Guest","npc_bhlcie_monster_",vCat)
+		-- Has a gun
+		-- Voice actor: quake skeleton (forgot name)
+		VJ.AddNPC("Scarecrow","npc_bhlcie_monster_",vCat)
+		-- Has a shotgun
+		-- Summons crows to swarm you when he dies
+		-- Voice actor: DUSK scarecrow
+	-- Maybe?
+		VJ.AddNPC("Mad Scientist","npc_bhlcie_monster_",vCat)
+		-- throws acid vials
+		VJ.AddNPC("Invisible Man","npc_bhlcie_monster_",vCat)
+		-- involve invisibility somehow
+	-- Probably Not
+	VJ.AddNPC("Witch","npc_bhlcie_monster_",vCat)
+	VJ.AddNPC("Nosferatu","npc_bhlcie_monster_",vCat)
+	VJ.AddNPC("Headless Horseman","npc_bhlcie_monster_",vCat)
+	VJ.AddNPC("Bride","npc_bhlcie_monster_",vCat)
+	VJ.AddNPC("Bloody Mary","npc_bhlcie_monster_",vCat)
+	VJ.AddNPC("Lagoon Creature","npc_bhlcie_monster_",vCat)
+
+	
+
+
+
+	-- basic bitches for holdout
+	VJ.AddNPC("Thrall","npc_bhlcie_thrall",vCat)
+		-- Red Civvies
+		-- Melee Enemy
+	VJ.AddNPC("Wretch","npc_bhlcie_wretch",vCat)
+		-- Antlion
+	VJ.AddNPC("Stalker","npc_bhlcie_stalker",vCat)
+		-- If it's being looked at, it goes transparent and can't be hurt
+		-- If not being looked at, it goes faster, non-transparent, and can be hurt
+	VJ.AddNPC("Horror","npc_bhlcie_horror",vCat)
+		-- explosive poison zombie
+		-- attacks by blowing itself up
+		-- voice actor: sjas
+
+	VJ.AddNPC("Bloody Bones","npc_bhlcie_b0ner_frenzy",vCat)
+
+
+	VJ.AddNPC("Wisp","npc_bhlcie_thrall",vCat)
+	VJ.AddNPC("Vesselbine","npc_bhlcie_thrall",vCat)
+	VJ.AddNPC("Vessel","npc_bhlcie_thrall",vCat)
 	*/
 
 	VJ.AddConVar("hl1_coop_sv_bhlcie_lilyhalloween_enemies", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "This ConVar replaces the enemies on the config for the map 'GM_HL1_Lily_Halloween'. Type 'hl1_coop_sv_bhlcie_lilyhalloween_enemies_printsetups' to see all the setups.")

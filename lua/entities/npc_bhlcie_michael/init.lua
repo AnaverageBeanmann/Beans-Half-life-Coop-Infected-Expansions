@@ -72,24 +72,25 @@ ENT.BHLCIE_Michael_Difficulty = 1
 1 - Easy
 2 - Medium
 3 - Hard
+4 - Very Hard (actually just hard)
 */
 ENT.BHLCIE_Michael_Difficulty_ChangeWarning = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	self.BHLCIE_Michael_Difficulty = GetConVar("hl1_coop_sv_skill"):GetInt()
-	if self.BHLCIE_Michael_Difficulty == 3 then
+	if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 		self.StartHealth = 300
 	elseif self.BHLCIE_Michael_Difficulty == 2 then
 		self.StartHealth = 200
 	end
 	self.StartHealth = self.StartHealth * player.GetCount()
 	self:SetHealth(self.StartHealth)
-	PrintMessage(4,"Michael's health is now "..self.StartHealth.."")
+	-- PrintMessage(4,"Michael's health is now "..self.StartHealth.."")
 	-- PrintMessage(4,"Michael's difficulty is now "..self.BHLCIE_Michael_Difficulty.."")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self.BHLCIE_Michael_Difficulty == 3 then
+	if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 		self.BHLCIE_Michael_Patience = CurTime() + math.random(5,10)
 	elseif self.BHLCIE_Michael_Difficulty == 2 then
 		self.BHLCIE_Michael_Patience = CurTime() + 30
@@ -130,7 +131,7 @@ function ENT:CustomOnThink_AIEnabled()
 				self:SetMaterial("hud/killicons/default")
 				self:DrawShadow(false)
 				self:RemoveAllDecals()
-				if self.BHLCIE_Michael_Difficulty == 3 then
+				if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 					self.BHLCIE_Michael_HideTime = CurTime() + math.random(10,60)
 				elseif self.BHLCIE_Michael_Difficulty == 2 then
 					self.BHLCIE_Michael_HideTime = CurTime() + math.random(20,120)
@@ -148,7 +149,7 @@ function ENT:CustomOnThink_AIEnabled()
 			self:SetMaterial("hud/killicons/default")
 			self:DrawShadow(false)
 			self:RemoveAllDecals()
-			if self.BHLCIE_Michael_Difficulty == 3 then
+			if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 				self.BHLCIE_Michael_HideTime = CurTime() + math.random(10,60)
 			elseif self.BHLCIE_Michael_Difficulty == 2 then
 				self.BHLCIE_Michael_HideTime = CurTime() + math.random(20,120)
@@ -168,7 +169,27 @@ function ENT:CustomOnThink_AIEnabled()
 			if IsValid(self:GetEnemy()) then -- if we have a valid enemy..
 
 				local enemydist = self:GetPos():Distance(self:GetEnemy():GetPos()) -- distance check
-
+				local myCenterPos = self:GetPos() + self:OBBCenter()
+				local tr1 = util.TraceLine({
+					start = myCenterPos,
+					endpos = myCenterPos + self:GetForward()*40,
+					filter = self
+				})
+				local tr2 = util.TraceLine({
+					start = myCenterPos,
+					endpos = myCenterPos + self:GetForward()*-40,
+					filter = self
+				})
+				local tr3 = util.TraceLine({
+					start = myCenterPos,
+					endpos = myCenterPos + self:GetRight()*40,
+					filter = self
+				})
+				local tr4 = util.TraceLine({
+					start = myCenterPos,
+					endpos = myCenterPos + self:GetRight()*-40,
+					filter = self
+				})
 				if
 					self:GetEnemy() != nil -- another valid enemy check?
 						&&
@@ -181,7 +202,15 @@ function ENT:CustomOnThink_AIEnabled()
 							!(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60)))
 						)
 					)
-					-- if our current enemy isn't visislbe and is far enough, or they're not looking at us, then..
+						&&
+					!tr1.Hit
+					&&
+					!tr2.Hit
+					&&
+					!tr3.Hit
+					&&
+					!tr4.Hit
+					-- if our current enemy isn't visible and is far enough, or they're not looking at us, and we're not inside anything, then..
 
 				then
 
@@ -189,8 +218,9 @@ function ENT:CustomOnThink_AIEnabled()
 
 					self.GodMode = false
 					self.BHLCIE_Michael_CurrentMode = 0
+					self:SetSolid(SOLID_BBOX)
 					self.BHLCIE_Michael_LostPatient = false
-					if self.BHLCIE_Michael_Difficulty == 3 then
+					if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 						self.BHLCIE_Michael_Patience = CurTime() + math.random(5,10)
 					elseif self.BHLCIE_Michael_Difficulty == 2 then
 						self.BHLCIE_Michael_Patience = CurTime() + 30
@@ -211,7 +241,7 @@ function ENT:CustomOnThink_AIEnabled()
 					self:SetColor(thefunny)
 
 					self:SetHealth(self.StartHealth * self.BHLCIE_Michael_TimesFendedOff)
-					PrintMessage(4,"Michael's health is now "..self:Health().."")
+					-- PrintMessage(4,"Michael's health is now "..self:Health().."")
 				end
 
 			else
@@ -232,13 +262,17 @@ function ENT:CustomOnThink_AIEnabled()
 			self.BHLCIE_Michael_Difficulty == 2 && GetConVar("hl1_coop_sv_skill"):GetInt() != 2
 		or
 			self.BHLCIE_Michael_Difficulty == 3 && GetConVar("hl1_coop_sv_skill"):GetInt() != 3
+		or
+			self.BHLCIE_Michael_Difficulty == 4 && GetConVar("hl1_coop_sv_skill"):GetInt() != 4
 		)
 		&&
 		self.BHLCIE_Michael_Difficulty_ChangeWarning
 	then
 		self.BHLCIE_Michael_Difficulty_ChangeWarning = false
-		PrintMessage(4,"Please restart the match/map to get the full effect of changing the difficulty!")
+		PrintMessage(4,"Please restart the map to get the full effect of changing the difficulty!")
 	end
+
+	-- print(self:GetPos())
 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -256,7 +290,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		timer.Simple(0.15, function() if IsValid(self) then
 			self:SetHealth(self.StartHealth)
 		end end)
-		if self.BHLCIE_Michael_Difficulty == 3 then
+		if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 			self.BHLCIE_Michael_TimesFendedOff = self.BHLCIE_Michael_TimesFendedOff + 0.45
 		elseif self.BHLCIE_Michael_Difficulty == 2 then
 			self.BHLCIE_Michael_TimesFendedOff = self.BHLCIE_Michael_TimesFendedOff + 0.30
@@ -267,6 +301,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		self.BHLCIE_Michael_CurrentMode = 1
 		self.Behavior = VJ_BEHAVIOR_PASSIVE
 		self.FindEnemy_UseSphere = true
+		self:SetSolid(SOLID_NONE)
 
 		self:SetRenderFX(16)
 		local thefunny = Color(200, 200, 200, 200)

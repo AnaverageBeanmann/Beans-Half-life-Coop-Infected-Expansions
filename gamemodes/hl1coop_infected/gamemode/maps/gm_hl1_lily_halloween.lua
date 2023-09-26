@@ -2,6 +2,17 @@ MAP.MapAuthor = "Lily McFluffy Butt"
 
 -- default is 100
 FUEL_MAX = 100 -- one player can handle
+FollowerSpawnTime = 1
+
+/*
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
+	FUEL_MAX = 150 -- one player can handle
+elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then
+	FUEL_MAX = 75 -- one player can handle
+elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+	FUEL_MAX = 50 -- one player can handle
+end
+*/
 
 function MAP:SpecialDT(ply)
 	ply:NetworkVar("Int", 10, "Fuel")
@@ -9,7 +20,7 @@ end
 
 generatorPos = Vector(0, 0, 0)
 
-local randomgeneratorspot = math.random(1,1)
+local randomgeneratorspot = math.random(1,7)
 if randomgeneratorspot == 2 then
 	-- Abandoned Offices Outside
 	generatorPos = Vector(3944.6137695313, 4571.5522460938, 16.34646987915)
@@ -23,8 +34,8 @@ elseif randomgeneratorspot == 5 then
 	-- Outside Church
 	generatorPos = Vector(3994.1296386719, 187.93768310547, 208.40603637695)
 elseif randomgeneratorspot == 6 then
-	-- Church
-	generatorPos = Vector(2322.0341796875, 190.21688842773, 208.3839263916)
+	-- Inside Church
+	generatorPos = Vector(2282.1418457031, 189.9232635498, 210.24209594727)
 elseif randomgeneratorspot == 7 then
 	-- HERESY
 	generatorPos = Vector(3408.6694335938, 10232.302734375, -6799.625)
@@ -103,7 +114,7 @@ local musictable = {
 	["Mash.Halloweentro"] = {file = "mash/intro/Halloween_Town_Intro.mp3", dur = 140},
 
 	["Mash.Bath"] = {file = "mash/wave/Devil's_Bath_Boys.mp3", dur = 203},
-	["Mash.Dive"] = {file = "mash/wave/Dive_to_the_Heart.mp3", dur = 293}, -- invalid sample rate, please fix
+	["Mash.Dive"] = {file = "mash/wave/Dive_to_the_Heart.mp3", dur = 293},
 	["Mash.Ravenous"] = {file = "mash/wave/Fast_and_Ravenous.mp3", dur = 157},
 	["Mash.Halloweembat"] = {file = "mash/wave/Halloween_Town_Combat.mp3", dur = 131},
 	["Mash.Haunted"] = {file = "mash/wave/Haunted_Fortress_2.mp3", dur = 81},
@@ -114,16 +125,19 @@ local musictable = {
 	["Mash.Monster"] = {file = "mash/wave/Monster_Mash.mp3", dur = 188},
 	["Mash.Stake"] = {file = "mash/wave/Peper_Stake.mp3", dur = 136},
 	["Mash.Behind"] = {file = "mash/wave/Right_Behind_You.mp3", dur = 100},
-	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 106}, -- invalid sample rate
+	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 106},
 	["Mash.Snakalm"] = {file = "mash/wave/Snake_Eyes_Calm.mp3", dur = 112},
 	["Mash.Watching"] = {file = "mash/wave/Somebody's_Watching_Me.mp3", dur = 236},
 	["Mash.Skeletons"] = {file = "mash/wave/Spooky_Scary_Skeletons.mp3", dur = 126},
 	["Mash.Rage"] = {file = "mash/wave/Street_of_Rage.mp3", dur = 224},
 	["Mash.Mark"] = {file = "mash/wave/The_Mark.mp3", dur = 255},
 	["Mash.Spaghetti"] = {file = "mash/wave/There's_A_Bone_In_My_Spaghetti.mp3", dur = 185},
+	["Mash.Thriller"] = {file = "mash/wave/Thriller.mp3", dur = 318},
 	["Mash.Dracula"] = {file = "mash/wave/Tocatta_and_Fugue_in_D_Minor.mp3", dur = 558},
 	["Mash.Arizona"] = {file = "mash/wave/Tombstone_Arizona.mp3", dur = 221},
 	["Mash.Shimbers"] = {file = "mash/wave/Tunnely_Shimbers.mp3", dur = 238},
+	["Mash.Bustin"] = {file = "mash/wave/Bustin.mp3", dur = 237},
+	["Mash.Ghostbusters"] = {file = "mash/wave/Ghostbusters.mp3", dur = 244},
 
 	["Mash.Avatar"] = {file = "mash/holdout/Avatar_Beat.mp3", dur = 179},
 	["Mash.Brain"] = {file = "mash/holdout/Brain_Dead.mp3", dur = 128},
@@ -136,8 +150,27 @@ local musictable = {
 	["Mash.Forze"] = {file = "mash/escape/Forze_de_Male.mp3", dur = 213},
 	["Mash.Sonata"] = {file = "mash/escape/Moonlight_Sonata_3rd_Movement.mp3", dur = 411},
 	["Mash.Fate"] = {file = "mash/escape/Night_of_Fate.mp3", dur = 125},
-	["Mash.Thriller"] = {file = "mash/escape/Thriller.mp3", dur = 338},
 	["Mash.Unreasonable"] = {file = "mash/escape/Unreasonable_Behavior.mp3", dur = 120},
+
+	["Mash.VeryHard_Altar"] = {file = "mash/very_hard_special/wave/Beneath_the_Altar.mp3", dur = 192},
+	["Mash.VeryHard_Cannon"] = {file = "mash/very_hard_special/wave/Hand_Cannon.mp3", dur = 318},
+	["Mash.VeryHard_Chaos"] = {file = "mash/very_hard_special/wave/Crypted_Chaos.mp3", dur = 217},
+	["Mash.VeryHard_Destruction"] = {file = "mash/very_hard_special/wave/Departure_to_Destruction.mp3", dur = 233},
+	["Mash.VeryHard_Dusk"] = {file = "mash/very_hard_special/wave/Dusk.mp3", dur = 161},
+	["Mash.VeryHard_Endless"] = {file = "mash/very_hard_special/wave/Endless.mp3", dur = 257},
+	["Mash.VeryHard_Erebus"] = {file = "mash/very_hard_special/wave/Erebus_Reaction.mp3", dur = 307},
+	["Mash.VeryHard_Gate"] = {file = "mash/very_hard_special/wave/Keepers_of_the_Gate.mp3", dur = 293},
+	["Mash.VeryHard_Handgun"] = {file = "mash/very_hard_special/wave/Handgun_Harmony.mp3", dur = 293},
+	["Mash.VeryHard_Hell"] = {file = "mash/very_hard_special/wave/Burn_In_Hell.mp3", dur = 240},
+	["Mash.VeryHard_Machine"] = {file = "mash/very_hard_special/wave/Murder_Machine_Inc.mp3", dur = 234},
+	["Mash.VeryHard_Nowhere"] = {file = "mash/very_hard_special/wave/Nowhere.mp3", dur = 240},
+	["Mash.VeryHard_Occultivated"] = {file = "mash/very_hard_special/wave/Occultivated.mp3", dur = 165},
+	["Mash.VeryHard_Reflections"] = {file = "mash/very_hard_special/wave/Reflections_of_Violence.mp3", dur = 305},
+	["Mash.VeryHard_Tension"] = {file = "mash/very_hard_special/wave/Tension_Ascension.mp3", dur = 278},
+
+	["Mash.VeryHard_Thousand"] = {file = "mash/very_hard_special/wave/Thousand_March.mp3", dur = 268},
+
+	["Mash.VeryHard_Apostasy"] = {file = "mash/very_hard_special/holdout/Altars_of_Apostasy.mp3", dur = 340},
 }
  
 for k,v in pairs(musictable) do
@@ -247,6 +280,21 @@ MAP.WaveDuration = 180
 MAP.EvacuationTime = 90
 MAP.PortalPrepareTime = 120
 
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then -- Medium
+	MAP.WaveDuration = 240
+end
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- Hard
+	MAP.StartingWeapons = {"weapon_crowbar", "weapon_357"}
+	MAP.WaveStartTime = 60
+	MAP.WaveDuration = 240
+end
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
+	MAP.StartingWeapons = {"weapon_crowbar", "weapon_357"}
+	MAP.WaveStartTime = 120
+	MAP.WaveDuration = 240
+	MAP.PortalPrepareTime = 255
+end
+
 -- MAP.ZombieSet = 1
 	-- 1 = LNR: HL2 - HL2 Zombies
 	-- 2 = LNR: HL2 - Rebels
@@ -291,13 +339,15 @@ MAP.WaveMusic = {
 	"Mash.Spaghetti",
 	"Mash.Dracula",
 	"Mash.Arizona",
+	"Mash.Thriller",
+	"Mash.Bustin",
+	"Mash.Ghostbusters",
 	"Mash.Shimbers"
 }
 MAP.EvacMusic = {
 	"Mash.Forze",
 	"Mash.Sonata",
 	"Mash.Fate",
-	"Mash.Thriller",
 	"Mash.Unreasonable"
 }
 if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
@@ -320,6 +370,27 @@ if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
 		"FAITH.Vs"
 	}
 end
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special music for very hard
+	MAP.MapStartMusic = "FAITH.Forever"
+	MAP.WaveMusic = {
+		"Mash.VeryHard_Altar",
+		"Mash.VeryHard_Cannon",
+		"Mash.VeryHard_Chaos",
+		"Mash.VeryHard_Destruction",
+		"Mash.VeryHard_Dusk",
+		"Mash.VeryHard_Endless",
+		"Mash.VeryHard_Erebus",
+		"Mash.VeryHard_Gate",
+		"Mash.VeryHard_Handgun",
+		"Mash.VeryHard_Hell",
+		"Mash.VeryHard_Machine",
+		"Mash.VeryHard_Nowhere",
+		"Mash.VeryHard_Occultivated",
+		"Mash.VeryHard_Reflections",
+		"Mash.VeryHard_Tension",
+		"Mash.VeryHard_Thousand"
+	}
+end
 
 MAP.PortalPoints = {
 	Vector(2190.319580, 190.856781, 320.031250),
@@ -332,13 +403,7 @@ MAP.PortalPoints = {
 }
 
 MAP.AlienSpawnClasses = {
-	"npc_antlion",
-	"npc_antlion",
-	"npc_antlion",
-	"npc_antlion",
-	"npc_antlion_worker",
-	"npc_antlion_worker",
-	"npc_antlionguard",
+	"",
 }
 
 MAP.AlienSpawnPoints = {
@@ -536,7 +601,7 @@ local function CreateFuelTrigger(mins, maxs, fuel)
 	end
 end
 
-local function CreateDeadBody(pos, ang, pose, bodygr)
+local function CreateDeadBody_Sci(pos, ang, pose, bodygr)
 	ang = ang or Angle()
 	pose = pose or 36
 	bodygr = bodygr or math.random(0, 4)
@@ -594,8 +659,21 @@ function GM:BHLCIE_CreateSpawner(pos, ang, ztype, freq)
 	end
 end
 
-function MAP:ModifyMapEntities()
+function GM:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(pos, ang, ztype, freq)
+	ztype = ztype or 0
+	freq = freq or 1
+	local ent = ents.Create("ent_bhlcie_hl1_modified")
+	if IsValid(ent) then
+		ent:SetZombieType(ztype)
+		ent:SetSpawnFrequency(freq)
+		ent:SetPos(pos)
+		ent:SetAngles(ang)
+		ent:Spawn()
+		debugPrint("Created zombie spawner", ent, pos, ang, ztype, freq)
+	end
+end
 
+function MAP:ModifyMapEntities()
 	-- local randomspawnpoints = math.random(1,10)
 	-- if randomspawnpoints == 1 then
 		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-7957,5378,196), Angle(9,74,0))
@@ -619,15 +697,46 @@ function MAP:ModifyMapEntities()
 		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-6335,5642,-687), Angle(2,169,0))
 	-- end
 
-	GAMEMODE:CreateCoopSpawnpoints(Vector(1984,2624,64), Angle(0,0,0))
-	
+	GAMEMODE:CreateCoopSpawnpoints(Vector(2129.787354, 2627.297852, 64.031250), Angle(0,0,0))
+	-- GAMEMODE:CreateCoopSpawnpoints(Vector(4013.361328, 5117.553711, 64.383469), Angle(0,0,0))
+	-- GAMEMODE:CreateCoopSpawnpoints(Vector(6461.334961, 221.365097, 256.031250), Angle(0,0,0))
+	-- GAMEMODE:CreateCoopSpawnpoints(Vector(2328.089355, 191.393036, 256.031250), Angle(0,0,0))
+	-- GAMEMODE:CreateCoopSpawnpoints(Vector(3449.708008, 10256.290039, -6751.315430), Angle(0,0,0))
+
 	michaledavvie = ents.Create("npc_bhlcie_michael")
 	if IsValid(michaledavvie) then
 		michaledavvie:SetPos(Vector(6950.597656, -2198.454834, 384.031250))
 		michaledavvie:SetAngles(Angle(0,0,0))
 		michaledavvie:Spawn()
-		michaledavvie:AddFlags(FL_NOTARGET)
 	end
+
+	abandonedofficeboardbreakingbarrelbastard = ents.Create("prop_physics")
+	if IsValid(abandonedofficeboardbreakingbarrelbastard) then
+		abandonedofficeboardbreakingbarrelbastard:SetModel("models/props_c17/oildrum001_explosive.mdl")
+		abandonedofficeboardbreakingbarrelbastard:SetPos(Vector(2941.2880859375, 4416.580078125, 32.3759765625))
+		abandonedofficeboardbreakingbarrelbastard:SetAngles(Angle(0,0,0))
+		abandonedofficeboardbreakingbarrelbastard:Spawn()
+		abandonedofficeboardbreakingbarrelbastard:Ignite(60)
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then
+		FollowerSpawnTime = math.random(180,600)
+	elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then
+		FollowerSpawnTime = math.random(60,500)
+	elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		FollowerSpawnTime = math.random(5,10)
+	else
+		FollowerSpawnTime = math.random(300,1200)
+	end
+	timer.Simple(FollowerSpawnTime,function() if !IsValid(thefollower) then
+		thefollower = ents.Create("npc_bhlcie_follower")
+		if IsValid(thefollower) then
+			thefollower:SetPos(Vector(6704.903320, -2236.514160, 384.031250))
+			thefollower:SetAngles(Angle(0,0,0))
+			thefollower:Spawn()
+		end
+	end end)
+
 	locatorEnt = ents.Create("hl1_inf_locator")
 	if IsValid(locatorEnt) then
 		locatorEnt:SetPos(Vector(3234.922119, 192.128387, 512.031250))
@@ -637,7 +746,17 @@ function MAP:ModifyMapEntities()
 	generatorEnt = ents.Create("hl1_inf_generator")
 	if IsValid(generatorEnt) then
 		generatorEnt:SetPos(generatorPos)
-		generatorEnt:SetAngles(Angle(0,173,0))
+		if randomgeneratorspot == 2 then
+			generatorEnt:SetAngles(Angle(0,263,0))
+		elseif randomgeneratorspot == 3 then
+			generatorEnt:SetAngles(Angle(0,90,0))
+		elseif randomgeneratorspot == 6 then
+			generatorEnt:SetAngles(Angle(0,-90,0))
+		elseif randomgeneratorspot == 7 then
+			generatorEnt:SetAngles(Angle(0,-90,0))
+		else
+			generatorEnt:SetAngles(Angle(0,173,0))
+		end
 		generatorEnt:Spawn()
 		local cvar_int = cvar_maxfuel:GetInt()
 		if cvar_int > 0 then
@@ -648,31 +767,31 @@ function MAP:ModifyMapEntities()
 	if IsValid(panelEnt) then
 		if randomgeneratorspot == 2 then
 			-- Abandoned Offices Outside
-			panelEnt:SetPos(Vector(-6905,2311,-667))
-			panelEnt:SetAngles(Angle(-3.5379066467285, -89.921348571777, 0.00056453503202647))
+			panelEnt:SetPos(Vector(3940.9086914063, 4530.583984375, 50.464893341064))
+			panelEnt:SetAngles(Angle(-3.5763947963715, -96.483848571777, 0.0517578125))
 		elseif randomgeneratorspot == 3 then
 			-- Outside Church
-			panelEnt:SetPos(Vector(6257.9482421875, 187.44621276855, 242.3681640625))
-			panelEnt:SetAngles(Angle(-3.5754549503326, -90.354995727539, 0.0011329707922414))
+			panelEnt:SetPos(Vector(6257.9482421875, 177.44621276855, 242.3681640625))
+			panelEnt:SetAngles(Angle(-3.5754549503326, -93.354995727539, 0.0011329707922414))
 		elseif randomgeneratorspot == 4 then
 			-- Church Parking
-			panelEnt:SetPos(Vector(5130.8383789063, 175.91633605957, 234.2946472168))
-			panelEnt:SetAngles(Angle(-3.6172413825989, -179.98170471191, -0.0179443359375))
+			panelEnt:SetPos(Vector(5120.8383789063, 175.91633605957, 234.2946472168))
+			panelEnt:SetAngles(Angle(-3.6172413825989, -180.98170471191, -0.0179443359375))
 		elseif randomgeneratorspot == 5 then
-			-- Outside Church
-			panelEnt:SetPos(Vector(3994.1296386719, 187.93768310547, 208.40603637695))
-			panelEnt:SetAngles(Angle(0.015603098087013, -179.93481445313, -0.003631591796875))
+			-- Infront of Church
+			panelEnt:SetPos(Vector(3949.6708984375, 192.32247924805, 242.38980102539))
+			panelEnt:SetAngles(Angle(-3.4424676895142, 176.61100769043, -0.000579833984375))
 		elseif randomgeneratorspot == 6 then
-			-- Church
-			panelEnt:SetPos(Vector(2283.6284179688, 189.68899536133, 242.38040161133))
-			panelEnt:SetAngles(Angle(-3.6280288696289, -179.99627685547, -0.0096435546875))
+			-- Inside Church
+			panelEnt:SetPos(Vector(2248.1418457031, 189.9232635498, 260.24209594727))
+			panelEnt:SetAngles(Angle(22.671382904053, 0.35688257217407, 0.14841391146183))
 		elseif randomgeneratorspot == 7 then
 			-- HERESY
 			panelEnt:SetPos(Vector(3370.255859375, 10231.678710938, -6765.6796875))
 			panelEnt:SetAngles(Angle(-3.531031370163, -179.82649230957, -0.01434326171875))
 		else
 			-- Offices Outside
-			panelEnt:SetPos(Vector(2458.5112304688, 2628.0573730469, 50.286380767822))
+			panelEnt:SetPos(Vector(2468.5112304688, 2628.0573730469, 50.286380767822))
 			panelEnt:SetAngles(Angle(-3.5681574344635, -0.3117094039917, 0.0036558688152581))
 		end
 		panelEnt:Spawn()
@@ -694,36 +813,47 @@ function MAP:ModifyMapEntities()
 			
 				NO_WAVE_MUSIC = true
 
-				if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
-					local PanelMusic = math.random(1,3)
-					if PanelMusic == 1 then
-						GAMEMODE:PlayGlobalMusic("FAITH.Astaroth")
-					elseif PanelMusic == 2 then
-						GAMEMODE:PlayGlobalMusic("FAITH.Malphas")
-					else
-						GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
-					end
+				if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
+					GAMEMODE:PlayGlobalMusic("Mash.VeryHard_Apostasy")
 				else
-					local PanelMusic = math.random(1,7)
-					if PanelMusic == 1 then
-						GAMEMODE:PlayGlobalMusic("Mash.Brain")
-					elseif PanelMusic == 2 then
-						GAMEMODE:PlayGlobalMusic("Mash.Destiny")
-					elseif PanelMusic == 3 then
-						GAMEMODE:PlayGlobalMusic("Mash.Orchestra")
-					elseif PanelMusic == 4 then
-						GAMEMODE:PlayGlobalMusic("Mash.Fragments")
-					elseif PanelMusic == 5 then
-						GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
-					elseif PanelMusic == 6 then
-						GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
+					if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
+						local PanelMusic = math.random(1,3)
+						if PanelMusic == 1 then
+							GAMEMODE:PlayGlobalMusic("FAITH.Astaroth")
+						elseif PanelMusic == 2 then
+							GAMEMODE:PlayGlobalMusic("FAITH.Malphas")
+						else
+							GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
+						end
 					else
-						GAMEMODE:PlayGlobalMusic("Mash.Avatar")
+						local PanelMusic = math.random(1,7)
+						if PanelMusic == 1 then
+							GAMEMODE:PlayGlobalMusic("Mash.Brain")
+						elseif PanelMusic == 2 then
+							GAMEMODE:PlayGlobalMusic("Mash.Destiny")
+						elseif PanelMusic == 3 then
+							GAMEMODE:PlayGlobalMusic("Mash.Orchestra")
+						elseif PanelMusic == 4 then
+							GAMEMODE:PlayGlobalMusic("Mash.Fragments")
+						elseif PanelMusic == 5 then
+							GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
+						elseif PanelMusic == 6 then
+							GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
+						else
+							GAMEMODE:PlayGlobalMusic("Mash.Avatar")
+						end
 					end
 				end
 
 				self.glowSprite:SetKeyValue("rendercolor", "0 255 0")
-				
+
+				shepherd = ents.Create("npc_bhlcie_shepherd")
+				if IsValid(shepherd) then
+					shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
+					shepherd:SetAngles(Angle(0,0,0))
+					shepherd:Spawn()
+				end
+
 				/*
 				if MAP.Zombieset == 4 then
 					local gonarchboss = ents.Create("npc_vj_hlr1_gonarch")
@@ -965,9 +1095,157 @@ function MAP:ModifyMapEntities()
 		CreateFuelTrigger(Vector(4806.120605, 347.275269, 248.021500), Vector(4806.797363, 376.294373, 212.020706), math.random(10,15))
 	end
 
-	CreateDeadBody(Vector(3183.321289, 2982.839111, 28.031250), Angle(0, -122, 0), 38)
-	CreateDeadBody(Vector(2176.268066, 1135.985474, 108.031250), Angle(0, -88, 0), 38)
-	CreateDeadBody(Vector(2839.280273, 816.031250, 108.031250), Angle(0, 90, 0), 38)
+	---- Batch 2
+	-- Outside Offices - Army Trucks
+	GAMEMODE:CreateStaticDecoration("models/props/hl7props/hecutruck00.mdl", Vector(2613.154296875, 3238.7863769531, 59.99983215332), Angle(-0.008134875446558, 171.05857849121, 0.0048006405122578))
+	GAMEMODE:CreateStaticDecoration("models/props/hl7props/hecutruck.mdl", Vector(2596.55859375, 2205.4104003906, 73.861328125), Angle(-0.019985068589449, 65.774635314941, -0.001220703125))
+
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2596.9157714844, 2205.3271484375, 63.756481170654), Angle(0.016523564234376, 155.85440063477, 0.010500091128051))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2610.3999023438, 2234.7631835938, 63.741703033447), Angle(-0.027438877150416, 155.73526000977, -0.03155517578125))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2581.642578125, 2249.6203613281, 63.769832611084), Angle(0.0070870500057936, 155.80078125, 0.12792173027992))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2454.3107910156, 2322.4936523438, 12.369481086731), Angle(0.014049286954105, 160.95248413086, 0.014049273915589))
+
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2465.2568359375, 2330.2387695313, 26.971313476563), Angle(-85.935394287109, 111.48226928711, 0.12268148362637))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2453.3647460938, 2328.2868652344, 25.292848587036), Angle(3.8006725311279, 131.56465148926, -14.558532714844))
+
+	-- Outside Offices - Supply Cache
+	GAMEMODE:CreateStaticDecoration("models/props/hlprops/metalcrate00.mdl", Vector(1958.9738769531, 2877.0307617188, 24.338500976563), Angle(0.023968733847141, -94.364967346191, -0.003662109375))
+	GAMEMODE:CreateStaticDecoration("models/props/hlprops/metalcrate00.mdl", Vector(1960.4141845703, 2959.8562011719, 24.37197303772), Angle(0.015618034638464, 91.474937438965, 0.07532773911953))
+	GAMEMODE:CreateStaticDecoration("models/props/halflifeoneprops1/crate00.mdl", Vector(1957.1368408203, 3034.3432617188, 24.362049102783), Angle(0.013005224056542, -3.2033190727234, -0.012359619140625))
+	GAMEMODE:CreateStaticDecoration("models/props/halflifeoneprops1/bigradio.mdl", Vector(1953.7215576172, 3120.5466308594, 47.433792114258), Angle(0.0012211804278195, -105.08248138428, 0.034973815083504))
+	GAMEMODE:CreateStaticDecoration("models/props/fifties/wep_ammo.mdl", Vector(2074.2824707031, 2835.3664550781, 16.331192016602), Angle(0.0014265849022195, 0.59338343143463, 0.038611277937889))
+	GAMEMODE:CreateStaticDecoration("models/props/fifties/wep_crate.mdl", Vector(2074.2717285156, 2883.9006347656, 16.889963150024), Angle(0.056614138185978, 0.59344685077667, 0.0039688502438366))
+	GAMEMODE:CreateStaticDecoration("models/props/fifties/wep_crate.mdl", Vector(2073.5646972656, 2967.4270019531, 16.912029266357), Angle(-0.079102106392384, 179.53837585449, -0.016845703125))
+	GAMEMODE:CreateStaticDecoration("models/props/hl18props/metalbox01.mdl", Vector(2185.5092773438, 2888.4353027344, 18.415477752686), Angle(-0.031936388462782, 179.99299621582, 0.011180409230292))
+	GAMEMODE:CreateStaticDecoration("models/props/hl18props/metalbox01.mdl", Vector(2185.310546875, 2968.8806152344, 18.497800827026), Angle(0.0019151151645929, 179.99324035645, -0.00091552734375))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2175.7419433594, 3030.4978027344, 12.336194038391), Angle(-0.023582637310028, -161.88092041016, -0.009490966796875))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2156.8098144531, 3063.4462890625, 12.35546875), Angle(-0.010588018223643, -142.08497619629, -0.043701171875))
+	GAMEMODE:CreatePhysicsDecoration("models/props/hl19props/metalboxpart00.mdl", Vector(2227.9504394531, 2885.6335449219, 28.646638870239), Angle(-32.209201812744, -0.026342948898673, 179.99934387207))
+	GAMEMODE:CreatePhysicsDecoration("models/props/hl19props/metalboxpart00.mdl", Vector(2225.9304199219, 2970.2978515625, 29.054071426392), Angle(-24.55464553833, -0.83946639299393, 179.99917602539))
+
+	GAMEMODE:CreateStaticDecoration("models/props/hl18props/metalbox01.mdl", Vector(2260.4912109375, 1944.3845214844, 18.50022315979), Angle(0.10565933585167, 89.954727172852, 0.060324497520924))
+	GAMEMODE:CreateStaticDecoration("models/props/fifties/wep_crate.mdl", Vector(2174.3264160156, 1939.7222900391, 16.900188446045), Angle(-0.054504223167896, 89.953765869141, -0.0103759765625))
+	GAMEMODE:CreatePhysicsDecoration("models/props/hl19props/metalboxpart00.mdl", Vector(2335.5905761719, 1946.8581542969, 29.737333297729), Angle(-60.382808685303, 0.15712311863899, 90.009071350098))
+	GAMEMODE:CreateStaticDecoration("models/props/hl5props/hecuradio.mdl", Vector(2165.7802734375, 1932.3218994141, 80.795112609863), Angle(0.26970991492271, -89.956161499023, -0.10922241210938))
+	GAMEMODE:CreateStaticDecoration("models/props/hlprops/metalcrate00.mdl", Vector(2181.3010253906, 2347.21875, 24.384925842285), Angle(-0.0089357383549213, 89.316764831543, 0.01354706287384))
+
+	-- Outside Offices - Party Aftermath
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops5/table.mdl", Vector(3189.0056152344, 2779.5505371094, 18.327783584595), Angle(0.045722838491201, -86.555534362793, 0.032914415001869))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops5/table.mdl", Vector(3293.8933105469, 2782.0656738281, 18.341032028198), Angle(-0.0092055518180132, -97.476432800293, 0.001110450248234))
+
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(3114.6838378906, 2766.568359375, 12.297403335571), Angle(0.11552593111992, -78.390907287598, -0.006195068359375))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(3060.7785644531, 2470.7268066406, 12.342581748962), Angle(0.10797339677811, 37.944320678711, 0.0063985246233642))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(3087.48828125, 2445.3193359375, 12.38781452179), Angle(0.043280396610498, 55.467910766602, -0.42379760742188))
+
+	GAMEMODE:CreatePhysicsDecoration("models/props/portedprops1/coollaptop.mdl", Vector(3092.8264160156, 2450.7353515625, 33.862003326416), Angle(0.1308087259531, -117.774559021, 0.44366499781609))
+
+	GAMEMODE:CreatePhysicsDecoration("models/decay/props/pizza.mdl", Vector(3166.8225097656, 2777.3503417969, 36.643230438232), Angle(0.031268958002329, -84.825103759766, -0.089599609375))
+	GAMEMODE:CreatePhysicsDecoration("models/decay/props/pizza.mdl", Vector(3291.2280273438, 2785.4125976563, 36.764068603516), Angle(-0.12457264959812, -105.27590942383, -0.12124633789063))
+
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3254.5654296875, 2767.380859375, 38.968017578125), Angle(-88.702293395996, -83.193939208984, 82.487937927246))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3218.7404785156, 2767.2885742188, 38.90843963623), Angle(-85.954902648926, 10.827359199524, -0.076263427734375))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3208.2470703125, 2775.9970703125, 38.949211120605), Angle(-88.642715454102, -12.683856964111, 52.733573913574))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3205.4860839844, 2762.6916503906, 38.896492004395), Angle(-85.919212341309, 26.678750991821, -0.29861450195313))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3211.1257324219, 2757.326171875, 40.742317199707), Angle(-6.5322561264038, -114.88809967041, 161.63403320313))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3191.5419921875, 2737.8979492188, -0.0042708227410913), Angle(0.88760638237, 30.6676902771, 16.097774505615))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3327.63671875, 2740.5708007813, 3.769082069397), Angle(-5.0445160865784, 83.182838439941, -123.6286315918))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3335.3986816406, 2734.1188964844, 4.449604511261), Angle(-7.5196294784546, 129.98588562012, 162.59312438965))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3247.0168457031, 2122.7180175781, 4.3655524253845), Angle(-7.4098644256592, -142.89128112793, 159.44422912598))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3143.1491699219, 2071.232421875, 3.7778651714325), Angle(-5.4005880355835, 158.13093566895, -124.2373046875))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3156.6286621094, 2032.0352783203, -0.062517046928406), Angle(0.15197192132473, -87.366508483887, 16.773603439331))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3218.3564453125, 1952.7224121094, -0.0063862008973956), Angle(1.297327041626, -153.19850158691, 19.379125595093))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3020.4350585938, 1973.3204345703, 2.1097497940063), Angle(-4.0642790794373, -167.59158325195, 91.679077148438))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(3108.0329589844, 1894.5236816406, 1.9761654138565), Angle(-3.0826399326324, 35.101417541504, 87.345245361328))
+
+	GAMEMODE:CreatePhysicsDecoration("models/cs16/props/lv_bottle.mdl", Vector(3315.3464355469, 2762.0129394531, 36.61930847168), Angle(0.53978860378265, 5.8895463943481, -1.8198547363281))
+	GAMEMODE:CreatePhysicsDecoration("models/cs16/props/lv_bottle.mdl", Vector(3261.9072265625, 2792.0595703125, 36.699592590332), Angle(0.37362286448479, -82.286613464355, 0.17207938432693))
+	GAMEMODE:CreatePhysicsDecoration("models/cs16/props/lv_bottle.mdl", Vector(3199.9782714844, 2769.0615234375, 36.509124755859), Angle(0.06520190089941, 7.9239497184753, -0.74774169921875))
+
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3029.841796875, 2843.4401855469, 1.006566286087), Angle(4.6378121376038, -84.587120056152, -15.140197753906))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3073.8059082031, 2779.6931152344, 2.8687393665314), Angle(0.099043048918247, 125.68895721436, 88.570220947266))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3105.7163085938, 2765.8039550781, 27.025993347168), Angle(-85.893348693848, 35.723194122314, -3.1267395019531))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3111.6440429688, 2750.2346191406, 27.095073699951), Angle(-86.055595397949, -142.71214294434, 3.1800091266632))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3093.7702636719, 2751.09375, 2.5554928779602), Angle(-86.288597106934, -52.084865570068, -1.9304809570313))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3091.5212402344, 2758.8037109375, 1.1587606668472), Angle(3.1680617332458, -138.04013061523, 37.373798370361))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3114.1623535156, 2718.6350097656, 4.3309726715088), Angle(-1.6890857219696, -20.774696350098, -113.86585998535))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3229.2983398438, 2674.9560546875, 0.95624440908432), Angle(3.8720569610596, -177.77275085449, -13.72216796875))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3122.2570800781, 2592.4907226563, 0.94345498085022), Angle(3.8833730220795, 59.442153930664, -13.871520996094))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3335.1362304688, 2517.1162109375, 4.3044037818909), Angle(-1.3635032176971, 10.899479866028, -112.80099487305))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3282.1130371094, 2500.375, 2.3459689617157), Angle(1.769819021225, 137.63507080078, -63.529022216797))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3202.1169433594, 2531.4069824219, 1.2079037427902), Angle(2.931075334549, -144.78521728516, 42.31591796875))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3064.5739746094, 2512.3178710938, 2.4172842502594), Angle(1.6410958766937, -48.824493408203, -65.605682373047))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3076.2907714844, 2469.0021972656, 26.892232894897), Angle(-86.345848083496, -52.042987823486, 8.6560611724854))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3224.5778808594, 2394.4807128906, 8.8421325683594), Angle(-3.0488350391388, -171.53434753418, 140.53596496582))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3002.6127929688, 2348.7429199219, 2.8153569698334), Angle(0.14316520094872, 161.42434692383, 87.742279052734))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3112.4135742188, 2316.6301269531, 5.5360264778137), Angle(-3.857488155365, 136.79637145996, -167.18530273438))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3270.5202636719, 2279.4360351563, 0.94184672832489), Angle(3.8270070552826, -34.379535675049, -15.377288818359))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3165.662109375, 2259.7570800781, 2.8150117397308), Angle(0.15506365895271, 175.11521911621, 87.744621276855))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3041.7526855469, 2200.1691894531, 1.0555635690689), Angle(3.2681248188019, 70.666870117188, 35.133335113525))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3299.3757324219, 2010.0885009766, 4.4447064399719), Angle(-1.8785569667816, 174.71650695801, -116.89659118652))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3139.5283203125, 2027.1098632813, 0.93912643194199), Angle(3.8400599956512, 66.545867919922, -15.592712402344))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2895.5861816406, 2029.2775878906, 4.8913917541504), Angle(-3.1561105251312, -119.30879211426, 142.33160400391))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3153.8813476563, 1897.7536621094, 2.9017853736877), Angle(0.066023923456669, 30.239461898804, 89.079032897949))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3350.9885253906, 1866.1553955078, 4.8788738250732), Angle(-3.1181070804596, -143.19436645508, 141.3381652832))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3083.6159667969, 1824.2819824219, 3.0160081386566), Angle(-0.14813534915447, -91.830177307129, 92.797981262207))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3264.1032714844, 1828.6418457031, 5.4586029052734), Angle(-3.849184513092, -3.4125421047211, -164.32676696777))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3272.0419921875, 1741.2810058594, 4.4383506774902), Angle(-1.8442716598511, 65.909820556641, -116.36001586914))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3077.2377929688, 1696.8759765625, 325.45959472656),Angle(-4.4086313247681, 50.98127746582, -166.98330688477))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(3055.4213867188, 1657.80859375, 325.48944091797), Angle(-3.9028465747833, -45.687728881836, -165.27558898926))
+
+	-- Outside Offices - Dumpsters
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2190.935546875, 1466.9699707031, 7.0052919387817), Angle(-5.4545254707336, 12.727937698364, 106.37300872803))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2199.9116210938, 1428.8586425781, 6.0080275535583), Angle(-4.7633647918701, -115.65139770508, 89.662490844727))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2219.345703125, 1425.4891357422, 8.44846534729), Angle(-7.5374298095703, -105.79780578613, 161.49406433105))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2219.1057128906, 1414.8262939453, 3.9793953895569), Angle(0.27732917666435, -177.95114135742, 17.810497283936))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2222.7355957031, 1453.7729492188, 6.0691981315613), Angle(-4.0820164680481, 94.915184020996, 89.710945129395))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/sandwich.mdl", Vector(2220.2048339844, 1448.9830322266, 7.4874000549316), Angle(0.018739385530353, -36.160972595215, -179.83102416992))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/apple.mdl", Vector(2191.3605957031, 1446.4998779297, 4.5383810997009), Angle(0.68719363212585, -153.45227050781, -0.64801025390625))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/apple.mdl", Vector(2193.5161132813, 1421.5477294922, 4.4815826416016), Angle(1.6295275688171, 44.029937744141, -1.4492797851563))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/banana.mdl", Vector(2203.1975097656, 1461.4104003906, 4.4995055198669), Angle(-0.61499905586243, -128.74412536621, 0.7424989938736))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2215.8510742188, 1459.2458496094, 5.2993588447571), Angle(3.611124753952, 44.457347869873, 41.117176055908))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/book/book6.mdl", Vector(2206.9680175781, 1422.6851806641, 7.3820219039917), Angle(-10.339299201965, -27.309635162354, 165.34756469727))
+
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2223.8298339844, 1327.6047363281, 6.9735941886902), Angle(-0.060349445790052, 172.80885314941, 90.688041687012))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2208.4873046875, 1328.4561767578, 6.3114113807678), Angle(1.8444300889969, 72.067039489746, -62.924621582031))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2209.9072265625, 1368.2479248047, 6.8215894699097), Angle(0.10182636231184, -101.48955535889, 88.068534851074))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2199.3273925781, 1350.5295410156, 8.8962736129761), Angle(-3.1922883987427, -149.78959655762, 143.31768798828))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2191.5041503906, 1341.41796875, 3.9912941455841), Angle(0.095402128994465, -81.26537322998, 18.651678085327))
+
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2195.6955566406, 1490.5999755859, 9.2245674133301), Angle(-5.2186880111694, -147.62481689453, 0.014700428582728))
+
+	-- Offices
+	GAMEMODE:CreatePhysicsDecoration("models/props/fifties/couch_chair_yel.mdl", Vector(2499.3083496094, 1576.181640625, 103.33305358887), Angle(0.036890339106321, 178.75637817383, -0.19461059570313))
+	GAMEMODE:CreatePhysicsDecoration("models/props/portedprops4/tvforniture.mdl", Vector(2436.1940917969, 1565.3255615234, 93.359680175781), Angle(-0.017000382766128, 89.941032409668, 0.037110142409801))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/book/book1.mdl", Vector(2424.2897949219, 1567.8103027344, 85.200897216797), Angle(-0.022288458421826, -148.67324829102, -0.033905029296875))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/book/book2.mdl", Vector(2448.9250488281, 1570.6350097656, 85.186111450195), Angle(-0.0183518640697, -141.3864440918, -0.036468505859375))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/book/book3.mdl", Vector(2426.7124023438, 1568.9466552734, 98.258880615234), Angle(0.25065970420837, -35.687026977539, -179.77484130859))
+	GAMEMODE:CreatePhysicsDecoration("models/props/hl20props/openbook00.mdl", Vector(2447.1052246094, 1566.8780517578, 107.85250854492), Angle(-0.005678285844624, 73.95777130127, 0.04011233150959))
+
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops1/smallcrate.mdl", Vector(2656.4741210938, 1460.8895263672, 92.464462280273), Angle(-0.031546004116535, 0.45171707868576, 0.094978213310242))
+	GAMEMODE:CreatePhysicsDecoration("models/props/halflifeoneprops5/table.mdl", Vector(2666.8552246094, 1297.8524169922, 98.370635986328), Angle(-0.041814543306828, -0.43479597568512, -0.009002685546875))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2680.291015625, 1451.9066162109, 82.443489074707), Angle(1.5294011831284, -110.44021606445, -67.37353515625))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2694.8737792969, 1469.3669433594, 80.938591003418), Angle(4.924985408783, 116.95623016357, -10.850372314453))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/can.mdl", Vector(2669.7165527344, 1449.6920166016, 106.95487976074), Angle(-86.02759552002, -3.9539475440979, -3.5982666015625))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2670.0305175781, 1359.595703125, 84.443870544434), Angle(-7.4942922592163, 55.047828674316, 163.35754394531))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2667.234375, 1340.4614257813, 118.967918396), Angle(-87.685707092285, 43.979782104492, 15.727038383484))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2673.6782226563, 1335.2827148438, 118.97253417969), Angle(-85.919204711914, 137.92742919922, -0.29861450195313))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2683.234375, 1341.6895751953, 118.97832489014), Angle(-85.940887451172, 98.454383850098, -0.570068359375))
+	GAMEMODE:CreatePhysicsDecoration("models/halflife/gibs/food/styrocup.mdl", Vector(2686.2678222656, 1328.5616455078, 118.98279571533), Angle(-85.950340270996, 85.82731628418, -0.6002197265625))
+	GAMEMODE:CreatePhysicsDecoration("models/cs16/props/lv_bottle.mdl", Vector(2655.6921386719, 1330.6391601563, 116.7208404541), Angle(1.8740621805191, 14.866167068481, 0.1282182186842))
+	GAMEMODE:CreatePhysicsDecoration("models/decay/props/pizza.mdl", Vector(2667.3659667969, 1275.4862060547, 116.69254302979), Angle(-0.0017615901306272, -91.853569030762, -0.0362548828125))
+
+	-- Vehicle Tunnel
+	-- GAMEMODE:CreateStaticDecoration("models/props/hlvehicles/cstruck.mdl", Vector(4170.5786132813, 2682.5615234375, 88.540237426758), Angle(0.0011222957400605, -50.980949401855, -0.11239624023438))
+	-- GAMEMODE:CreateStaticDecoration("models/props/hlvehicles/hugetruck.mdl", Vector(4170.5786132813, 2682.5615234375, 88.540237426758), Angle(0.0011222957400605, -50.980949401855, -0.11239624023438))
+
+	-- Outside Church
+	-- GAMEMODE:CreateStaticDecoration("models/props/hlvehicles/hugetruck.mdl", Vector(4428.3754882813, 1549.7108154297, 95.83814239502), Angle(-0.0025892925914377, -155.5744934082, 0.001432359800674))
+	-- GAMEMODE:CreateStaticDecoration("models/props/hlvehicles/hugetruck.mdl", Vector(6361.3852539063, 892.60461425781, 287.96627807617), Angle(0.014325338415802, -164.44711303711, -0.017486572265625))
+
+
+	CreateDeadBody_Sci(Vector(3183.321289, 3000.839111, 0), Angle(0, -122, 0), 38)
+	CreateDeadBody_Sci(Vector(2176.268066, 1140.985474, 80), Angle(0, -88, 0), 38)
+	CreateDeadBody_Sci(Vector(2839.280273, 810.031250, 80), Angle(0, 90, 0), 38)
 
 	GAMEMODE:CreateStaticDecoration("models/lilyhl1/logoless_suv.mdl", Vector(5133.87890625, 1111.8410644531, 34.682384490967), Angle(-9.4690437316895, -0.62079894542694, 0.10661364346743))
 	CreateFuelTrigger(Vector(5075.686035, 1056.159790, 91.316147), Vector(5049.607422, 1056.442505, 50.966301), math.random(10,15))
@@ -988,6 +1266,12 @@ function MAP:ModifyMapEntities()
 	GAMEMODE:CreateStaticDecoration("models/lilyhl1/logoless_suv.mdl", Vector(3008.0446777344, 2128.2983398438, 0.47117546200752), Angle(-0.014640600420535, -179.98475646973, -0.00238037109375))
 	CreateFuelTrigger(Vector(3084.477051, 2184.351318, 64.031250), Vector(3056.943604, 2184.345703, 28.031250), math.random(10,15))
 
+	for k, v in pairs(ents.FindByClass("prop_physics")) do
+		if v:GetModel() == "models/halflife/gibs/food/styrocup.mdl" or v:GetModel() == "models/halflife/gibs/food/can.mdl" then
+			v:SetCollisionGroup(1)
+		end
+	end
+
 	-- Easy Mode Exclusives
 	-- Planks in the secret area
 	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
@@ -1004,6 +1288,42 @@ function MAP:ModifyMapEntities()
 		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4065.3903808594, 1946.056640625, -427.29983520508), Angle(-86.651542663574, 129.48126220703, 172.06628417969))
 		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4054.2766113281, 2091.1643066406, -432.27593994141), Angle(-89.142219543457, 90.019020080566, 169.69798278809))
 		GAMEMODE:CreateStaticDecoration("models/props_debris/wood_board05a.mdl", Vector(4069.5979003906, 2190.7087402344, -430.44805908203), Angle(-89.723678588867, 8.372950553894, -106.7776184082))
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+
+		-- red fog
+		local thefogiscoming = ents.Create("edit_fog")
+		if IsValid(thefogiscoming) then
+			thefogiscoming:SetPos(Vector(3378.548828125, 191.96705627441, 458.44061279297))
+			thefogiscoming:SetAngles(Angle(0,0,0))
+			thefogiscoming:Spawn()
+			
+			thefogiscoming:SetFogStart( 0.0 )
+			thefogiscoming:SetFogEnd( 1463.16 )
+			thefogiscoming:SetDensity( 1.0 )
+			thefogiscoming:SetFogColor( Vector( 0.45, 0.0, 0.0 ) )
+		end
+
+		/*
+		-- lock this door on very hard
+		for k, v in pairs(ents.FindInBox(Vector(3281.171143, 795.531250, 256.031250), Vector(3277.789551, 756.468750, 256.031250))) do
+			if v:GetClass() == "func_door_rotating" then
+				v:Fire("lock")
+				-- v:Fire(Lock,nil,0,v,
+			end
+		end
+		*/
+
+		-- remove the church gates
+		for k, v in pairs(ents.FindInBox(Vector(5879.323730, 288.148407, 256.031250), Vector(5664.578613, 62.167233, 298.993256))) do
+			if v:GetClass() == "func_door" then
+				v:Remove()
+			end
+		end
+
+
+
 	end
 
 	-- GAMEMODE:CreatePhysicsDecoration("", Vector(), Angle())
@@ -1073,67 +1393,256 @@ function MAP:ModifyMapEntities()
 	else
 	*/
 
-		-- Default Zombies
-		---- -=< Topside >=-
-		--/ Offices Outside
-		GAMEMODE:CreateZombieSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2433.629883, 2122.903076, 64.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2136.622314, 1436.394043, 10), Angle(), 10, 0.5)
-		-- Offices
-		GAMEMODE:CreateZombieSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2513.736816, 1614.435791, 80.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2384.626465, 1183.453369, 84.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 10, 0.5)
-		-- Furnace Room
-		GAMEMODE:CreateZombieSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 10, 0.5)
-		-- Vehicle Tunnel
-		GAMEMODE:CreateZombieSpawner(Vector(3870.591797, 2605.938477, 0.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4335.038086, 2256.738037, 0.031250), Angle(), 10, 0.5)
-		-- Abandoned Offices Outside
-		GAMEMODE:CreateZombieSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 10, 0.5)
-		-- Abandoned Offices
-		GAMEMODE:CreateZombieSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 10, 0.5)
-		-- Church Outside
-		GAMEMODE:CreateZombieSpawner(Vector(4529.850586, 1251.144775, 0.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(6244.919922, 1189.830688, 206.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(6475.668945, -893.354065, 307.364288), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(6036.860352, -868.889038, 301.251770), Angle(), 10, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 10, 0.5) -- Parking Lot
-		GAMEMODE:CreateZombieSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 10, 0.5) -- Infront of Church
-		GAMEMODE:CreateZombieSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 10, 0.5) -- Behind Church
-		-- Church
-		GAMEMODE:CreateZombieSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 10, 0.5)
-		-- Portal to HERESY
-		GAMEMODE:CreateZombieSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 10, 0.5)
-		-- HERESY
-		GAMEMODE:CreateZombieSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3778.140381, 10618.083008, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 3, 0.5)
-		GAMEMODE:CreateZombieSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 3, 0.5)
+		-- -=< Default Zombies >=-
+
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then -- Easy
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 2, 0.5) -- Infront of Shack / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 2, 0.5) -- Near Furnace Room Entrance / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 2, 0.5) -- Party Aftermath Area / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 2, 0.5) -- Dumpsters / Scientists, Barneys and HECUs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 2, 0.5) -- Reception / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 2, 0.5) -- Bustin' Makes Me Feel Good / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 2, 0.5) -- Yellow Chair / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 2, 0.5) -- Power Room? / Scientists, Barneys and HECUs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 5, 0.5) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 0.5) -- Next to Outside Offices Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 0.5) -- Next to Outside Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 0.5) -- Next to Outside Abandoned Offices Gate / Scientists and Barneys
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 0.5) -- Street Lamp (not the one near the fuel barrels) / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 0.5) -- Parking Lot/Infront of Abandoned Offices / Scientists and Barneys
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 0.5) -- Reception / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 0.5) -- Stairwell / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 0.5) -- Upper Floor / Scientists and Barneys
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 0.5) -- Near Vehicle Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 0.5) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 0.5) -- Across from Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 5, 0.5) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 0.5) -- Near Gate to Hell Portal / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 0.5) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 0.5) -- Infront of Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 0.5) -- Behind Church / Scientists and Barneys
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 0.5) -- Inside the Church / Scientists and Barneys
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 0.5) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 0.5) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 0.5) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 0.5) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 0.5) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 0.5) -- Barrel Cell Hallway / HEVs
+			-- Main Area
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 0.5) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 0.5) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 0.5) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 6, 0.5) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 6, 0.5) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 6, 0.5) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 6, 0.5) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 6, 0.5) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 6, 0.5) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 6, 0.5) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 6, 0.5) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 6, 0.5) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 6, 0.5) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 6, 0.5) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then -- Medium
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 2, 0.65) -- Infront of Shack / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 2, 0.65) -- Near Furnace Room Entrance / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 2, 0.65) -- Party Aftermath Area / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 2, 1) -- Dumpsters / Scientists, Barneys and HECUs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 2, 0.65) -- Reception / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 2, 0.85) -- Bustin' Makes Me Feel Good / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 2, 0.65) -- Yellow Chair / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 2, 0.65) -- Power Room? / Scientists, Barneys and HECUs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 5, 0.5) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 0.85) -- Next to Outside Offices Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 0.65) -- Next to Outside Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 0.85) -- Next to Outside Abandoned Offices Gate / Scientists and Barneys
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 0.85) -- Street Lamp (not the one near the fuel barrels) / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 0.85) -- Parking Lot/Infront of Abandoned Offices / Scientists and Barneys
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 0.85) -- Reception / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 0.85) -- Stairwell / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 0.85) -- Upper Floor / Scientists and Barneys
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 0.85) -- Near Vehicle Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 0.85) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 0.85) -- Across from Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 5, 0.85) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 0.85) -- Near Gate to Hell Portal / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 0.85) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 0.85) -- Infront of Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 0.85) -- Behind Church / Scientists and Barneys
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 0.85) -- Inside the Church / Scientists and Barneys
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 0.85) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 0.85) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 0.65) -- Barrel Cell Hallway / HEVs
+			-- Main Area
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 0.65) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 0.65) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 0.65) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 6, 0.65) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 6, 0.65) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 6, 0.65) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 6, 1) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 6, 1) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 6, 1) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 6, 1) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 6, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 6, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 6, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 6, 0.85) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- Hard
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 3, 1) -- Infront of Shack / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 3, 1) -- Near Furnace Room Entrance / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 3, 1) -- Party Aftermath Area / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 3, 1) -- Dumpsters / Scientists, Barneys, HECUs and HEVs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 3, 1) -- Reception / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 3, 1) -- Bustin' Makes Me Feel Good / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 3, 1) -- Yellow Chair / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 3, 1) -- Power Room? / Scientists, Barneys, HECUs and HEVs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 5, 1) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 7, 1) -- Next to Outside Offices Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 7, 1) -- Next to Outside Church Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 7, 1) -- Next to Outside Abandoned Offices Gate / Scientists, Barneys and HEVs
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 7, 1) -- Street Lamp (not the one near the fuel barrels) / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 7, 1) -- Parking Lot/Infront of Abandoned Offices / Scientists, Barneys and HEVs
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 7, 1) -- Reception / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 7, 1) -- Stairwell / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 7, 1) -- Upper Floor / Scientists, Barneys and HEVs
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 7, 1) -- Near Vehicle Tunnel Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 7, 1) -- Bend between Church Gate and Tunnel Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 7, 1) -- Across from Church Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 5, 1) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 7, 1) -- Near Gate to Hell Portal / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 7, 1) -- Parking Lot / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 7, 1) -- Infront of Church / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 7, 1) -- Behind Church / Scientists, Barneys and HEVs
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 7, 1) -- Inside the Church / Scientists, Barneys and HEVs
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 1) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 1) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 6, 1) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 6, 1) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 6, 1) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 6, 1.5) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 6, 1.5) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 6, 1.5) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 6, 1.5) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 6, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 6, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 6, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 6, 2) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 6, 1) -- Infront of Shack / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 6, 1) -- Near Furnace Room Entrance / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 6, 1) -- Party Aftermath Area / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 6, 1.5) -- Dumpsters / HEVs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 6, 1) -- Reception / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 6, 1.5) -- Bustin' Makes Me Feel Good / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 6, 1) -- Yellow Chair / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 6, 1) -- Power Room? / HEVs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 6, 1) -- Furnace Room / HEVs
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 6, 1) -- Next to Outside Offices Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 6, 1) -- Next to Outside Church Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 6, 1) -- Next to Outside Abandoned Offices Gate / HEVs
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 6, 2) -- Street Lamp (not the one near the fuel barrels) / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 6, 2) -- Parking Lot/Infront of Abandoned Offices / HEVs
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 6, 2) -- Reception / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 6, 2) -- Stairwell / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 6, 2) -- Upper Floor / HEVs
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 6, 2) -- Near Vehicle Tunnel Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 6, 2) -- Bend between Church Gate and Tunnel Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 6, 2) -- Across from Church Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 6, 2) -- Security Booth / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 6, 2) -- Near Gate to Hell Portal / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 6, 2) -- Parking Lot / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 6, 2) -- Infront of Church / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 6, 2) -- Behind Church / HEVs
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 6, 1) -- Inside the Church / HEVs
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 2) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 1) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 6, 1) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 6, 1) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 6, 1) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 6, 2) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 6, 2) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 6, 2) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 6, 2) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 6, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 6, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 6, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 6, 3) -- Bone Pile / HEVs
+		end
 
 	-- end
 
@@ -1154,7 +1663,11 @@ function MAP:AddItemPickups()
 	*/
 
 	--/ Shack across from Offices
-	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2284.041260, 3420.636230, 28.031250), Angle(0, -90, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2284.041260, 3420.636230, 28.031250), Angle(0, -90, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2284.041260, 3420.636230, 28.031250), Angle(0, -90, 0))
+	end
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2270.316162, 3405.223877, 36.031250), Angle())
 
 	--/ Boiler Room (more like a furnace room but whatever)
@@ -1165,7 +1678,11 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(1947.272827, 2363.850342, -321.888306), Angle())
 
 	--/ Outside Offices
-	GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(3156.703369, 2995.734619, 28.031250), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(3156.703369, 2995.734619, 28.031250), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(3156.703369, 2995.734619, 28.031250), Angle())
+	end
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(3211.044678, 2963.252197, 28.031250), Angle())
 
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(2151.611328, 1512.001221, 228.031250), Angle())
@@ -1176,25 +1693,131 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2747.840576, 1722.439331, 476.031250), Angle(0, -135, 0))
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2945.315918, 1723.916626, 476.031250), Angle(0, -45, 0))
 
-	GAMEMODE:CreatePickupEntity("weapon_m16", Vector(2866.373535, 2627.269043, 348.031250), Angle())
+	GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(2866.373535, 2627.269043, 348.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2831.452148, 2687.641357, 348.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2831.217041, 2559.963623, 342.723480), Angle())
 
-	--/ Offices
-	GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2995.878906, 1444.335449, 144.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2975.295654, 1447.925171, 144.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2984.549072, 1462.781250, 108.031250), Angle(0, 45, 0))
+	-- Weapon Caches
 
-	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2282.281738, 1317.875732, 144.031250), Angle(0, -90, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2063.476807, 2884.340576, 61.441383), Angle(0, 90, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2083.476807, 2884.340576, 61.441383), Angle(0, -90, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(2063.476807, 2969.340576, 61.441383), Angle(0, 180, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(2083.476807, 2969.340576, 61.441383), Angle(0, 0, 0))
+	else
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+			GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2063.476807, 2864.340576, 61.441383), Angle(0, 90, 0))
+			GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2083.476807, 2904.340576, 61.441383), Angle(0, -90, 0))
+			GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2063.476807, 2989.340576, 61.441383), Angle(0, 180, 0))
+			GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2083.476807, 2949.340576, 61.441383), Angle(0, 0, 0))
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+			GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2083.476807, 2864.340576, 61.441383), Angle(0, -90, 0))
+			GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2063.476807, 2949.340576, 61.441383), Angle(0, 180, 0))
+		end
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2063.476807, 2904.340576, 61.441383), Angle(0, 90, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2083.476807, 2989.340576, 61.441383), Angle(0, 0, 0))
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(2173.035156, 2889.813477, 64.459694), Angle(0, 90, 0))
+		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2855.245361, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2870.245361, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2885.245361, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2900.245361, 28.031250), Angle())
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2182.790039, 2989.430176, 64.528397), Angle(0, 0, 0))
+	end
+	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2182.790039, 2969.430176, 64.528397), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2182.790039, 2949.430176, 64.528397), Angle(0, 0, 0))
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+
+		GAMEMODE:CreateWeaponEntity("weapon_sniperrifle", Vector(1973.101807, 2875.420654, 112.374535), Angle(0, -90, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_m249", Vector(1973.101807, 2955.420654, 112.374535), Angle(0, -90, 0))
+
+		GAMEMODE:CreatePickupEntity("ammo_sniper", Vector(1999.954834, 2832.554688, 28.031208), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_sniper", Vector(1999.954834, 2852.554688, 28.031208), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_sniper", Vector(1999.954834, 2872.554688, 28.031208), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_sniper", Vector(1999.954834, 2892.554688, 28.031208), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_556", Vector(2001.498413, 2931.163818, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_556", Vector(2001.498413, 2961.163818, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_556", Vector(2001.498413, 2991.163818, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_556", Vector(2001.498413, 3021.163818, 28.031250), Angle())
+
+	end
+	
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2038.501343, 2911.543213, 28.031250), Angle(0, 180, 0))
+		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2109.492432, 2912.997314, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2037.880737, 2952.524658, 28.031250), Angle(0, 180, 0))
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2038.416138, 3010.031982, 28.031250), Angle(0, 180, 0))
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2108.855469, 2942.477295, 28.031250), Angle())
+	end
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2038.919922, 2867.411377, 28.031250), Angle(0, 180, 0))
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2109.047852, 2966.356201, 28.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2109.248535, 3001.188721, 28.031250), Angle())
+	end
+	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2109.985596, 2865.400391, 28.031250), Angle())
+	GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2038.165039, 2978.855713, 28.031250), Angle(0, 180, 0))
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2191.555420, 2369.812744, 76.422218), Angle(0, 0, 0))
+	end
+	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2191.555420, 2349.812744, 76.422218), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2191.555420, 2329.812744, 76.422218), Angle(0, 0, 0))
+	end
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2171.555420, 2369.812744, 76.422218), Angle(0, 0, 0))
+	end
+	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2171.555420, 2349.812744, 76.422218), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2171.555420, 2329.812744, 76.422218), Angle(0, 0, 0))
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_minigun", Vector(2259.563232, 1942.734619, 64.523567), Angle(0, 90, 0))
+		GAMEMODE:CreatePickupEntity("ammo_minigun", Vector(2197.933838, 1979.283447, 28.031250), Angle(0, 90, 0))
+		GAMEMODE:CreatePickupEntity("ammo_minigun", Vector(2156.512451, 1977.859009, 28.031250), Angle(0, 90, 0))
+	end
+
+	--/ Offices
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_357", Vector(2995.878906, 1444.335449, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_357", Vector(2975.295654, 1447.925171, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_357", Vector(2984.549072, 1462.781250, 108.031250), Angle(0, 45, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2995.878906, 1444.335449, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2975.295654, 1447.925171, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2984.549072, 1462.781250, 108.031250), Angle(0, 45, 0))
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2282.281738, 1317.875732, 144.031250), Angle(0, -90, 0))
+	end
 	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2277.151611, 1284.741333, 108.031250), Angle(0, -90, 0))
-	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2307.269775, 1267.123901, 108.031250), Angle(0, -90, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2307.269775, 1267.123901, 108.031250), Angle(0, -90, 0))
+	end
 
 	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2425.617188, 1316.552979, 144.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2404.257080, 1315.488403, 144.031250), Angle())
 
-	GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2542.707275, 1313.333862, 144.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2527.514893, 1320.154907, 144.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2550.270752, 1295.999023, 108.031250), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_357", Vector(2542.707275, 1313.333862, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_357", Vector(2527.514893, 1320.154907, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_357", Vector(2550.270752, 1295.999023, 108.031250), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2542.707275, 1313.333862, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2527.514893, 1320.154907, 144.031250), Angle())
+		GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2550.270752, 1295.999023, 108.031250), Angle())
+	end
 
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2315.772461, 1457.659424, 108.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2280.340332, 1519.968750, 144.031250), Angle())
@@ -1203,10 +1826,18 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(2417.305176, 1508.720947, 144.584259), Angle())
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(2400.287354, 1509.717773, 144.031250), Angle())
 
-	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2561.412842, 1493.967773, 108.031250), Angle(0, -90, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2561.412842, 1493.967773, 108.031250), Angle(0, -90, 0))
+	end
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2549.531738, 1512.920166, 144.031250), Angle(0, -90, 0))
-	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2525.281738, 1513.138184, 144.031250), Angle(0, -90, 0))
-	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2532.031250, 1462.267700, 108.031250), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2525.281738, 1513.138184, 144.031250), Angle(0, -90, 0))
+	end
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2562.031250, 1462.267700, 108.031250), Angle(0, 0, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2542.031250, 1462.267700, 108.031250), Angle(0, 0, 0))
+	end
 
 	GAMEMODE:CreatePickupEntity("ammo_gaussclip", Vector(2416.031250, 1039.509644, 108.031250), Angle())
 	GAMEMODE:CreatePickupEntity("weapon_satchel", Vector(2420.283691, 880.420959, 133.031250), Angle())
@@ -1215,18 +1846,32 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_357", Vector(3018.651855, 879.887329, 133.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2971.009277, 853.705200, 108.031250), Angle())
 
-	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2996.727539, 1156.074707, 131.885742), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2996.727539, 1156.074707, 131.885742), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2996.727539, 1156.074707, 131.885742), Angle())
+	end
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(3039.951904, 1180.031250, 92.031250), Angle(0, 90, 0))
 	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(3212.967529, 800.031250, 276.031250), Angle(0, -90, 0))
 
 	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2337.202881, 1039.819458, 144.031250), Angle())
 	GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2268.253418, 1060.127686, 108.031250), Angle())
-	GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2295.871094, 1036.879761, 144.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_9mmbox", Vector(2364.446777, 1037.665283, 108.031250), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(2295.871094, 1036.879761, 144.031250), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2295.871094, 1036.879761, 144.031250), Angle())
+	end
+	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+		GAMEMODE:CreatePickupEntity("ammo_9mmbox", Vector(2364.446777, 1037.665283, 108.031250), Angle())
+	end
 
-	GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2197.501953, 1132.094604, 108.031250), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_357", Vector(2197.501953, 1132.094604, 108.031250), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2197.501953, 1132.094604, 108.031250), Angle())
+	end
 
-	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
 		-- Bustin' makes me feel good.
 		GAMEMODE:CreateWeaponEntity("weapon_egon", Vector(2512.255127, 1108.225464, 172.031250), Angle(0, 90, 0))
 	end
@@ -1241,8 +1886,16 @@ function MAP:AddItemPickups()
 
 	--/ Outside Abandoned Offices
 	GAMEMODE:CreatePickupEntity("ammo_9mmbox", Vector(4646.136719, 4118.850098, 28.031250), Angle())
-	GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(4653.636719, 4153.156250, 64.031250), Angle())
-	GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(4680.338379, 4130.875977, 64.031250), Angle())
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(4653.636719, 4153.156250, 64.031250), Angle(0, 90, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(4653.636719, 4153.156250, 64.031250), Angle())
+	end
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(4650.338379, 4130.875977, 64.031250), Angle())
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(4680.338379, 4130.875977, 64.031250), Angle())
+	end
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(4597.372070, 4173.748535, 64.031250), Angle(0, 90, 0))
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(4617.163086, 4172.647461, 64.031250), Angle(0, 90, 0))
 	GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(4635.342285, 4173.589844, 64.031250), Angle(0, 90, 0))
@@ -1283,9 +1936,9 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(5769.884277, -591.905212, 248.031250), Angle())
 
 	--/ Graves
-	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(4372.219238, 375.280365, 158.031250), Angle()) -- can't pick it up
-	GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(3611.076416, 363.443665, 158.031250), Angle(0, 90, 0)) -- can't pick it up
-	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(4392.057129, 7.666440, 158.031250), Angle(0, 90, 0)) -- can't pick it up
+	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(4372.219238, 375.280365, 160.031250), Angle())
+	GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(3611.076416, 363.443665, 160.031250), Angle(0, 90, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(4392.057129, 7.666440, 160.031250), Angle(0, 90, 0))
 	GAMEMODE:CreateWeaponEntity("weapon_357", Vector(3604.528809, 8.450029, 160.440247), Angle(0, 90, 0))
 	
 	--/ Behind Church
@@ -1303,10 +1956,55 @@ function MAP:AddItemPickups()
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2144.446777, 167.611206, 244.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2104.446777, 221.611206, 244.031250), Angle())
 	GAMEMODE:CreatePickupEntity("item_healthkit", Vector(2104.034180, 167.246948, 244.031250), Angle())
-	
+
+	-- Balcony
+	GAMEMODE:CreateWeaponEntity("weapon_crossbow", Vector(3056.124268, 192.301758, 364.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("ammo_crossbow", Vector(3056.239258, 95.482040, 364.031250), Angle())
+	GAMEMODE:CreatePickupEntity("ammo_crossbow", Vector(3055.089355, 288.454102, 364.031250), Angle())
+
+	-- Pews
+	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2937.286865, 283.959259, 236.031250), Angle(0, 180, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(2937.286865, 350.959259, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("ammo_crossbow", Vector(2935.254639, 69.584511, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("item_battery", Vector(2837.708740, 103.367867, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreatePickupEntity("item_battery", Vector(2835.986084, -1.011921, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreatePickupEntity("item_battery", Vector(2838.162109, 387.280029, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2839.833496, 286.113922, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreatePickupEntity("ammo_gaussclip", Vector(2742.906494, 338.420715, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_handgrenade", Vector(2747.517090, 107.967819, 252.031250), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_357", Vector(2647.683838, 81.246803, 236.031250), Angle(0, 90, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_glock", Vector(2647.683838, 81.246803, 236.031250), Angle(0, 90, 0))
+	end
+	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2647.986328, 17.011812, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_357", Vector(2646.861084, 314.158966, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2646.134033, 369.987488, 236.031250), Angle(0, 180, 0))
+	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2551.246338, 370.677643, 236.031250), Angle(0, 180, 0))	
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2551.503906, 311.859375, 236.031250), Angle(0, 90, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_shotgun", Vector(2551.503906, 311.859375, 236.031250), Angle(0, 90, 0))
+	end
+	GAMEMODE:CreateWeaponEntity("weapon_gauss", Vector(2556.435303, 49.061440, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2452.717041, -2.261291, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreatePickupEntity("ammo_mp5grenades", Vector(2455.796143, 45.281487, 236.031250), Angle(0, 0, 0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		GAMEMODE:CreateWeaponEntity("weapon_m16", Vector(2454.332275, 87.418251, 236.031250), Angle(0, 0, 0))
+	else
+		GAMEMODE:CreateWeaponEntity("weapon_mp5", Vector(2454.332275, 97.418251, 236.031250), Angle(0, 0, 0))
+	end
+	GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2459.400391, 344.261688, 236.031250), Angle(0, 90, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2359.002197, 378.936096, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2358.750732, 337.489258, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_satchel", Vector(2358.426758, 284.043488, 236.031250), Angle(0, 0, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2356.437500, 90.721573, 236.031250), Angle(0, 180, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2356.749023, 42.970894, 236.031250), Angle(0, 180, 0))
+	GAMEMODE:CreateWeaponEntity("weapon_tripmine", Vector(2357.073730, -6.861578, 236.030334), Angle(0, 180, 0))
+
 	--/ Dumpsters
 	GAMEMODE:CreatePickupEntity("ammo_9mmclip", Vector(2208.689453, 1351.719238, 32.031250), Angle())
-	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2207.577148, 1439.916504, 32.031250), Angle())
+	GAMEMODE:CreatePickupEntity("ammo_357", Vector(2207.577148, 1439.916504, 32.031250), Angle()) -- move this back so you can't grab it through the dumpster wall
 	GAMEMODE:CreatePickupEntity("item_battery", Vector(4640.435059, 4055.653320, 32.031250), Angle())
 
 	---- HERESY
@@ -1438,6 +2136,13 @@ function MAP:OnRestartFromCheckpoint(num)
 			else
 				GAMEMODE:PlayGlobalMusic("Mash.Avatar")
 			end
+		end
+
+		shepherd = ents.Create("npc_bhlcie_shepherd")
+		if IsValid(shepherd) then
+			shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
+			shepherd:SetAngles(Angle(0,0,0))
+			shepherd:Spawn()
 		end
 
 	end
