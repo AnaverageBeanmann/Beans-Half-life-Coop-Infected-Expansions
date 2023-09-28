@@ -8,7 +8,7 @@
 local PublicAddonName = "Bean's Half-Life Coop Infected Expansions"
 local AddonName = "Bean's Half-Life Coop Infected Expansions"
 local AddonType = "Convars"
-local AutorunFile = "autorun/bhlcia.lua"
+local AutorunFile = "autorun/bhlcie_hl1_lily_halloween.lua"
 -------------------------------------------------------
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 
@@ -120,10 +120,10 @@ if VJExists == true then
 		Michael Jackson: Thriller.
 		Beethoven: Moonlight Sonata 3rd Movement.
 		Ronan "Mr. Sauceman" de Castel: Any and all music from Pizza Tower.
-		ROPE: Any and all music from Zombie Night Terror.
-		
-		Heaven Pierce Her: Altars of Apostasy
-		Andrew Hulshult: Any and all music from DUSK
+		ROPE: Any and all music from Zombie Night Terror.		
+		Heaven Pierce Her: Altars of Apostasy.
+		Andrew Hulshult: Any and all music from DUSK.
+		And anyone else I forgot to mention.
 		
 		
 Michael Davies
@@ -235,6 +235,8 @@ The Phantoms
 		-- explosive poison zombie
 		-- attacks by blowing itself up
 		-- voice actor: sjas
+	VJ.AddNPC("Glutton","npc_bhlcie_glutton",vCat)
+		-- obese
 
 	VJ.AddNPC("Bloody Bones","npc_bhlcie_b0ner_frenzy",vCat)
 
@@ -248,10 +250,19 @@ The Phantoms
 	VJ.AddConVar("hl1_coop_sv_bhlcie_lilyhalloween_music", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY}, "This ConVar replaces the music on the config for the map 'GM_HL1_Lily_Halloween'. This needs to be changed before the match starts to take effect. 'hl1_coop_sv_bhlcie_lilyhalloween_music 1' will change it to music from Faith: The Unholy Trinity, otherwise it'll play a mishmash of music I liked.")
 
 	local enemysetups = {
-		["NPC Pack Name || Setup Name || Command to use Setup || Difficulty"] = "null.wav",
-		["Difficulties from Easiest to Hardest: Easy, Medium, Hard, Very Hard, Hell"] = "null.wav",
-		["[Half-Life Resurgence: GoldSrc] || Half-Life 1 || hl1_coop_sv_customenemies_enemysetup 1 || Difficulty - N/A"] = "null.wav",
+		["NPC Pack Name || Command to use Setup"] = "null.wav",
+		-- ["Difficulties from Easiest to Hardest: Easy, Medium, Hard, Very Hard, Hell"] = "null.wav",
+		["[Half-Life Coop: Infected] || hl1_coop_sv_bhlcie_lilyhalloween_enemies 0"] = "null.wav",
+		["[Resident Evil: Cold Blood] || hl1_coop_sv_bhlcie_lilyhalloween_enemies 1"] = "null.wav",
 	}
+
+	if CLIENT then
+		concommand.Add("hl1_coop_sv_bhlcie_lilyhalloween_enemies_printsetups", function(ply)
+			for k, v in SortedPairs(enemysetups) do
+				ply:PrintMessage(HUD_PRINTCONSOLE, k.."\n")
+			end
+		end)
+	end
 
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

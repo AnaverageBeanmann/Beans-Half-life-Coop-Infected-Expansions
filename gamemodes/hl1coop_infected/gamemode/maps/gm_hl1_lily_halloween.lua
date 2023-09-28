@@ -4,45 +4,60 @@ MAP.MapAuthor = "Lily McFluffy Butt"
 FUEL_MAX = 100 -- one player can handle
 FollowerSpawnTime = 1
 
-/*
+-- /*
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then
-	FUEL_MAX = 150 -- one player can handle
+	FUEL_MAX = 200 -- one player can handle
 elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then
 	FUEL_MAX = 75 -- one player can handle
 elseif GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
 	FUEL_MAX = 50 -- one player can handle
 end
-*/
+-- */
 
 function MAP:SpecialDT(ply)
 	ply:NetworkVar("Int", 10, "Fuel")
 end
 
 generatorPos = Vector(0, 0, 0)
+genmarkerpos = Vector(0, 0, 0)
 
 local randomgeneratorspot = math.random(1,7)
+if randomgeneratorspot == 1 then
+	-- Outside Offices
+	generatorPos = Vector(2420.1264648438, 2627.7219238281, 16.384113311768)
+	genmarkerpos = generatorPos
+end
 if randomgeneratorspot == 2 then
 	-- Abandoned Offices Outside
 	generatorPos = Vector(3944.6137695313, 4571.5522460938, 16.34646987915)
-elseif randomgeneratorspot == 3 then
+	genmarkerpos = generatorPos
+end
+if randomgeneratorspot == 3 then
 	-- Outside Church
 	generatorPos = Vector(6257.6049804688, 225.67431640625, 208.33351135254)
-elseif randomgeneratorspot == 4 then
+	genmarkerpos = generatorPos
+end
+if randomgeneratorspot == 4 then
 	-- Church Parking
 	generatorPos = Vector(5169.2026367188, 176.46640014648, 200.40168762207)
-elseif randomgeneratorspot == 5 then
+	genmarkerpos = generatorPos
+end
+if randomgeneratorspot == 5 then
 	-- Outside Church
 	generatorPos = Vector(3994.1296386719, 187.93768310547, 208.40603637695)
-elseif randomgeneratorspot == 6 then
+	genmarkerpos = generatorPos
+end
+if randomgeneratorspot == 6 then
 	-- Inside Church
 	generatorPos = Vector(2282.1418457031, 189.9232635498, 210.24209594727)
-elseif randomgeneratorspot == 7 then
+	genmarkerpos = generatorPos
+end
+if randomgeneratorspot == 7 then
 	-- HERESY
 	generatorPos = Vector(3408.6694335938, 10232.302734375, -6799.625)
-else
-	-- Offices Outside
-	generatorPos = Vector(2420.1264648438, 2627.7219238281, 16.384113311768)
+	genmarkerpos = generatorPos
 end
+
 
 
 local musictable = {
@@ -112,6 +127,11 @@ local musictable = {
 
 	["Mash.Fridays"] = {file = "mash/intro/Fridays.mp3", dur = 159},
 	["Mash.Halloweentro"] = {file = "mash/intro/Halloween_Town_Intro.mp3", dur = 140},
+	["Mash.Rooms"] = {file = "mash/intro/Dark_Rooms.mp3", dur = 108},
+	["Mash.Here"] = {file = "mash/intro/Here_We_Are.mp3", dur = 125},
+	["Mash.SafeRE1"] = {file = "mash/intro/Safe_Room_RE1.mp3", dur = 62},
+	["Mash.SafeRE2"] = {file = "mash/intro/Safe_Room_RE2.mp3", dur = 113},
+	["Mash.SafeRE3"] = {file = "mash/intro/Safe_Room_RE3.mp3", dur = 149},
 
 	["Mash.Bath"] = {file = "mash/wave/Devil's_Bath_Boys.mp3", dur = 203},
 	["Mash.Dive"] = {file = "mash/wave/Dive_to_the_Heart.mp3", dur = 293},
@@ -125,8 +145,8 @@ local musictable = {
 	["Mash.Monster"] = {file = "mash/wave/Monster_Mash.mp3", dur = 188},
 	["Mash.Stake"] = {file = "mash/wave/Peper_Stake.mp3", dur = 136},
 	["Mash.Behind"] = {file = "mash/wave/Right_Behind_You.mp3", dur = 100},
-	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 106},
-	["Mash.Snakalm"] = {file = "mash/wave/Snake_Eyes_Calm.mp3", dur = 112},
+	["Mash.Scherzo"] = {file = "mash/wave/Scherzo_de_Notte.mp3", dur = 154},
+	["Mash.Snakalm"] = {file = "mash/wave/Snake_Eyes_Calm.mp3", dur = 224},
 	["Mash.Watching"] = {file = "mash/wave/Somebody's_Watching_Me.mp3", dur = 236},
 	["Mash.Skeletons"] = {file = "mash/wave/Spooky_Scary_Skeletons.mp3", dur = 126},
 	["Mash.Rage"] = {file = "mash/wave/Street_of_Rage.mp3", dur = 224},
@@ -138,19 +158,26 @@ local musictable = {
 	["Mash.Shimbers"] = {file = "mash/wave/Tunnely_Shimbers.mp3", dur = 238},
 	["Mash.Bustin"] = {file = "mash/wave/Bustin.mp3", dur = 237},
 	["Mash.Ghostbusters"] = {file = "mash/wave/Ghostbusters.mp3", dur = 244},
+	["Mash.Bloody"] = {file = "mash/wave/Bloody_Tears.mp3", dur = 97},
+	["Mash.Bonetrousle"] = {file = "mash/wave/Bonetrousle.mp3", dur = 115},
+	["Mash.Graveyard"] = {file = "mash/wave/Haunted_Graveyard.mp3", dur = 154},
+	["Mash.Silent"] = {file = "mash/wave/Silent_Hill.mp3", dur = 167},
 
 	["Mash.Avatar"] = {file = "mash/holdout/Avatar_Beat.mp3", dur = 179},
 	["Mash.Brain"] = {file = "mash/holdout/Brain_Dead.mp3", dur = 128},
 	["Mash.Destiny"] = {file = "mash/holdout/Destiny's_Force.mp3", dur = 167},
 	["Mash.Orchestra"] = {file = "mash/holdout/Fake_Orchestra.mp3", dur = 180},
 	["Mash.Fragments"] = {file = "mash/holdout/Fragments_of_Sorrow.mp3", dur = 135},
-	["Mash.Snakcombat"] = {file = "mash/holdout/Snake_Eyes_Combat.mp3", dur = 112},
+	["Mash.Snakcombat"] = {file = "mash/holdout/Snake_Eyes_Combat.mp3", dur = 224},
 	["Mash.Gertrude"] = {file = "mash/holdout/The_Incredible_Gertrude.mp3", dur = 161},
+	["Mash.Unreasonable"] = {file = "mash/holdout/Unreasonable_Behavior.mp3", dur = 120},
+	["Mash.Plok"] = {file = "mash/holdout/Plok_Boss.mp3", dur = 228},
+	["Mash.Leviathan"] = {file = "mash/holdout/The_Abyss_and_The_Serpent.mp3", dur = 214},
 
 	["Mash.Forze"] = {file = "mash/escape/Forze_de_Male.mp3", dur = 213},
 	["Mash.Sonata"] = {file = "mash/escape/Moonlight_Sonata_3rd_Movement.mp3", dur = 411},
 	["Mash.Fate"] = {file = "mash/escape/Night_of_Fate.mp3", dur = 125},
-	["Mash.Unreasonable"] = {file = "mash/escape/Unreasonable_Behavior.mp3", dur = 120},
+	["Mash.HurryUp"] = {file = "mash/escape/Hurry_Up!!.mp3", dur = 93},
 
 	["Mash.VeryHard_Altar"] = {file = "mash/very_hard_special/wave/Beneath_the_Altar.mp3", dur = 192},
 	["Mash.VeryHard_Cannon"] = {file = "mash/very_hard_special/wave/Hand_Cannon.mp3", dur = 318},
@@ -169,8 +196,11 @@ local musictable = {
 	["Mash.VeryHard_Tension"] = {file = "mash/very_hard_special/wave/Tension_Ascension.mp3", dur = 278},
 
 	["Mash.VeryHard_Thousand"] = {file = "mash/very_hard_special/wave/Thousand_March.mp3", dur = 268},
+	["Mash.VeryHard_Create"] = {file = "mash/very_hard_special/wave/Create_Machines.mp3", dur = 168},
+	["Mash.VeryHard_Door"] = {file = "mash/very_hard_special/wave/Open_The_Door.mp3", dur = 156},
 
 	["Mash.VeryHard_Apostasy"] = {file = "mash/very_hard_special/holdout/Altars_of_Apostasy.mp3", dur = 340},
+
 }
  
 for k,v in pairs(musictable) do
@@ -264,8 +294,10 @@ if CLIENT then
 
 		--gen
 		if ShowPlayerDist and ShowPlayerDist > RealTime() then
-			local alpha = math.Clamp((ShowPlayerDist - RealTime()) * 100, 0, 255)
-			GAMEMODE:HUDDrawDistance(generatorPos, lang.hud_generator, Color(255, 180, 50, alpha))
+			if GetConVar("hl1_coop_sv_skill"):GetInt() != 4 then -- Very Hard
+				local alpha = math.Clamp((ShowPlayerDist - RealTime()) * 100, 0, 255)
+				GAMEMODE:HUDDrawDistance(genmarkerpos, lang.hud_generator, Color(255, 180, 50, alpha))
+			end
 		end
 	end
 
@@ -281,11 +313,11 @@ MAP.EvacuationTime = 90
 MAP.PortalPrepareTime = 120
 
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then -- Medium
-	MAP.WaveDuration = 240
+	MAP.WaveDuration = 180
 end
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- Hard
 	MAP.StartingWeapons = {"weapon_crowbar", "weapon_357"}
-	MAP.WaveStartTime = 60
+	-- MAP.WaveStartTime = 60
 	MAP.WaveDuration = 240
 end
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
@@ -313,9 +345,22 @@ end
 	MAP.ZombieSet = 1
 -- end
 
-MAP.MapStartMusic = "Mash.Halloweentro"
-if math.random(1,2) == 1 then
+
+local RandStartMusic = math.random(1,7)
+if RandStartMusic == 1 then
 	MAP.MapStartMusic = "Mash.Fridays"
+elseif RandStartMusic == 2 then
+	MAP.MapStartMusic = "Mash.Rooms"
+elseif RandStartMusic == 3 then
+	MAP.MapStartMusic = "Mash.Here"
+elseif RandStartMusic == 4 then
+	MAP.MapStartMusic = "Mash.SafeRE1"
+elseif RandStartMusic == 5 then
+	MAP.MapStartMusic = "Mash.SafeRE2"
+elseif RandStartMusic == 6 then
+	MAP.MapStartMusic = "Mash.SafeRE3"
+else
+	MAP.MapStartMusic = "Mash.Halloweentro"
 end
 MAP.WaveMusic = {
 	"Mash.Bath",
@@ -342,13 +387,17 @@ MAP.WaveMusic = {
 	"Mash.Thriller",
 	"Mash.Bustin",
 	"Mash.Ghostbusters",
-	"Mash.Shimbers"
+	"Mash.Shimbers",
+	"Mash.Bloody",
+	"Mash.Bonetrousle",
+	"Mash.Graveyard",
+	"Mash.Silent"
 }
 MAP.EvacMusic = {
 	"Mash.Forze",
 	"Mash.Sonata",
 	"Mash.Fate",
-	"Mash.Unreasonable"
+	"Mash.HurryUp"
 }
 if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
 	MAP.MapStartMusic = "FAITH.Annunciation"
@@ -388,7 +437,9 @@ if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special music for very h
 		"Mash.VeryHard_Occultivated",
 		"Mash.VeryHard_Reflections",
 		"Mash.VeryHard_Tension",
-		"Mash.VeryHard_Thousand"
+		"Mash.VeryHard_Thousand",
+		"Mash.VeryHard_Create",
+		"Mash.VeryHard_Door"
 	}
 end
 
@@ -485,7 +536,7 @@ end
 
 function MAP:OnBarrelExplode(ent)
 	if self:GetCommonFuel() - ent.Fuel <= 0 and IsValid(generatorEnt) and !generatorEnt:IsFull() then
-		GAMEMODE:GameOver(false, "There is no fuel anymore")
+		GAMEMODE:GameOver(false, "FAILURE: You ran out of fuel sources!")
 	end
 end
 
@@ -826,7 +877,7 @@ function MAP:ModifyMapEntities()
 							GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
 						end
 					else
-						local PanelMusic = math.random(1,7)
+						local PanelMusic = math.random(1,10)
 						if PanelMusic == 1 then
 							GAMEMODE:PlayGlobalMusic("Mash.Brain")
 						elseif PanelMusic == 2 then
@@ -839,6 +890,12 @@ function MAP:ModifyMapEntities()
 							GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
 						elseif PanelMusic == 6 then
 							GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
+						elseif PanelMusic == 7 then
+							GAMEMODE:PlayGlobalMusic("Mash.Unreasonable")
+						elseif PanelMusic == 8 then
+							GAMEMODE:PlayGlobalMusic("Mash.Plok")
+						elseif PanelMusic == 9 then
+							GAMEMODE:PlayGlobalMusic("Mash.Leviathan")
 						else
 							GAMEMODE:PlayGlobalMusic("Mash.Avatar")
 						end
@@ -1328,70 +1385,260 @@ function MAP:ModifyMapEntities()
 
 	-- GAMEMODE:CreatePhysicsDecoration("", Vector(), Angle())
 
-	/*
-	if MAP.ZombieSet == 2 then
+	if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_enemies"):GetInt() == 1 then
 
-		-- Resident Evil Cold Blood
-		-- Offices Outside
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2433.629883, 2122.903076, 64.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 10), Angle(), 1, 1)
-		-- Offices
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1614.435791, 80.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2384.626465, 1183.453369, 84.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 1)
-		-- Vehicle Tunnel
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3870.591797, 2605.938477, 0.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4335.038086, 2256.738037, 0.031250), Angle(), 1, 1)
-		-- Abandoned Offices Outside
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 1)
-		-- Abandoned Offices
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 1)
-		-- Church Outside
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4529.850586, 1251.144775, 0.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(6244.919922, 1189.830688, 206.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(6475.668945, -893.354065, 307.364288), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(6036.860352, -868.889038, 301.251770), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 1) -- Parking Lot
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 1) -- Infront of Church
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 1) -- Behind Church
-		-- Church
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 1)
-		-- Portal to HERESY
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 1)
-		-- HERESY
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3778.140381, 10618.083008, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 1, 1)
-		GAMEMODE:BHLCIE_CreateSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 1, 1)
+		-- -=< Resident Evil: Cold Blood >=-
+
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 then -- Easy
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 1) -- Infront of Shack / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 1, 1) -- Near Furnace Room Entrance / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 1) -- Party Aftermath Area / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 1, 1) -- Dumpsters / Scientists, Barneys and HECUs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 1) -- Reception / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 1) -- Bustin' Makes Me Feel Good / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 1, 1) -- Yellow Chair / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 1) -- Power Room? / Scientists, Barneys and HECUs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 1, 1) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 1) -- Next to Outside Offices Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 1) -- Next to Outside Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 1) -- Next to Outside Abandoned Offices Gate / Scientists and Barneys
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 1) -- Street Lamp (not the one near the fuel barrels) / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 1) -- Parking Lot/Infront of Abandoned Offices / Scientists and Barneys
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 1) -- Reception / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 1) -- Stairwell / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 1) -- Upper Floor / Scientists and Barneys
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 1) -- Near Vehicle Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 1) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 1) -- Across from Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 1, 1) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 1) -- Near Gate to Hell Portal / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 1) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 1) -- Infront of Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 1) -- Behind Church / Scientists and Barneys
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 1) -- Inside the Church / Scientists and Barneys
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 1) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			-- Main Area
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 1, 1) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 1, 1) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 1, 1) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 1, 1) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 1, 1) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 1, 1) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 1, 1) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 1, 1) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 1, 1) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then -- Medium
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 0.65) -- Infront of Shack / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 1, 0.65) -- Near Furnace Room Entrance / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 0.65) -- Party Aftermath Area / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 1, 1) -- Dumpsters / Scientists, Barneys and HECUs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 0.65) -- Reception / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 0.85) -- Bustin' Makes Me Feel Good / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 1, 0.65) -- Yellow Chair / Scientists, Barneys and HECUs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 0.65) -- Power Room? / Scientists, Barneys and HECUs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 1, 0.5) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 0.85) -- Next to Outside Offices Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 0.65) -- Next to Outside Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 0.85) -- Next to Outside Abandoned Offices Gate / Scientists and Barneys
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 0.85) -- Street Lamp (not the one near the fuel barrels) / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 0.85) -- Parking Lot/Infront of Abandoned Offices / Scientists and Barneys
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 0.85) -- Reception / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 0.85) -- Stairwell / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 0.85) -- Upper Floor / Scientists and Barneys
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 0.85) -- Near Vehicle Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 0.85) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 0.85) -- Across from Church Gate / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 1, 0.85) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 0.85) -- Near Gate to Hell Portal / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 0.85) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 0.85) -- Infront of Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 0.85) -- Behind Church / Scientists and Barneys
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 0.85) -- Inside the Church / Scientists and Barneys
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 0.85) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 0.85) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 0.65) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 0.65) -- Barrel Cell Hallway / HEVs
+			-- Main Area
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 0.65) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 0.65) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 0.65) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 1, 0.65) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 1, 0.65) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 1, 0.65) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 1, 1) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 1, 1) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 1, 1) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 1, 1) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 1, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 1, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 1, 0.85) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 1, 0.85) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- Hard
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 1) -- Infront of Shack / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 1, 1) -- Near Furnace Room Entrance / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 1) -- Party Aftermath Area / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 1, 1) -- Dumpsters / Scientists, Barneys, HECUs and HEVs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 1) -- Reception / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 1) -- Bustin' Makes Me Feel Good / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 1, 1) -- Yellow Chair / Scientists, Barneys, HECUs and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 1) -- Power Room? / Scientists, Barneys, HECUs and HEVs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 1, 1) -- Furnace Room / Barneys
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 1) -- Next to Outside Offices Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 1) -- Next to Outside Church Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 1) -- Next to Outside Abandoned Offices Gate / Scientists, Barneys and HEVs
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 1) -- Street Lamp (not the one near the fuel barrels) / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 1) -- Parking Lot/Infront of Abandoned Offices / Scientists, Barneys and HEVs
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 1) -- Reception / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 1) -- Stairwell / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 1) -- Upper Floor / Scientists, Barneys and HEVs
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 1) -- Near Vehicle Tunnel Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 1) -- Bend between Church Gate and Tunnel Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 1) -- Across from Church Gate / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 1, 1) -- Security Booth / Barneys
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 1) -- Near Gate to Hell Portal / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 1) -- Parking Lot / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 1) -- Infront of Church / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 1) -- Behind Church / Scientists, Barneys and HEVs
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 1) -- Inside the Church / Scientists, Barneys and HEVs
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 1) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 1, 1) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 1, 1.5) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 1, 1.5) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 1, 1.5) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 1, 1.5) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 1, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 1, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 1, 2) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 1, 2) -- Bone Pile / HEVs
+		end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
+			---- -=< Topside >=- ----
+			--- Outside Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2390.944580, 3022.607666, 64.068001), Angle(), 1, 1) -- Infront of Shack / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2370.381592, 2044.245728, 64.031250), Angle(), 1, 1) -- Near Furnace Room Entrance / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3235.016113, 2620.722168, 64.031250), Angle(), 1, 1) -- Party Aftermath Area / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2136.622314, 1436.394043, 2), Angle(), 1, 1.5) -- Dumpsters / HEVs
+			--- Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2996.527100, 1523.994995, 84.031250), Angle(), 1, 1) -- Reception / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2513.736816, 1179.057007, 84.031250), Angle(), 1, 1.5) -- Bustin' Makes Me Feel Good / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2586.712646, 1615.526733, 84.031250), Angle(), 1, 1) -- Yellow Chair / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3058.484375, 1253.220337, 70.031250), Angle(), 1, 1) -- Power Room? / HEVs
+			-- Furnace Room
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2793.667236, 1948.566650, -303.968750), Angle(), 1, 1) -- Furnace Room / HEVs
+			-- Vehicle Tunnel
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3836.025146, 2646.441162, 64.031250), Angle(), 1, 1) -- Next to Outside Offices Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4332.046387, 2258.768311, 0.031250), Angle(), 1, 1) -- Next to Outside Church Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4354.608887, 3436.380371, 0.031250), Angle(), 1, 1) -- Next to Outside Abandoned Offices Gate / HEVs
+			-- Abandoned Offices Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4192.713379, 4874.968750, 0.031250), Angle(), 1, 2) -- Street Lamp (not the one near the fuel barrels) / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3395.019043, 4372.447754, 0.031250), Angle(), 1, 2) -- Parking Lot/Infront of Abandoned Offices / HEVs
+			-- Abandoned Offices
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2355.584473, 4410.699707, 46.031250), Angle(), 1, 2) -- Reception / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 2) -- Stairwell / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 2) -- Upper Floor / HEVs
+			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 2) -- Near Vehicle Tunnel Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 2) -- Bend between Church Gate and Tunnel Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 2) -- Across from Church Gate / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6052.550293, -370.338562, 220.031250), Angle(), 1, 2) -- Security Booth / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6317.812500, -953.812805, 322.482391), Angle(), 1, 2) -- Near Gate to Hell Portal / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(5369.437012, 181.950119, 208.031250), Angle(), 1, 2) -- Parking Lot / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4172.881348, 194.964142, 206.031342), Angle(), 1, 2) -- Infront of Church / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1937.267212, 169.444550, 206.031250), Angle(), 1, 2) -- Behind Church / HEVs
+			-- Church
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2766.938477, 193.152130, 206.031250), Angle(), 1, 1) -- Inside the Church / HEVs
+			-- Portal to HERESY
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 2) -- Near Hell Portal / HEVs
+			---- -=< HERESY >=- ----
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1) -- Lava Room / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Spikes / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4848.227539, 10567.101563, -6811.968750), Angle(), 1, 1) -- Main Area, Across from Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3199.390869, 10245.243164, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3653.265869, 10238.319336, -6811.968750), Angle(), 1, 1) -- Jail Cells Courtyard / HEVs
+			-- Cells
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3015.751465, 10619.413086, -6811.968750), Angle(), 1, 2) -- Tau Cannon / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3009.863037, 9845.065430, -6811.968750), Angle(), 1, 2) -- M249 / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3782.743164, 9854.017578, -6811.968750), Angle(), 1, 2) -- Crossbow / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(3773.689697, 10606.888672, -6811.968750), Angle(), 1, 2) -- RPG / HEVs
+			-- Bone Pile
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4631.407227, 9539.171875, -6772.512695), Angle(), 1, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4444.366699, 9552.232422, -6751.972656), Angle(), 1, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4434.746094, 9418.627930, -6754.395508), Angle(), 1, 3) -- Bone Pile / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 1, 3) -- Bone Pile / HEVs
+		end
 
 	else
-	*/
 
 		-- -=< Default Zombies >=-
 
@@ -1644,7 +1891,7 @@ function MAP:ModifyMapEntities()
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4618.332520, 9420.189453, -6766.551758), Angle(), 6, 3) -- Bone Pile / HEVs
 		end
 
-	-- end
+	end
 
 end
 
@@ -1830,9 +2077,9 @@ function MAP:AddItemPickups()
 		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2561.412842, 1493.967773, 108.031250), Angle(0, -90, 0))
 	end
 	GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2549.531738, 1512.920166, 144.031250), Angle(0, -90, 0))
-	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
+	-- if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
 		GAMEMODE:CreatePickupEntity("ammo_buckshot", Vector(2525.281738, 1513.138184, 144.031250), Angle(0, -90, 0))
-	end
+	-- end
 	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
 		GAMEMODE:CreateWeaponEntity("weapon_doublebarrel", Vector(2562.031250, 1462.267700, 108.031250), Angle(0, 0, 0))
 	else
@@ -1863,6 +2110,8 @@ function MAP:AddItemPickups()
 	end
 	if GetConVar("hl1_coop_sv_skill"):GetInt() != 3 then
 		GAMEMODE:CreatePickupEntity("ammo_9mmbox", Vector(2364.446777, 1037.665283, 108.031250), Angle())
+	else
+		GAMEMODE:CreatePickupEntity("ammo_mp5clip", Vector(2364.446777, 1037.665283, 108.031250), Angle())
 	end
 
 	if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
@@ -2120,7 +2369,7 @@ function MAP:OnRestartFromCheckpoint(num)
 				GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
 			end
 		else
-			local PanelMusic = math.random(1,7)
+			local PanelMusic = math.random(1,10)
 			if PanelMusic == 1 then
 				GAMEMODE:PlayGlobalMusic("Mash.Brain")
 			elseif PanelMusic == 2 then
@@ -2133,6 +2382,12 @@ function MAP:OnRestartFromCheckpoint(num)
 				GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
 			elseif PanelMusic == 6 then
 				GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
+			elseif PanelMusic == 7 then
+				GAMEMODE:PlayGlobalMusic("Mash.Unreasonable")
+			elseif PanelMusic == 8 then
+				GAMEMODE:PlayGlobalMusic("Mash.Plok")
+			elseif PanelMusic == 9 then
+				GAMEMODE:PlayGlobalMusic("Mash.Leviathan")
 			else
 				GAMEMODE:PlayGlobalMusic("Mash.Avatar")
 			end

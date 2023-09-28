@@ -25,6 +25,54 @@ function ENT:Initialize()
 	end
 end
 
+local CustomNPCPointsTable = {
+	---- -=< Resident Evil: Cold Blood >=-
+		---- Standard Zombies
+	["npc_vj_recb_zombie_male"]	= 25, -- Male Zombie
+	["npc_vj_recb_zombie_resear"] = 25, -- Researcher Zombie
+	["npc_vj_recb_zombie_priest"] = 30, -- Priest Zombie
+	["npc_vj_recb_zombie_female"] = 25, -- Female Zombie
+	["npc_vj_recb_zombie_soldier"] = 30, -- Soldier Zombie
+	["npc_vj_recb_zombie_torso"] = 20, -- Zombie Torso
+	["npc_vj_recb_crimsonhead"] = 50, -- Crimson Head
+	["npc_vj_recb_crimsonhead_resear"] = 50, -- Researcher Crimson Head
+
+	["npc_vj_recbb1_zombie_male"] = 25, -- Male Zombie (Beta 1)
+	["npc_vj_recbb1_zombie_female"] = 25, -- Female Zombie (Beta 1)
+	["npc_vj_recbb1_zombie_torso"] = 20, -- Zombie Torso (Beta 1)
+	["npc_vj_recbb1_zombie_hunk"] = 35, -- Hunk Zombie
+		
+		---- Zombified/Mutant Animals
+	["npc_vj_recb_cerberus"] = 40, -- Cerberus
+	["npc_vj_recbb3_cerberus"] = 40, -- Cerberus (Beta 3)
+	["npc_vj_recb_crow"] = 25, -- Crow
+	["npc_vj_recb_snake"] = 25, -- Snake
+	["npc_vj_recb_neptune"] = 50, -- Neptune
+	["npc_vj_recb_ant"] = 80, -- Ant
+	["npc_vj_recb_crawler"] = 65, -- Crawler
+	["npc_vj_recb_spider_baby"] = 1, -- Baby Spider
+	["npc_vj_recb_spider_small"] = 70, -- Small Spider
+	["npc_vj_recb_spider_giant"] = 100, -- Giant Spider
+	["npc_vj_recb_spider_blacktiger"] = 1000, -- Black Tiger Spider
+
+		---- B.O.W.s/Bioweapons
+	["npc_vj_recb_tyrant"] = 100, -- Tyrant-103
+	["npc_vj_recb_flyclaw"] = 40, -- Flyclaw
+	["npc_vj_recb_pursuer"] = 40, -- Pursuer
+	["npc_vj_recb_hunter"] = 50, -- Hunter
+	["npc_vj_recbb3_hunter"] = 50, -- Hunter (Beta 3)
+	["npc_vj_recb_licker"] = 50, -- Licker
+	["npc_vj_recb_prototyrant"] = 1000, -- Proto-Tyrant
+}
+
+hook.Add("Initialize", "HLCoop_NPCScore", function()
+	table.Merge(GAMEMODE.NPCScorePrice, CustomNPCPointsTable)
+	-- table.Merge(GAMEMODE.NPCScorePriceDamageMul, CustomNPCPointsTable_DM)
+end)
+
+local zombieType = {
+
+
 /*
 	keep this for reference
 	[1] = {"npc_vj_lnhls_scientist"},
@@ -44,62 +92,54 @@ end
 	[15] = {"npc_vj_lnhls_scientist", "npc_vj_lnhls_barney", "npc_vj_lnhls_grunt"}
 */
 
-local CustomNPCPointsTable = {
-	/*
-	--/ -=< Resident Evil: Cold Blood >=-
-		---- Standard Zombies
-		npc_vj_recb_zombie_male	-- Male Zombie
-		npc_vj_recb_zombie_resear	-- Researcher Zombie
-		npc_vj_recb_zombie_priest	-- Priest Zombie
-		npc_vj_recb_zombie_female	-- Female Zombie
-		npc_vj_recb_zombie_soldier	-- Soldier Zombie
-		npc_vj_recb_zombie_torso	-- Zombie Torso
-		npc_vj_recb_crimsonhead -- Crimson Head
-		npc_vj_recb_crimsonhead_resear	-- Researcher Crimson Head
-
-		npc_vj_recbb1_zombie_male	-- Male Zombie (Beta 1)
-		npc_vj_recbb1_zombie_female	-- Female Zombie (Beta 1)
-		npc_vj_recbb1_zombie_torso	-- Zombie Torso (Beta 1)
-		npc_vj_recbb1_zombie_hunk	-- Hunk Zombie
-		
-		---- Zombified/Mutant Animals
-		npc_vj_recb_cerberus	-- Cerberus
-		npc_vj_recbb3_cerberus	-- Cerberus (Beta 3)
-		npc_vj_recb_crow	-- Crow
-		npc_vj_recb_snake	-- Snake
-		npc_vj_recb_neptune	-- Neptune
-		npc_vj_recb_ant	-- Ant
-		npc_vj_recb_crawler	-- Crawler
-		npc_vj_recb_spider_baby	-- Baby Spider
-		npc_vj_recb_spider_small	-- Small Spider
-		npc_vj_recb_spider_giant	-- Giant Spider
-		npc_vj_recb_spider_blacktiger	-- Black Tiger Spider
-
-		---- B.O.W.s
-		npc_vj_recb_tyrant	-- Tyrant-103
-		npc_vj_recb_flyclaw	-- Flyclaw
-		npc_vj_recb_pursuer	-- Pursuer
-		npc_vj_recb_hunter	-- Hunter
-		npc_vj_recbb3_hunter	-- Hunter (Beta 3)
-		npc_vj_recb_licker	-- Licker
-		npc_vj_recb_prototyrant	-- Proto-Tyrant
-	*/
-	["npc_vj_hlr1_zombie"] = 50 -- Scientist
-}
-
-hook.Add("Initialize", "HLCoop_NPCScore", function()
-	table.Merge(GAMEMODE.NPCScorePrice, CustomNPCPointsTable)
-	-- table.Merge(GAMEMODE.NPCScorePriceDamageMul, CustomNPCPointsTable_DM)
-end)
-
-local zombieType = {
 	-- Resident Evil: Cold Blood
 	[1] = {
-		"npc_vj_hlr1_zombie"
+		"npc_vj_recb_zombie_male",
+		"npc_vj_recb_zombie_resear",
+		"npc_vj_recb_zombie_resear",
+		"npc_vj_recb_zombie_soldier",
+		"npc_vj_recb_zombie_soldier",
+		"npc_vj_recb_zombie_torso",
 	},
 }
 local healthTable = {
-	["npc_vj_hlr1_zombie"] = 50, -- Zombie
+	---- -=< Resident Evil: Cold Blood >=-
+		---- Standard Zombies
+	["npc_vj_recb_zombie_male"]	= 150, -- Male Zombie
+	["npc_vj_recb_zombie_resear"] = 150, -- Researcher Zombie
+	["npc_vj_recb_zombie_priest"] = 150, -- Priest Zombie
+	["npc_vj_recb_zombie_female"] = 150, -- Female Zombie
+	["npc_vj_recb_zombie_soldier"] = 175, -- Soldier Zombie
+	["npc_vj_recb_zombie_torso"] = 100, -- Zombie Torso
+	["npc_vj_recb_crimsonhead"] = 250, -- Crimson Head
+	["npc_vj_recb_crimsonhead_resear"] = 250, -- Researcher Crimson Head
+
+	["npc_vj_recbb1_zombie_male"] = 150, -- Male Zombie (Beta 1)
+	["npc_vj_recbb1_zombie_female"] = 150, -- Female Zombie (Beta 1)
+	["npc_vj_recbb1_zombie_torso"] = 100, -- Zombie Torso (Beta 1)
+	["npc_vj_recbb1_zombie_hunk"] = 200, -- Hunk Zombie
+		
+		---- Zombified/Mutant Animals
+	["npc_vj_recb_cerberus"] = 60, -- Cerberus
+	["npc_vj_recbb3_cerberus"] = 60, -- Cerberus (Beta 3)
+	["npc_vj_recb_crow"] = 30, -- Crow
+	["npc_vj_recb_snake"] = 30, -- Snake
+	["npc_vj_recb_neptune"] = 500, -- Neptune
+	["npc_vj_recb_ant"] = 200, -- Ant
+	["npc_vj_recb_crawler"] = 200, -- Crawler
+	["npc_vj_recb_spider_baby"] = 5, -- Baby Spider
+	["npc_vj_recb_spider_small"] = 150, -- Small Spider
+	["npc_vj_recb_spider_giant"] = 300, -- Giant Spider
+	["npc_vj_recb_spider_blacktiger"] = 1500, -- Black Tiger Spider
+
+		---- B.O.W.s/Bioweapons
+	["npc_vj_recb_tyrant"] = 2000, -- Tyrant-103
+	["npc_vj_recb_flyclaw"] = 250, -- Flyclaw
+	["npc_vj_recb_pursuer"] = 300, -- Pursuer
+	["npc_vj_recb_hunter"] = 250, -- Hunter
+	["npc_vj_recbb3_hunter"] = 250, -- Hunter (Beta 3)
+	["npc_vj_recb_licker"] = 250, -- Licker
+	["npc_vj_recb_prototyrant"] = 3000, -- Proto-Tyrant
 }
 local itemDrop = {
 	["npc_vj_hlr1_zombie"] = false,
@@ -109,9 +149,13 @@ local itemDrop = {
 	["npc_vj_hlr1_headcrab"] = false,
 	["npc_vj_hlr1_headcrab_baby"] = false,
 	["npc_vj_hlr1_gonarch"] = false,
+
+	["npc_vj_recb_zombie_resear"] = {"item_healthkit"},
+	["npc_vj_recb_zombie_soldier"] = {"ammo_mp5clip", "weapon_handgrenade", "ammo_mp5grenades"},
+	["npc_vj_recb_tyrant"] = false,
 }
 local itemDropChance = {
-	["npc_vj_hlr1_zombie"] = 2
+	["npc_vj_recb_zombie_resear"] = 10
 }
 
 function ENT:SetZombieClass(class)
@@ -172,7 +216,8 @@ function ENT:SpawnNPC(pos)
 		npc:SetPos(pos)
 		npc:SetAngles(self:GetAngles())
 		npc:Spawn()
-		npc.VJ_NPC_Class[#self.VJ_NPC_Class + 1] = {"CLASS_DEMON"}
+		local varCDem = "CLASS_DEMON"
+		npc.VJ_NPC_Class[#npc.VJ_NPC_Class + 1] = varCDem
 		npc.SpawnTime = CurTime()
 		--npc.Spawner = self
 		npc.FindEnemy_CanSeeThroughWalls = true
