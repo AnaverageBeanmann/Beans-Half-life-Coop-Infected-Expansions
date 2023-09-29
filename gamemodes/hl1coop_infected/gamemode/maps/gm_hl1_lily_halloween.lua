@@ -177,7 +177,7 @@ local musictable = {
 	["Mash.Forze"] = {file = "mash/escape/Forze_de_Male.mp3", dur = 213},
 	["Mash.Sonata"] = {file = "mash/escape/Moonlight_Sonata_3rd_Movement.mp3", dur = 411},
 	["Mash.Fate"] = {file = "mash/escape/Night_of_Fate.mp3", dur = 125},
-	["Mash.HurryUp"] = {file = "mash/escape/Hurry_Up!!.mp3", dur = 93},
+	["Mash.HurryUp"] = {file = "mash/escape/Hurry_Up!!.mp3", dur = 188},
 
 	["Mash.VeryHard_Altar"] = {file = "mash/very_hard_special/wave/Beneath_the_Altar.mp3", dur = 192},
 	["Mash.VeryHard_Cannon"] = {file = "mash/very_hard_special/wave/Hand_Cannon.mp3", dur = 318},
@@ -319,12 +319,14 @@ if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- Hard
 	MAP.StartingWeapons = {"weapon_crowbar", "weapon_357"}
 	-- MAP.WaveStartTime = 60
 	MAP.WaveDuration = 240
+	MAP.EvacuationTime = 180
 end
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
 	MAP.StartingWeapons = {"weapon_crowbar", "weapon_357"}
 	MAP.WaveStartTime = 120
 	MAP.WaveDuration = 240
 	MAP.PortalPrepareTime = 255
+	MAP.EvacuationTime = 180
 end
 
 -- MAP.ZombieSet = 1
@@ -396,8 +398,7 @@ MAP.WaveMusic = {
 MAP.EvacMusic = {
 	"Mash.Forze",
 	"Mash.Sonata",
-	"Mash.Fate",
-	"Mash.HurryUp"
+	"Mash.Fate"
 }
 if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
 	MAP.MapStartMusic = "FAITH.Annunciation"
@@ -417,6 +418,11 @@ if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
 	}
 	MAP.EvacMusic = {
 		"FAITH.Vs"
+	}
+end
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special escape music
+	MAP.EvacMusic = {
+		"Mash.HurryUp"
 	}
 end
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special music for very hard
@@ -904,11 +910,13 @@ function MAP:ModifyMapEntities()
 
 				self.glowSprite:SetKeyValue("rendercolor", "0 255 0")
 
-				shepherd = ents.Create("npc_bhlcie_shepherd")
-				if IsValid(shepherd) then
-					shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
-					shepherd:SetAngles(Angle(0,0,0))
-					shepherd:Spawn()
+				if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then
+					shepherd = ents.Create("npc_bhlcie_shepherd")
+					if IsValid(shepherd) then
+						shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
+						shepherd:SetAngles(Angle(0,0,0))
+						shepherd:Spawn()
+					end
 				end
 
 				/*
@@ -1668,6 +1676,13 @@ function MAP:ModifyMapEntities()
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 0.5) -- Stairwell / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 0.5) -- Upper Floor / Scientists and Barneys
 			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3376.606934, -163.915298, 256.031250), Angle(), 1, 0.5) -- Next to Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3379.292480, 530.653931, 256.031250), Angle(), 1, 0.5) -- Next to Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4266.513672, 519.821411, 255.990875), Angle(), 1, 0.5) -- Graves / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4193.487305, -161.688538, 255.996078), Angle(), 1, 0.5) -- Graves / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5151.825684, -260.435059, 256.031250), Angle(), 1, 0.5) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5152.506348, 680.247803, 220.031250), Angle(), 1, 0.5) -- Parking Lot / Scientists and Barneys
+
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 0.5) -- Near Vehicle Tunnel Gate / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 0.5) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 0.5) -- Across from Church Gate / Scientists and Barneys
@@ -1731,6 +1746,13 @@ function MAP:ModifyMapEntities()
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 1, 0.85) -- Stairwell / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 1, 0.85) -- Upper Floor / Scientists and Barneys
 			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3376.606934, -163.915298, 256.031250), Angle(), 1, 0.85) -- Next to Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3379.292480, 530.653931, 256.031250), Angle(), 1, 0.85) -- Next to Church / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4266.513672, 519.821411, 255.990875), Angle(), 1, 0.85) -- Graves / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4193.487305, -161.688538, 255.996078), Angle(), 1, 0.85) -- Graves / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5151.825684, -260.435059, 256.031250), Angle(), 1, 0.85) -- Parking Lot / Scientists and Barneys
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5152.506348, 680.247803, 220.031250), Angle(), 1, 0.85) -- Parking Lot / Scientists and Barneys
+
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 1, 0.85) -- Near Vehicle Tunnel Gate / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 1, 0.85) -- Bend between Church Gate and Tunnel Gate / Scientists and Barneys
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 1, 0.85) -- Across from Church Gate / Scientists and Barneys
@@ -1794,6 +1816,13 @@ function MAP:ModifyMapEntities()
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 7, 1) -- Stairwell / Scientists, Barneys and HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 7, 1) -- Upper Floor / Scientists, Barneys and HEVs
 			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3376.606934, -163.915298, 256.031250), Angle(), 7, 1) -- Next to Church / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3379.292480, 530.653931, 256.031250), Angle(), 7, 1) -- Next to Church / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4266.513672, 519.821411, 255.990875), Angle(), 7, 1) -- Graves / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4193.487305, -161.688538, 255.996078), Angle(), 7, 1) -- Graves / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5151.825684, -260.435059, 256.031250), Angle(), 7, 1) -- Parking Lot / Scientists, Barneys and HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5152.506348, 680.247803, 220.031250), Angle(), 7, 1) -- Parking Lot / Scientists, Barneys and HEVs
+
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 7, 1) -- Near Vehicle Tunnel Gate / Scientists, Barneys and HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 7, 1) -- Bend between Church Gate and Tunnel Gate / Scientists, Barneys and HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 7, 1) -- Across from Church Gate / Scientists, Barneys and HEVs
@@ -1855,6 +1884,13 @@ function MAP:ModifyMapEntities()
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1692.188843, 4066.072754, 158.031250), Angle(), 6, 2) -- Stairwell / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2319.202881, 4409.510254, 254.031250), Angle(), 6, 2) -- Upper Floor / HEVs
 			-- Church Outside
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3376.606934, -163.915298, 256.031250), Angle(), 6, 2) -- Next to Church / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3379.292480, 530.653931, 256.031250), Angle(), 6, 2) -- Next to Church / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4266.513672, 519.821411, 255.990875), Angle(), 6, 2) -- Graves / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4193.487305, -161.688538, 255.996078), Angle(), 6, 2) -- Graves / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5151.825684, -260.435059, 256.031250), Angle(), 6, 2) -- Parking Lot / HEVs
+			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(5152.506348, 680.247803, 220.031250), Angle(), 6, 2) -- Parking Lot / HEVs
+
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4716.083496, 1188.934814, 64.038895), Angle(), 6, 2) -- Near Vehicle Tunnel Gate / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6398.260254, 1306.271973, 256.031250), Angle(), 6, 2) -- Bend between Church Gate and Tunnel Gate / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6486.012207, 175.280975, 206.031250), Angle(), 6, 2) -- Across from Church Gate / HEVs
@@ -2393,11 +2429,13 @@ function MAP:OnRestartFromCheckpoint(num)
 			end
 		end
 
-		shepherd = ents.Create("npc_bhlcie_shepherd")
-		if IsValid(shepherd) then
-			shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
-			shepherd:SetAngles(Angle(0,0,0))
-			shepherd:Spawn()
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+			shepherd = ents.Create("npc_bhlcie_shepherd")
+			if IsValid(shepherd) then
+				shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
+				shepherd:SetAngles(Angle(0,0,0))
+				shepherd:Spawn()
+			end
 		end
 
 	end

@@ -226,8 +226,14 @@ The Phantoms
 	VJ.AddNPC("Thrall","npc_bhlcie_thrall",vCat)
 		-- Red Civvies
 		-- Melee Enemy
+	VJ.AddNPC("Cultist","npc_bhlcie_cultist",vCat)
+ 
 	VJ.AddNPC("Wretch","npc_bhlcie_wretch",vCat)
 		-- Antlion
+	VJ.AddNPC("Preacher","npc_bhlcie_preacher",vCat)
+		-- get a life priest zombie
+		-- talks in backwards grigori
+		-- summons demons and pillars of flames under his enemies
 	VJ.AddNPC("Stalker","npc_bhlcie_stalker",vCat)
 		-- If it's being looked at, it goes transparent and can't be hurt
 		-- If not being looked at, it goes faster, non-transparent, and can be hurt

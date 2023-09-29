@@ -29,6 +29,7 @@ local zombieType = {
 	-- Scientists and Barneys
 	[1] = {
 		"npc_vj_lnhls_scientist",
+		"npc_vj_lnhls_scientist",
 		"npc_vj_lnhls_barney"
 	},
 	-- Scientists, Barneys and HECUs

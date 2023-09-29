@@ -30,6 +30,7 @@ ENT.FindEnemy_UseSphere = true
 ENT.FindEnemy_CanSeeThroughWalls = true
 
 ENT.BHLCIE_Shepherd_Difficulty = 1
+ENT.BHLCIE_Shepherd_PortalBlockerPos = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 
@@ -48,6 +49,7 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+
 	self.SoundTbl_Idle = {""}
 	self.SoundTbl_OnPlayerSight = {""}
 	self.SoundTbl_Alert = {""}
@@ -166,57 +168,153 @@ function ENT:CustomOnInitialize()
 	end end)
 
 	timer.Simple(6,function() if IsValid(self) then
+
 		self:Shepherd_PlayHellScream()
+
 		VJ_EmitSound(self,{"npc/antlion/rumble1.wav"},90,50)
+
 	end end)
+
 	timer.Simple(9,function() if IsValid(self) then
+
 		self:Shepherd_PlayHellScream()
+
 		VJ_EmitSound(self,{"npc/antlion/rumble1.wav"},90,50)
+
 	end end)
+
 	timer.Simple(11,function() if IsValid(self) then
+
 		self:Shepherd_PlayHellScream()
+
 		VJ_EmitSound(self,{"npc/antlion/rumble1.wav"},90,90)
+
 	end end)
+
 	timer.Simple(13,function() if IsValid(self) then
+
 		VJ_EmitSound(self,{"npc/antlion/rumble1.wav"},90,90)
-			self.PreLaunchLight:Fire("Kill", "", 0)
 
-			self.LaunchLight = ents.Create("light_dynamic")
-			self.LaunchLight:SetKeyValue("brightness", "7")
-			self.LaunchLight:SetKeyValue("distance", "800")
-			self.LaunchLight:SetLocalPos(self:GetPos())
-			self.LaunchLight:SetLocalAngles(self:GetAngles())
-			self.LaunchLight:Fire("Color", "255 0 0 255")
-			self.LaunchLight:SetParent(self)
-			self.LaunchLight:Spawn()
-			self.LaunchLight:Activate()
-			self.LaunchLight:Fire("SetParentAttachment","chest")
-			self.LaunchLight:Fire("TurnOn", "", 0)
-			self:DeleteOnRemove(self.LaunchLight)
+		self.PreLaunchLight:Fire("Kill", "", 0)
 
-			VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",100,100)
-			VJ_EmitSound(self,"ambient/creatures/town_child_scream1.wav",100,math.random(60,70))
-			self:Shepherd_PlayHellScream()
+		self.LaunchLight = ents.Create("light_dynamic")
+		self.LaunchLight:SetKeyValue("brightness", "7")
+		self.LaunchLight:SetKeyValue("distance", "800")
+		self.LaunchLight:SetLocalPos(self:GetPos())
+		self.LaunchLight:SetLocalAngles(self:GetAngles())
+		self.LaunchLight:Fire("Color", "255 0 0 255")
+		self.LaunchLight:SetParent(self)
+		self.LaunchLight:Spawn()
+		self.LaunchLight:Activate()
+		self.LaunchLight:Fire("SetParentAttachment","chest")
+		self.LaunchLight:Fire("TurnOn", "", 0)
+		self:DeleteOnRemove(self.LaunchLight)
+
+		VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",100,100)
+		VJ_EmitSound(self,"ambient/creatures/town_child_scream1.wav",100,math.random(60,70))
+		self:Shepherd_PlayHellScream()
+
 	end end)
+
 	timer.Simple(15,function() if IsValid(self) then
-			self.LaunchLight:Fire("Kill", "", 0)
-			VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",100,100)
-			VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",85,100)
-			VJ_EmitSound(self,"ambient/levels/labs/teleport_postblast_thunder1.wav",100,50)
-			VJ_EmitSound(self,"weapons/physcannon/energy_sing_explosion2.wav",100,50)
 
-			VJ_EmitSound(self,"ambient/creatures/town_zombie_call1.wav",100,30)
-			VJ_EmitSound(self,"ambient/voices/playground_memory.wav",100,30)
-			self:StopParticles()
+		self.LaunchLight:Fire("Kill", "", 0)
+		VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",100,100)
+		VJ_EmitSound(self,"ambient/explosions/exp"..math.random(1,4)..".wav",85,100)
+		VJ_EmitSound(self,"ambient/levels/labs/teleport_postblast_thunder1.wav",100,50)
+		VJ_EmitSound(self,"weapons/physcannon/energy_sing_explosion2.wav",100,50)
 
-	self:Give("weapon_shepherd_gun")
-	self:SetSolid(SOLID_BBOX)
-	self.HasMeleeAttack = true
-	self.GodMode = false
-	self.MovementType = VJ_MOVETYPE_GROUND
-	self.CanTurnWhileStationary = true
-	self:SetMaterial("")
-	self:DrawShadow(true)
+		VJ_EmitSound(self,"ambient/creatures/town_zombie_call1.wav",100,30)
+		VJ_EmitSound(self,"ambient/voices/playground_memory.wav",100,30)
+		self:StopParticles()
+
+		ParticleEffectAttach("embers_large_02",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("origin"))
+
+		self.PreLaunchLight = ents.Create("light_dynamic")
+		self.PreLaunchLight:SetKeyValue("brightness", "2")
+		self.PreLaunchLight:SetKeyValue("distance", "200")
+		self.PreLaunchLight:SetLocalPos(self:GetPos())
+		self.PreLaunchLight:SetLocalAngles(self:GetAngles())
+		self.PreLaunchLight:Fire("Color", "255 0 0 255")
+		self.PreLaunchLight:SetParent(self)
+		self.PreLaunchLight:Spawn()
+		self.PreLaunchLight:Activate()
+		self.PreLaunchLight:Fire("SetParentAttachment","crucifix")
+		self.PreLaunchLight:Fire("TurnOn", "", 0)
+		self:DeleteOnRemove(self.PreLaunchLight)
+
+		self:Shepherd_PlayHellScream()
+
+		local ChestGlow1 = ents.Create("env_sprite")
+		ChestGlow1:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+		ChestGlow1:SetKeyValue("scale", "0.1")
+		ChestGlow1:SetKeyValue("rendermode","5")
+		ChestGlow1:SetKeyValue("rendercolor","142 0 0 255")
+		ChestGlow1:SetKeyValue("spawnflags","1") -- If animated
+		ChestGlow1:SetParent(self)
+		ChestGlow1:Fire("SetParentAttachment", "crucifix")
+		ChestGlow1:Spawn()
+		ChestGlow1:Activate()
+		self:DeleteOnRemove(ChestGlow1)
+		
+		local ChestGlow2 = ents.Create("env_sprite")
+		ChestGlow2:SetKeyValue("model","sprites/blueflare1.vmt")
+		ChestGlow2:SetKeyValue("scale", "0.1")
+		ChestGlow2:SetKeyValue("rendermode","5")
+		ChestGlow2:SetKeyValue("rendercolor","255 0 0 255")
+		ChestGlow2:SetKeyValue("spawnflags","1") -- If animated
+		ChestGlow2:SetParent(self)
+		ChestGlow2:Fire("SetParentAttachment", "crucifix")
+		ChestGlow2:Spawn()
+		ChestGlow2:Activate()
+		self:DeleteOnRemove(ChestGlow2)
+		
+		local ChestGlow3 = ents.Create("env_sprite")
+		ChestGlow3:SetKeyValue("model","sprites/combineball_glow_black_1.vmt")
+		ChestGlow3:SetKeyValue("scale", "0.1")
+		ChestGlow3:SetKeyValue("rendermode","5")
+		ChestGlow3:SetKeyValue("rendercolor","255 0 0 255")
+		ChestGlow3:SetKeyValue("spawnflags","1") -- If animated
+		ChestGlow3:SetParent(self)
+		ChestGlow3:Fire("SetParentAttachment", "crucifix")
+		ChestGlow3:Spawn()
+		ChestGlow3:Activate()
+		self:DeleteOnRemove(ChestGlow3)
+
+
+		self:Give("weapon_shepherd_gun")
+		self:SetSolid(SOLID_BBOX)
+		self.HasMeleeAttack = true
+		self.GodMode = false
+		self.MovementType = VJ_MOVETYPE_GROUND
+		self.CanTurnWhileStationary = true
+		self:SetMaterial("")
+		self:DrawShadow(true)
+
+		if self.BHLCIE_Shepherd_Difficulty == 3 then -- block the exit so you have to kill him
+			PrintMessage(4,"-= KILL THE SHEPHERD =-")
+			self.exitblocker = ents.Create("prop_physics")
+			if IsValid(self.exitblocker) then
+				self.exitblocker:SetModel("models/hunter/blocks/cube2x2x2.mdl")				
+				for k, v in pairs(ents.FindByClass("hl1_inf_portal")) do
+					self.BHLCIE_Shepherd_PortalBlockerPos = v:GetPos()
+				end
+				self.exitblocker:SetPos(Vector(self.BHLCIE_Shepherd_PortalBlockerPos))
+				-- self.exitblocker:SetPos(Vector(3667.167725, 4418.179199, 64.031250))
+				self.exitblocker:SetAngles(Angle(0,0,0))
+				self.exitblocker:Spawn()
+				self.exitblocker:SetMoveType(MOVETYPE_NONE)
+				self.exitblocker:SetRenderFX(16)
+				local thefunny = Color(255, 0, 0, 254)
+				self.exitblocker:SetColor(thefunny)
+				self.exitblocker:SetMaterial("models/flesh")
+				self:DeleteOnRemove(self.exitblocker)
+				
+				ParticleEffectAttach("embers_large_02",PATTACH_POINT_FOLLOW,self.exitblocker,self.exitblocker:LookupAttachment("origin"))
+				ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self.exitblocker,self.exitblocker:LookupAttachment("origin"))
+				
+			end
+		end
 
 	end end)
 

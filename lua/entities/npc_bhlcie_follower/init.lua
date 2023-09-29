@@ -379,7 +379,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 
 	if (self:Health() - dmginfo:GetDamage()) <= 0 && self.Dead == false then -- if we take lethal damage then..
 
-		dmginfo:ScaleDamage(0.001) -- to avoid him actually dying
+		dmginfo:ScaleDamage(0) -- to avoid him actually dying
 
 		self:DrawShadow(false)
 

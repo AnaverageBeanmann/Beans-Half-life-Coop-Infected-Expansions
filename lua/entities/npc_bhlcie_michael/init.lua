@@ -84,12 +84,17 @@ ENT.BHLCIE_Michael_Hunt_Patience = 1
 ENT.BHLCIE_Michael_Hunt_LostPatient = false
 ENT.BHLCIE_Michael_Hide_Patience = 1
 ENT.BHLCIE_Michael_Hide_LostPatient = false
+
+ENT.BHLCIE_Michael_SpawnShepherd = false
+ENT.BHLCIE_Michael_SpawnShepherd_Spawned = false
+ENT.BHLCIE_Michael_SpawnShepherd_Time = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	self.BHLCIE_Michael_Difficulty = GetConVar("hl1_coop_sv_skill"):GetInt()
 	if self.BHLCIE_Michael_Difficulty == 3 or self.BHLCIE_Michael_Difficulty == 4 then
 		self.StartHealth = 300
 		self.MeleeAttackDamage = 35
+		self.BHLCIE_Michael_SpawnShepherd = true
 	elseif self.BHLCIE_Michael_Difficulty == 2 then
 		self.StartHealth = 200
 		self.MeleeAttackDamage = 30
@@ -125,6 +130,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(ent)
+	self.BHLCIE_Michael_Hunt_Patience = CurTime() + math.random(60,90)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -166,7 +175,7 @@ function ENT:CustomOnThink_AIEnabled()
 				else
 					self.BHLCIE_Michael_HideTime = CurTime() + math.random(30,180)
 				end
-				self.BHLCIE_Michael_HideTime = CurTime() + self:Health() * 0.5
+				self.BHLCIE_Michael_HideTime = CurTime() + (self:Health() * 0.10)
 				self.BHLCIE_Michael_CurrentMode = 2
 				self.HasFootStepSound = false
 				self.FindEnemy_CanSeeThroughWalls = true
@@ -321,6 +330,17 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 	-- print(self:GetPos())
 
+	local roundState = GAMEMODE:GetRoundState()
+	if roundState == ROUND_EVACUATION && self.BHLCIE_Michael_SpawnShepherd && !self.BHLCIE_Michael_SpawnShepherd_Spawned then
+		self.BHLCIE_Michael_SpawnShepherd_Spawned = true
+		shepherd = ents.Create("npc_bhlcie_shepherd")
+		if IsValid(shepherd) then
+			shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
+			shepherd:SetAngles(Angle(0,0,0))
+			shepherd:Spawn()
+		end
+	end
+
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Michael_Flee()
@@ -364,7 +384,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 
 	if (self:Health() - dmginfo:GetDamage()) <= 0 && self.Dead == false then -- if we take lethal damage then..
 
-		dmginfo:ScaleDamage(0.001) -- to avoid him actually dying
+		dmginfo:ScaleDamage(0) -- to avoid him actually dying
 
 		self:Michael_Flee()
 
