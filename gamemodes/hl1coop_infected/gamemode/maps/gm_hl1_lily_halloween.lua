@@ -2429,7 +2429,7 @@ function MAP:OnRestartFromCheckpoint(num)
 			end
 		end
 
-		if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 2 then
 			shepherd = ents.Create("npc_bhlcie_shepherd")
 			if IsValid(shepherd) then
 				shepherd:SetPos(Vector(2313.034180, 192.687256, 256.031250))
