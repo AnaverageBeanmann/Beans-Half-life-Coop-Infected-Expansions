@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/vj_bhlcie/demons/wretch/Zombie_Classic_sheet2"
+	"$bumpmap" "Models/vj_bhlcie/demons/wretch/zombie_classic_sheet_normal2"
+
+}

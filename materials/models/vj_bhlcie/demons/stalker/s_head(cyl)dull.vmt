@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitMaskedEnvMappedTexture
+	"$basetexture" "models/vj_bhlcie/demons/stalker/s_head(cyl)dull"
+	"$selfillum" "1"
+	"$selfillummask" "models/vj_bhlcie/demons/stalker/s_head(cyl)dull_glow"
+}

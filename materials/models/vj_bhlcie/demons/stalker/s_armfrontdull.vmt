@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitMaskedEnvMappedTexture
+	"$basetexture" "models/vj_bhlcie/demons/stalker/s_armfrontdull"
+	
+
+}
