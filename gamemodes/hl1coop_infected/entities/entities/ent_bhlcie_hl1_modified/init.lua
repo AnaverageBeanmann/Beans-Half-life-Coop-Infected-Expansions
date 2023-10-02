@@ -25,6 +25,21 @@ function ENT:Initialize()
 	end
 end
 
+local CustomNPCPointsTable = {
+	["npc_bhlcie_cultist"]	= 30, -- Cultist
+	["npc_bhlcie_wretch"]	= 45, -- Wretch
+	["npc_bhlcie_erectus"]	= 75, -- Erectus
+	["npc_bhlcie_horror"]	= 40, -- Horror
+	["npc_bhlcie_stalker"]	= 50, -- Stalker
+	["npc_bhlcie_preacher"]	= 50, -- Preacher
+	["npc_bhlcie_shepherd"]	= 666, -- Shepherd
+}
+
+hook.Add("Initialize", "HLCoop_NPCScore", function()
+	table.Merge(GAMEMODE.NPCScorePrice, CustomNPCPointsTable)
+	-- table.Merge(GAMEMODE.NPCScorePriceDamageMul, CustomNPCPointsTable_DM)
+end)
+
 local zombieType = {
 	-- Scientists and Barneys
 	[1] = {
@@ -549,10 +564,10 @@ function ENT:Think()
 	if GAMEMODE:GetCoopState() != COOP_STATE_INGAME then return end
 	local roundState = GAMEMODE:GetRoundState()
 	if roundState == ROUND_END or roundState == GAME_END then return end
-	if roundState == ROUND_PREPARE then
+	if roundState == ROUND_PREPARE or (roundState == ROUND_EVACUATION && GetConVar("hl1_coop_sv_skill"):GetInt() != 3 && GetConVar("hl1_coop_sv_skill"):GetInt() != 4) then
 		self:NextThink(CurTime() + math.Rand(20, 40) / self.SpawnFreq)
 		self.MaxNPCs = 1
-	elseif roundState == ROUND_EVACUATION then
+	elseif roundState == ROUND_EVACUATION && GetConVar("hl1_coop_sv_skill"):GetInt() != 3 && GetConVar("hl1_coop_sv_skill"):GetInt() != 4 then
 		self:NextThink(CurTime() + math.Rand(10, 20) / self.SpawnFreq)
 		self.MaxNPCs = 4
 	else

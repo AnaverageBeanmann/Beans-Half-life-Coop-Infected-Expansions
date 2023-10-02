@@ -21,7 +21,7 @@ end
 generatorPos = Vector(0, 0, 0)
 genmarkerpos = Vector(0, 0, 0)
 
-local randomgeneratorspot = math.random(1,7)
+local randomgeneratorspot = math.random(1,5)
 if randomgeneratorspot == 1 then
 	-- Outside Offices
 	generatorPos = Vector(2420.1264648438, 2627.7219238281, 16.384113311768)
@@ -34,74 +34,21 @@ if randomgeneratorspot == 2 then
 end
 if randomgeneratorspot == 3 then
 	-- Outside Church
-	generatorPos = Vector(6257.6049804688, 225.67431640625, 208.33351135254)
+	generatorPos = Vector(6721.0024414063, 289.35824584961, 208.49938964844)
 	genmarkerpos = generatorPos
 end
 if randomgeneratorspot == 4 then
-	-- Church Parking
-	generatorPos = Vector(5169.2026367188, 176.46640014648, 200.40168762207)
-	genmarkerpos = generatorPos
-end
-if randomgeneratorspot == 5 then
-	-- Outside Church
-	generatorPos = Vector(3994.1296386719, 187.93768310547, 208.40603637695)
-	genmarkerpos = generatorPos
-end
-if randomgeneratorspot == 6 then
 	-- Inside Church
 	generatorPos = Vector(2282.1418457031, 189.9232635498, 210.24209594727)
 	genmarkerpos = generatorPos
 end
-if randomgeneratorspot == 7 then
+if randomgeneratorspot == 5 then
 	-- HERESY
-	generatorPos = Vector(3408.6694335938, 10232.302734375, -6799.625)
+	generatorPos = Vector(3345.0615234375, 10438.337890625, -6799.5971679688)
 	genmarkerpos = generatorPos
 end
 
-
-
-local musictable = {
-    ["PizzaTower.PizzaTime"] = {file = "pizza/It's_Pizza_Time.mp3", dur = 232},
-    ["PizzaTower.Mondays"] = {file = "pizza/Mondays.mp3", dur = 157},
-    ["PizzaTower.Tombstone"] = {file = "pizza/Tombstone_Arizona.mp3", dur = 221},
-    ["PizzaTower.TrashZone"] = {file = "pizza/Tubular_Trash_Zone.mp3", dur = 139},
-    ["PizzaTower.Shimbers"] = {file = "pizza/Tunnely_Shimbers.mp3", dur = 240},
-    ["PizzaTower.Unearthly"] = {file = "pizza/Unearthly_Blues.mp3", dur = 218},
-    ["PizzaTower.Crust"] = {file = "pizza/Bite_The_Crust.mp3", dur = 120},
-    ["PizzaTower.ByeBye"] = {file = "pizza/Bye_Bye_There!.mp3", dur = 338},
-    ["PizzaTower.Calzone"] = {file = "pizza/Calzonification.mp3", dur = 161},
-    ["PizzaTower.Preheat"] = {file = "pizza/Don't_Preheat_Your_Oven_Because_If_You_Do_The_Song_Won't_Play.mp3", dur = 170},
-    ["PizzaTower.ColdSp"] = {file = "pizza/Cold_Spaghetti.mp3", dur = 169},
-    ["PizzaTower.GoodEat"] = {file = "pizza/Good_Eatin'.mp3", dur = 208},
-    ["PizzaTower.HotSp"] = {file = "pizza/Hot_Spaghetti.mp3", dur = 130},
-    ["PizzaTower.OregUFO"] = {file = "pizza/Oregano_UFO.mp3", dur = 222},
-    ["PizzaTower.SauceMach"] = {file = "pizza/Peppino's_Sauce_Machine.mp3", dur = 125},
-    ["PizzaTower.Engineer"] = {file = "pizza/Pizza_Engineer.mp3", dur = 144},
-    ["PizzaTower.NeverEnd"] = {file = "pizza/Pizza_Time_Never_Ends.mp3", dur = 317},
-    ["PizzaTower.Deservioli"] = {file = "pizza/The_Death_That_I_Deservioli.mp3", dur = 176},
-    ["PizzaTower.Bone"] = {file = "pizza/There's_A_Bone_In_My_Spaghetti.mp3", dur = 185},
-    ["PizzaTower.Theat"] = {file = "pizza/Theatrical_Shenanigans.mp3", dur = 116},
-    ["PizzaTower.Show"] = {file = "pizza/Put_On_A_Show.mp3", dur = 171},
-    ["PizzaTower.Freak"] = {file = "pizza/Dungeon_Freakshow.mp3", dur = 212},
-    ["PizzaTower.Wud"] = {file = "pizza/Wudpecker.mp3", dur = 209},
-    ["PizzaTower.Thousand"] = {file = "pizza/Thousand_March.mp3", dur = 268},
-    ["PizzaTower.UnexPart1"] = {file = "pizza/Unexpectancy_Part1.mp3", dur = 158},
-    ["PizzaTower.UnexPart2"] = {file = "pizza/Unexpectancy_Part2.mp3", dur = 177},
-    ["PizzaTower.Overcooked"] = {file = "pizza/Overcooked_Meat_Lover.mp3", dur = 128},
-    ["PizzaTower.Nightmare"] = {file = "pizza/Leaning_Nightmare.mp3", dur = 139},
-    ["PizzaTower.Spooky"] = {file = "pizza/Spooky_Apartment_Escape.mp3", dur = 167},
-    ["PizzaTower.UnexPart3"] = {file = "pizza/Unexpectancy_Part3.mp3", dur = 237},
-    ["PizzaTower.FatAss"] = {file = "pizza/Your_Fat_Ass_Slows_You_Down.mp3", dur = 5},
-    ["PizzaTower.Campers"] = {file = "pizza/Okay_Campers,_Rise_And_Shine!.mp3", dur = 53},
-    ["PizzaTower.Munch"] = {file = "pizza/Hard_Drive_To_Munch_You.mp3", dur = 39},
-    ["PizzaTower.Meatophobia"] = {file = "pizza/Meatophobia.mp3", dur = 51},
-    ["PizzaTower.Smackdown"] = {file = "pizza/Time_For_A_Smackdown.mp3", dur = 60},
-    ["PizzaTower.Hairline"] = {file = "pizza/Receding_Hairline_Celebration_Party.mp3", dur = 179},
-    ["PizzaTower.Pieing"] = {file = "pizza/Pizza_Pie-Ing.mp3", dur = 130},
-    ["PizzaTower.Deluxe"] = {file = "pizza/Pizza_Deluxe.mp3", dur = 134},
-    ["PizzaTower.Italian"] = {file = "pizza/Hip_To_Be_Italian.mp3", dur = 72},
-    ["PizzaTower.Toppings"] = {file = "pizza/Choosing_The_Toppings.mp3", dur = 128},
-
+local tracks = {
 	["FAITH.Annunciation"] = {file = "faith/intro/anunciation.mp3", dur = 28},
 
 	["FAITH.Church"] = {file = "faith/waves/church.mp3", dur = 336},
@@ -200,22 +147,21 @@ local musictable = {
 	["Mash.VeryHard_Door"] = {file = "mash/very_hard_special/wave/Open_The_Door.mp3", dur = 156},
 
 	["Mash.VeryHard_Apostasy"] = {file = "mash/very_hard_special/holdout/Altars_of_Apostasy.mp3", dur = 340},
-
 }
  
-for k,v in pairs(musictable) do
-    sound.Add({
-        name = k,
-        channel = CHAN_STATIC,
-        volume = 1,
-        level = 0,
-        pitch = 100,
-        sound = "*#music/hl1coop_inf/"..v.file
-    })
+for k,v in pairs(tracks) do
+	sound.Add({
+		name = k,
+		channel = CHAN_STATIC,
+		volume = 1,
+		level = 0,
+		pitch = 100,
+		sound = "*#music/hl1coop_inf/"..v.file
+	})
  
-    if CLIENT then
-        MUSIC_TRACK_DURATION[k] = v.dur
-    end
+	if CLIENT then
+		MUSIC_TRACK_DURATION[k] = v.dur
+	end
 end
 
 if CLIENT then
@@ -295,8 +241,12 @@ if CLIENT then
 		--gen
 		if ShowPlayerDist and ShowPlayerDist > RealTime() then
 			if GetConVar("hl1_coop_sv_skill"):GetInt() != 4 then -- Very Hard
+				local thegenmarkpos
+				for k, v in pairs(ents.FindByClass("hl1_inf_generator")) do -- kill all zombies to give some breathing space
+					thegenmarkpos = v:GetPos()
+				end
 				local alpha = math.Clamp((ShowPlayerDist - RealTime()) * 100, 0, 255)
-				GAMEMODE:HUDDrawDistance(genmarkerpos, lang.hud_generator, Color(255, 180, 50, alpha))
+				GAMEMODE:HUDDrawDistance(thegenmarkpos, lang.hud_generator, Color(255, 180, 50, alpha))
 			end
 		end
 	end
@@ -420,11 +370,19 @@ if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
 		"FAITH.Vs"
 	}
 end
-if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special escape music
+
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 3 then -- hard escape music
 	MAP.EvacMusic = {
 		"Mash.HurryUp"
 	}
 end
+
+if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- very hard escape music
+	MAP.EvacMusic = {
+		"Mash.Leviathan"
+	}
+end
+
 if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special music for very hard
 	MAP.MapStartMusic = "FAITH.Forever"
 	MAP.WaveMusic = {
@@ -443,9 +401,9 @@ if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- special music for very h
 		"Mash.VeryHard_Occultivated",
 		"Mash.VeryHard_Reflections",
 		"Mash.VeryHard_Tension",
-		"Mash.VeryHard_Thousand",
-		"Mash.VeryHard_Create",
-		"Mash.VeryHard_Door"
+		"Mash.VeryHard_Thousand"
+		-- "Mash.VeryHard_Create",
+		-- "Mash.VeryHard_Door"
 	}
 end
 
@@ -460,32 +418,30 @@ MAP.PortalPoints = {
 }
 
 MAP.AlienSpawnClasses = {
-	"",
+	"npc_bhlcie_cultist",
+	"npc_bhlcie_cultist",
+	"npc_bhlcie_cultist",
+	"npc_bhlcie_cultist",
+	"npc_bhlcie_wretch",
+	"npc_bhlcie_wretch",
+	"npc_bhlcie_erectus",
+	"npc_bhlcie_horror",
+	"npc_bhlcie_stalker",
+	"npc_bhlcie_preacher"
 }
 
 MAP.AlienSpawnPoints = {
-	-- Floor 1
-	Vector(-5141,5673,-684),
-	Vector(-4773,5685,-684),
-	Vector(-5773,6837,-684),
-	Vector(-6901,2847,-651),
-	Vector(-6712,2316,-687),
-	Vector(-6899,2015,-687),
-	-- Floor 0
-	Vector(-12537,4425,-6082),
-	Vector(-8610,4664,-5819),
-	Vector(-7227,5801,-5688),
-	-- Caves
-	Vector(-7580,7019,-7541),
-	Vector(-7361,8697,-7563),
-	Vector(-9193,5834,-7946),
-	Vector(-9552,5261,-7975),
-	Vector(-10084,5677,-7945),
-	Vector(-8363,3461,-8099),
-	Vector(-6774,3207,-8176),
-	-- Floor -1
-	Vector(-6526,5987,-8384),
-	Vector(-6556,4792,-8384)
+	Vector(2233.394531, 2636.762207, 168.209503),
+	Vector(3188.698975, 2626.245850, 182.079254),
+	Vector(3265.614502, 1927.897461, 156.239609),
+	Vector(4345.604492, 2597.195557, 148.310303),
+	Vector(4170.214355, 4352.653809, 163.487366),
+	Vector(3596.647705, 4989.783203, 209.496643),
+	Vector(6222.640137, 1152.098145, 362.796417),
+	Vector(4590.524902, 1308.614380, 259.535950),
+	Vector(6443.806152, -1009.507263, 477.280121),
+	Vector(6191.810547, 214.724487, 355.824951),
+	Vector(4009.309814, 173.976074, 354.584229)
 }
 
 local cvar_maxfuel = CreateConVar("fuel_target", "", FCVAR_NOTIFY, "If set, the generator uses this value")
@@ -731,34 +687,22 @@ function GM:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(pos, ang, ztype, freq)
 end
 
 function MAP:ModifyMapEntities()
-	-- local randomspawnpoints = math.random(1,10)
-	-- if randomspawnpoints == 1 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-7957,5378,196), Angle(9,74,0))
-	-- elseif randomspawnpoints == 2 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-3564,6390,-652), Angle(6,169,0))
-	-- elseif randomspawnpoints == 3 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-6742,6782,-5689), Angle(4,-92,0))
-	-- elseif randomspawnpoints == 4 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-12659,4517,-6082), Angle(3,-25,0))
-	-- elseif randomspawnpoints == 5 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-8147,4005,-5885), Angle(0,0,0))
-	-- elseif randomspawnpoints == 6 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-7559,6744,-7521), Angle(-1,93,0))
-	-- elseif randomspawnpoints == 7 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-9416,5541,-7977), Angle(-3,-118,0))
-	-- elseif randomspawnpoints == 8 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-6543,5286,-8385), Angle(-0,117,0))
-	-- elseif randomspawnpoints == 9 then
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-5742,3004,592), Angle(2,177,0))
-	-- else
-		-- GAMEMODE:CreateCoopSpawnpoints(Vector(-6335,5642,-687), Angle(2,169,0))
-	-- end
 
-	GAMEMODE:CreateCoopSpawnpoints(Vector(2129.787354, 2627.297852, 64.031250), Angle(0,0,0))
-	-- GAMEMODE:CreateCoopSpawnpoints(Vector(4013.361328, 5117.553711, 64.383469), Angle(0,0,0))
-	-- GAMEMODE:CreateCoopSpawnpoints(Vector(6461.334961, 221.365097, 256.031250), Angle(0,0,0))
-	-- GAMEMODE:CreateCoopSpawnpoints(Vector(2328.089355, 191.393036, 256.031250), Angle(0,0,0))
-	-- GAMEMODE:CreateCoopSpawnpoints(Vector(3449.708008, 10256.290039, -6751.315430), Angle(0,0,0))
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- spawn players in HERESY on very hard
+		GAMEMODE:CreateCoopSpawnpoints(Vector(3121.219482, 10241.262695, -6751.968750), Angle(0,0,0))
+	else
+		GAMEMODE:CreateCoopSpawnpoints(Vector(2129.787354, 2627.297852, 64.031250), Angle(0,0,0))
+	end
+
+	for k, v in pairs(ents.FindByClass("func_door")) do -- have these do damage so zombies stop jamming it up
+		v:SetKeyValue("dmg",1)
+	end
+
+	if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- remove all rotating doors on very hard
+		for k, v in pairs(ents.FindByClass("func_door_rotating")) do -- have these do damage so zombies stop jamming it up
+			v:Remove()
+		end
+	end
 
 	michaledavvie = ents.Create("npc_bhlcie_michael")
 	if IsValid(michaledavvie) then
@@ -804,14 +748,19 @@ function MAP:ModifyMapEntities()
 	if IsValid(generatorEnt) then
 		generatorEnt:SetPos(generatorPos)
 		if randomgeneratorspot == 2 then
+			-- Outside Abandoned Offices
 			generatorEnt:SetAngles(Angle(0,263,0))
 		elseif randomgeneratorspot == 3 then
-			generatorEnt:SetAngles(Angle(0,90,0))
-		elseif randomgeneratorspot == 6 then
+			-- Outside Church Gate
+			generatorEnt:SetAngles(Angle(0,89,0))
+		elseif randomgeneratorspot == 4 then
+			-- Inside Church
 			generatorEnt:SetAngles(Angle(0,-90,0))
-		elseif randomgeneratorspot == 7 then
+		elseif randomgeneratorspot == 5 then
+			-- HERESY
 			generatorEnt:SetAngles(Angle(0,-90,0))
 		else
+			-- Outside Offices
 			generatorEnt:SetAngles(Angle(0,173,0))
 		end
 		generatorEnt:Spawn()
@@ -828,24 +777,16 @@ function MAP:ModifyMapEntities()
 			panelEnt:SetAngles(Angle(-3.5763947963715, -96.483848571777, 0.0517578125))
 		elseif randomgeneratorspot == 3 then
 			-- Outside Church
-			panelEnt:SetPos(Vector(6257.9482421875, 177.44621276855, 242.3681640625))
-			panelEnt:SetAngles(Angle(-3.5754549503326, -93.354995727539, 0.0011329707922414))
+			panelEnt:SetPos(Vector(6740.4545898438, 82.739639282227, 242.32685852051))
+			panelEnt:SetAngles(Angle(-3.8561058044434, -179.07260131836, 0.0044150571338832))
 		elseif randomgeneratorspot == 4 then
-			-- Church Parking
-			panelEnt:SetPos(Vector(5120.8383789063, 175.91633605957, 234.2946472168))
-			panelEnt:SetAngles(Angle(-3.6172413825989, -180.98170471191, -0.0179443359375))
-		elseif randomgeneratorspot == 5 then
-			-- Infront of Church
-			panelEnt:SetPos(Vector(3949.6708984375, 192.32247924805, 242.38980102539))
-			panelEnt:SetAngles(Angle(-3.4424676895142, 176.61100769043, -0.000579833984375))
-		elseif randomgeneratorspot == 6 then
 			-- Inside Church
 			panelEnt:SetPos(Vector(2248.1418457031, 189.9232635498, 260.24209594727))
 			panelEnt:SetAngles(Angle(22.671382904053, 0.35688257217407, 0.14841391146183))
-		elseif randomgeneratorspot == 7 then
+		elseif randomgeneratorspot == 5 then
 			-- HERESY
-			panelEnt:SetPos(Vector(3370.255859375, 10231.678710938, -6765.6796875))
-			panelEnt:SetAngles(Angle(-3.531031370163, -179.82649230957, -0.01434326171875))
+			panelEnt:SetPos(Vector(3416.6081542969, 10449.404296875, -6765.609375))
+			panelEnt:SetAngles(Angle(-3.6016495227814, -90.018371582031, 0.0029765211511403))
 		else
 			-- Offices Outside
 			panelEnt:SetPos(Vector(2468.5112304688, 2628.0573730469, 50.286380767822))
@@ -883,7 +824,7 @@ function MAP:ModifyMapEntities()
 							GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
 						end
 					else
-						local PanelMusic = math.random(1,10)
+						local PanelMusic = math.random(1,9)
 						if PanelMusic == 1 then
 							GAMEMODE:PlayGlobalMusic("Mash.Brain")
 						elseif PanelMusic == 2 then
@@ -900,8 +841,6 @@ function MAP:ModifyMapEntities()
 							GAMEMODE:PlayGlobalMusic("Mash.Unreasonable")
 						elseif PanelMusic == 8 then
 							GAMEMODE:PlayGlobalMusic("Mash.Plok")
-						elseif PanelMusic == 9 then
-							GAMEMODE:PlayGlobalMusic("Mash.Leviathan")
 						else
 							GAMEMODE:PlayGlobalMusic("Mash.Avatar")
 						end
@@ -1028,49 +967,49 @@ function MAP:ModifyMapEntities()
 	CreateBarrel(Vector(7102.919921875, -2042.5626220703, 352.47546386719), math.random(5,10))
 	-- -= HERESY =-
 	-- Cells between Lava Cave and Main Area
-	CreateBarrel(Vector(3757.8640136719, 9243.8876953125, -7391.6538085938), math.random(20,25))
-	CreateBarrel(Vector(3756.7922363281, 9185.9306640625, -7391.6000976563), math.random(20,25))
-	CreateBarrel(Vector(3302.8752441406, 9642.8837890625, -7391.6459960938), math.random(20,25))
-	CreateBarrel(Vector(3354.0974121094, 9645.1708984375, -7391.5776367188), math.random(20,25))
-	CreateBarrel(Vector(2698.0551757813, 9315.3408203125, -7327.71875), math.random(20,25))
-	-- CreateBarrel(Vector(2698.0551757813, 9295.3408203125, -7327.71875), math.random(20,25))
-	CreateBarrel(Vector(2751.0949707031, 9297.2109375, -7327.71875), math.random(20,25))
-	CreateBarrel(Vector(2515.9453125, 9477.3740234375, -7327.71875), math.random(20,25))
-	CreateBarrel(Vector(2519.2219238281, 9532.564453125, -7327.71875), math.random(20,25))
-	CreateBarrel(Vector(2443.3801269531, 9892.0751953125, -7263.71875), math.random(20,25))
-	CreateBarrel(Vector(2440.2963867188, 9947.3388671875, -7263.71875), math.random(20,25))
-	CreateBarrel(Vector(2683.2255859375, 10737.953125, -7039.71875), math.random(20,25))
-	CreateBarrel(Vector(2625.3981933594, 10743.091796875, -7039.71875), math.random(20,25))
-	CreateBarrel(Vector(1794.0731201172, 10995.50390625, -6911.71875), math.random(20,25))
-	CreateBarrel(Vector(1851.0379638672, 10996.262695313, -6911.71875), math.random(20,25))
-	CreateBarrel(Vector(1798.1772460938, 10325.333984375, -6911.71875), math.random(20,25))
-	CreateBarrel(Vector(1850.9223632813, 10329.447265625, -6911.71875), math.random(20,25))
+	CreateBarrel(Vector(3757.8640136719, 9243.8876953125, -7391.6538085938), math.random(40,50))
+	CreateBarrel(Vector(3756.7922363281, 9185.9306640625, -7391.6000976563), math.random(40,50))
+	CreateBarrel(Vector(3302.8752441406, 9642.8837890625, -7391.6459960938), math.random(40,50))
+	CreateBarrel(Vector(3354.0974121094, 9645.1708984375, -7391.5776367188), math.random(40,50))
+	CreateBarrel(Vector(2698.0551757813, 9315.3408203125, -7327.71875), math.random(40,50))
+	-- CreateBarrel(Vector(2698.0551757813, 9295.3408203125, -7327.71875), math.random(40,50))
+	CreateBarrel(Vector(2751.0949707031, 9297.2109375, -7327.71875), math.random(40,50))
+	CreateBarrel(Vector(2515.9453125, 9477.3740234375, -7327.71875), math.random(40,50))
+	CreateBarrel(Vector(2519.2219238281, 9532.564453125, -7327.71875), math.random(40,50))
+	CreateBarrel(Vector(2443.3801269531, 9892.0751953125, -7263.71875), math.random(40,50))
+	CreateBarrel(Vector(2440.2963867188, 9947.3388671875, -7263.71875), math.random(40,50))
+	CreateBarrel(Vector(2683.2255859375, 10737.953125, -7039.71875), math.random(40,50))
+	CreateBarrel(Vector(2625.3981933594, 10743.091796875, -7039.71875), math.random(40,50))
+	CreateBarrel(Vector(1794.0731201172, 10995.50390625, -6911.71875), math.random(40,50))
+	CreateBarrel(Vector(1851.0379638672, 10996.262695313, -6911.71875), math.random(40,50))
+	CreateBarrel(Vector(1798.1772460938, 10325.333984375, -6911.71875), math.random(40,50))
+	CreateBarrel(Vector(1850.9223632813, 10329.447265625, -6911.71875), math.random(40,50))
 	-- Main Area
-	CreateBarrel(Vector(2776.9291992188, 10710.875976563, -6783.59375), math.random(20,25))
-	CreateBarrel(Vector(2721.5744628906, 10712.282226563, -6783.546875), math.random(20,25))
-	CreateBarrel(Vector(2665.69921875, 10717.690429688, -6783.5473632813), math.random(20,25))
-	CreateBarrel(Vector(2614.8669433594, 10719.263671875, -6783.5668945313), math.random(20,25))
-	CreateBarrel(Vector(2719.2919921875, 9342.46484375, -6783.5375976563), math.random(20,25))
-	CreateBarrel(Vector(4196.9438476563, 9339.9072265625, -6783.5341796875), math.random(20,25))
-	CreateBarrel(Vector(4198.3212890625, 9389.11328125, -6783.5004882813), math.random(20,25))
-	CreateBarrel(Vector(4197.0522460938, 9438.826171875, -6783.552734375), math.random(20,25))
-	CreateBarrel(Vector(3868.6987304688, 10529.676757813, -6783.6357421875), math.random(20,25))
-	CreateBarrel(Vector(2914.3352050781, 10529.889648438, -6783.5854492188), math.random(20,25))
-	CreateBarrel(Vector(2912.4592285156, 9953.5654296875, -6783.6513671875), math.random(20,25))
-	CreateBarrel(Vector(3872.2463378906, 9953.365234375, -6783.6484375), math.random(20,25))
+	CreateBarrel(Vector(2776.9291992188, 10710.875976563, -6783.59375), math.random(40,50))
+	CreateBarrel(Vector(2721.5744628906, 10712.282226563, -6783.546875), math.random(40,50))
+	CreateBarrel(Vector(2665.69921875, 10717.690429688, -6783.5473632813), math.random(40,50))
+	CreateBarrel(Vector(2614.8669433594, 10719.263671875, -6783.5668945313), math.random(40,50))
+	CreateBarrel(Vector(2719.2919921875, 9342.46484375, -6783.5375976563), math.random(40,50))
+	CreateBarrel(Vector(4196.9438476563, 9339.9072265625, -6783.5341796875), math.random(40,50))
+	CreateBarrel(Vector(4198.3212890625, 9389.11328125, -6783.5004882813), math.random(40,50))
+	CreateBarrel(Vector(4197.0522460938, 9438.826171875, -6783.552734375), math.random(40,50))
+	CreateBarrel(Vector(3868.6987304688, 10529.676757813, -6783.6357421875), math.random(40,50))
+	CreateBarrel(Vector(2914.3352050781, 10529.889648438, -6783.5854492188), math.random(40,50))
+	CreateBarrel(Vector(2912.4592285156, 9953.5654296875, -6783.6513671875), math.random(40,50))
+	CreateBarrel(Vector(3872.2463378906, 9953.365234375, -6783.6484375), math.random(40,50))
 	-- Bone Pile
-	CreateBarrel(Vector(4957.94921875, 9367.876953125, -6783.6391601563), math.random(20,25))
-	CreateBarrel(Vector(4904.2319335938, 9365.6572265625, -6783.6206054688), math.random(20,25))
+	CreateBarrel(Vector(4957.94921875, 9367.876953125, -6783.6391601563), math.random(40,50))
+	CreateBarrel(Vector(4904.2319335938, 9365.6572265625, -6783.6206054688), math.random(40,50))
 	--
-	CreateBarrel(Vector(4911.1865234375, 10724.53125, -6783.5112304688), math.random(20,25))
-	CreateBarrel(Vector(4960.1791992188, 10721.536132813, -6783.5625), math.random(20,25))
-	CreateBarrel(Vector(4967.0610351563, 10672.543945313, -6783.609375), math.random(20,25))
-	CreateBarrel(Vector(4032.1892089844, 10720.916015625, -6783.7358398438), math.random(20,25))
+	CreateBarrel(Vector(4911.1865234375, 10724.53125, -6783.5112304688), math.random(40,50))
+	CreateBarrel(Vector(4960.1791992188, 10721.536132813, -6783.5625), math.random(40,50))
+	CreateBarrel(Vector(4967.0610351563, 10672.543945313, -6783.609375), math.random(40,50))
+	CreateBarrel(Vector(4032.1892089844, 10720.916015625, -6783.7358398438), math.random(40,50))
 	-- Exit Portal Room
-	CreateBarrel(Vector(4603.001465, 10121.070313, -6787.968750), math.random(10,15))
-	CreateBarrel(Vector(4365.931152, 10118.141602, -6787.968750), math.random(10,15))
-	CreateBarrel(Vector(4362.618164, 10348.539063, -6787.968750), math.random(10,15))
-	CreateBarrel(Vector(4586.942383, 10348.427734, -6787.968750), math.random(10,15))
+	CreateBarrel(Vector(4603.001465, 10121.070313, -6787.968750), math.random(20,25))
+	CreateBarrel(Vector(4365.931152, 10118.141602, -6787.968750), math.random(20,25))
+	CreateBarrel(Vector(4362.618164, 10348.539063, -6787.968750), math.random(20,25))
+	CreateBarrel(Vector(4586.942383, 10348.427734, -6787.968750), math.random(20,25))
 
 	GAMEMODE:CreateStaticDecoration("models/lilyhl1/logoless_suv.mdl", Vector(3697.3674316406, 4655.6616210938, 0.3916609287262), Angle(-0.020528916269541, 90.80590057373, 0.015813767910004))
 	CreateFuelTrigger(Vector(3754.754150, 4581.943359, 64.031250), Vector(3754.134521, 4620.388672, 28.031162), math.random(10,15))
@@ -1562,11 +1501,13 @@ function MAP:ModifyMapEntities()
 			-- Portal to HERESY
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 1) -- Near Hell Portal / HEVs
 			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1) -- Lava Room / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			-- Main Area
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Spikes / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
@@ -1623,11 +1564,13 @@ function MAP:ModifyMapEntities()
 			-- Portal to HERESY
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 1, 2) -- Near Hell Portal / HEVs
 			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 1, 1) -- Lava Room / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 1, 1) -- Barrel Cell Hallway / HEVs
+			-- Main Area
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 1, 1) -- Main Area, Next to Spikes / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 1, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
@@ -1836,11 +1779,13 @@ function MAP:ModifyMapEntities()
 			-- Portal to HERESY
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 1) -- Near Hell Portal / HEVs
 			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 1) -- Lava Room / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			-- Main Area
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Spikes / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
@@ -1904,11 +1849,13 @@ function MAP:ModifyMapEntities()
 			-- Portal to HERESY
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(6813.631348, -2081.557861, 344.031250), Angle(), 6, 2) -- Near Hell Portal / HEVs
 			---- -=< HERESY >=- ----
+			-- Lava Room / Barrel Hallway
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(3537.548828, 8951.824219, -7420.968750), Angle(), 6, 1) -- Lava Room / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2719.767578, 9505.716797, -7350.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2642.456543, 10555.260742, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(1801.810791, 10711.543945, -6939.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2655.082031, 10556.724609, -7067.968750), Angle(), 6, 1) -- Barrel Cell Hallway / HEVs
+			-- Main Area
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2649.021729, 10449.067383, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Barrel Cell Hallway / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(2794.906982, 9495.152344, -6811.968750), Angle(), 6, 1) -- Main Area, Next to Spikes / HEVs
 			GAMEMODE:BHLCIE_CreateSpawner_ModifiedBaseZombSpawner(Vector(4131.134766, 10622.812500, -6811.968750), Angle(), 6, 1) -- Main Area, Near Jail Cells Courtyard / HEVs
@@ -2003,7 +1950,7 @@ function MAP:AddItemPickups()
 	end
 
 	if GetConVar("hl1_coop_sv_skill"):GetInt() == 1 or GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then
-		GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(2173.035156, 2889.813477, 64.459694), Angle(0, 90, 0))
+		GAMEMODE:CreateWeaponEntity("weapon_rpg", Vector(2168.035156, 2889.813477, 64.459694), Angle(0, 90, 0))
 		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2855.245361, 28.031250), Angle())
 		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2870.245361, 28.031250), Angle())
 		GAMEMODE:CreatePickupEntity("ammo_rpgclip", Vector(2145.466553, 2885.245361, 28.031250), Angle())
@@ -2395,37 +2342,39 @@ function MAP:OnRestartFromCheckpoint(num)
 		end
 		NO_WAVE_MUSIC = true
 
-		if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
-			local PanelMusic = math.random(1,3)
-			if PanelMusic == 1 then
-				GAMEMODE:PlayGlobalMusic("FAITH.Astaroth")
-			elseif PanelMusic == 2 then
-				GAMEMODE:PlayGlobalMusic("FAITH.Malphas")
-			else
-				GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
-			end
+		if GetConVar("hl1_coop_sv_skill"):GetInt() == 4 then -- Very Hard
+			GAMEMODE:PlayGlobalMusic("Mash.VeryHard_Apostasy")
 		else
-			local PanelMusic = math.random(1,10)
-			if PanelMusic == 1 then
-				GAMEMODE:PlayGlobalMusic("Mash.Brain")
-			elseif PanelMusic == 2 then
-				GAMEMODE:PlayGlobalMusic("Mash.Destiny")
-			elseif PanelMusic == 3 then
-				GAMEMODE:PlayGlobalMusic("Mash.Orchestra")
-			elseif PanelMusic == 4 then
-				GAMEMODE:PlayGlobalMusic("Mash.Fragments")
-			elseif PanelMusic == 5 then
-				GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
-			elseif PanelMusic == 6 then
-				GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
-			elseif PanelMusic == 7 then
-				GAMEMODE:PlayGlobalMusic("Mash.Unreasonable")
-			elseif PanelMusic == 8 then
-				GAMEMODE:PlayGlobalMusic("Mash.Plok")
-			elseif PanelMusic == 9 then
-				GAMEMODE:PlayGlobalMusic("Mash.Leviathan")
+			if GetConVar("hl1_coop_sv_bhlcie_lilyhalloween_music"):GetInt() == 1 then
+				local PanelMusic = math.random(1,3)
+				if PanelMusic == 1 then
+					GAMEMODE:PlayGlobalMusic("FAITH.Astaroth")
+				elseif PanelMusic == 2 then
+					GAMEMODE:PlayGlobalMusic("FAITH.Malphas")
+				else
+					GAMEMODE:PlayGlobalMusic("FAITH.Miriam")
+				end
 			else
-				GAMEMODE:PlayGlobalMusic("Mash.Avatar")
+				local PanelMusic = math.random(1,9)
+				if PanelMusic == 1 then
+					GAMEMODE:PlayGlobalMusic("Mash.Brain")
+				elseif PanelMusic == 2 then
+					GAMEMODE:PlayGlobalMusic("Mash.Destiny")
+				elseif PanelMusic == 3 then
+					GAMEMODE:PlayGlobalMusic("Mash.Orchestra")
+				elseif PanelMusic == 4 then
+					GAMEMODE:PlayGlobalMusic("Mash.Fragments")
+				elseif PanelMusic == 5 then
+					GAMEMODE:PlayGlobalMusic("Mash.Snakcombat")
+				elseif PanelMusic == 6 then
+					GAMEMODE:PlayGlobalMusic("Mash.Gertrude")
+				elseif PanelMusic == 7 then
+					GAMEMODE:PlayGlobalMusic("Mash.Unreasonable")
+				elseif PanelMusic == 8 then
+					GAMEMODE:PlayGlobalMusic("Mash.Plok")
+				else
+					GAMEMODE:PlayGlobalMusic("Mash.Avatar")
+				end
 			end
 		end
 

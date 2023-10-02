@@ -26,6 +26,14 @@ function ENT:Initialize()
 end
 
 local CustomNPCPointsTable = {
+	["npc_bhlcie_cultist"]	= 25, -- Cultist
+	["npc_bhlcie_wretch"]	= 45, -- Wretch
+	["npc_bhlcie_erectus"]	= 75, -- Erectus
+	["npc_bhlcie_horror"]	= 50, -- Horror
+	["npc_bhlcie_stalker"]	= 50, -- Stalker
+	["npc_bhlcie_preacher"]	= 50, -- Preacher
+	["npc_bhlcie_shepherd"]	= 666, -- Shepherd
+
 	---- -=< Resident Evil: Cold Blood >=-
 		---- Standard Zombies
 	["npc_vj_recb_zombie_male"]	= 25, -- Male Zombie
@@ -273,10 +281,10 @@ function ENT:Think()
 	if GAMEMODE:GetCoopState() != COOP_STATE_INGAME then return end
 	local roundState = GAMEMODE:GetRoundState()
 	if roundState == ROUND_END or roundState == GAME_END then return end
-	if roundState == ROUND_PREPARE then
+	if roundState == ROUND_PREPARE or (roundState == ROUND_EVACUATION && GetConVar("hl1_coop_sv_skill"):GetInt() != 3 && GetConVar("hl1_coop_sv_skill"):GetInt() != 4) then
 		self:NextThink(CurTime() + math.Rand(20, 40) / self.SpawnFreq)
 		self.MaxNPCs = 1
-	elseif roundState == ROUND_EVACUATION then
+	elseif roundState == ROUND_EVACUATION && GetConVar("hl1_coop_sv_skill"):GetInt() != 3 && GetConVar("hl1_coop_sv_skill"):GetInt() != 4 then
 		self:NextThink(CurTime() + math.Rand(10, 20) / self.SpawnFreq)
 		self.MaxNPCs = 4
 	else
